@@ -44,7 +44,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/ajouter_une_image"
                         android:textAppearance="?android:textAppearance"
-                        android:fontFamily="@font/comfortaa_bold"
+                        android:fontFamily="@font/carter_one"
                         android:gravity="center"
                         android:textSize="@dimen/tres_petite_police"
                         android:textAlignment="center"
@@ -70,7 +70,7 @@
                         android:layout_height="match_parent"
                         android:text="@string/aujouter_une_chanson"
                         android:textAppearance="?android:textAppearance"
-                        android:fontFamily="@font/comfortaa_bold"
+                        android:fontFamily="@font/carter_one"
                         android:gravity="center"
                         android:textSize="@dimen/tres_petite_police"
                         android:textAlignment="center"
@@ -87,7 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/default_img"
+                android:src="@drawable/add_picture"
                 android:id="@+id/imgPreview"/>
 
             <RelativeLayout
@@ -181,7 +181,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/publier"
                     android:textAppearance="?android:textAppearance"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/carter_one"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"/>

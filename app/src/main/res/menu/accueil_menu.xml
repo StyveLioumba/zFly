@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/file_d_actualit"
+    <item android:title="@string/accueil"
         android:id="@+id/homeFrame"
         android:icon="@drawable/ic_public_black_24dp"/>
 

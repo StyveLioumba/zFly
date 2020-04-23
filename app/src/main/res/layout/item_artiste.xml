@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/grande_taille"
-    android:layout_height="@dimen/grande_taille"
+    android:layout_height="135dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_artiste">
 

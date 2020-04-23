@@ -16,7 +16,7 @@
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_more_vert_black_24dp"
-        android:iconTint="@color/colorTxt"
+        app:iconTint="@color/colorBlanc"
         android:title="@string/action_settings"
         app:showAsAction="always">
         <menu>

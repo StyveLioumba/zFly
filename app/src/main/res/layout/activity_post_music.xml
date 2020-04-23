@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:text="importer une image cover"
             android:textAppearance="?android:textAppearanceSmall"
-            android:fontFamily="@font/comfortaa_bold"
+            android:fontFamily="@font/carter_one"
             android:textColor="@color/colorBtn"
             android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/petite_marge"/>
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/importer_une_chanson"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:fontFamily="@font/comfortaa_bold"
+                android:fontFamily="@font/carter_one"
                 android:textColor="@color/colorBtn"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"/>
@@ -119,12 +119,13 @@
                 android:textColor="@color/colorPrimary"
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:fontFamily="@font/comfortaa_light"/>
+                android:fontFamily="@font/ubuntu_mono"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:id="@+id/playPreview"
+                android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
                 android:src="@drawable/ic_play_circle_outline_black_24dp"/>
         </LinearLayout>
 
@@ -140,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/information_supplementaire"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:fontFamily="@font/comfortaa_bold"
+                android:fontFamily="@font/carter_one"
                 android:textColor="@color/colorBtn"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
@@ -258,7 +259,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/publier"
                     android:textAppearance="?android:textAppearance"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/carter_one"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"/>

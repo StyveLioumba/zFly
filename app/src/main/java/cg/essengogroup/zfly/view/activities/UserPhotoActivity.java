@@ -4,9 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
 import cg.essengogroup.zfly.R;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,7 +40,7 @@ import java.util.Map;
 
 public class UserPhotoActivity extends AppCompatActivity {
 
-    private static final int CHOIX_IMAGE=101;
+    private static final int CHOIX_IMAGE=101,STORAGE_PERMISSION_CODE = 123;
     private Uri uriProfileImage;
 
     private CircularImageView imageView;
@@ -64,6 +69,9 @@ public class UserPhotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_photo);
+
+        //Requesting storage permission
+        requestStoragePermission();
 
         mAuth=FirebaseAuth.getInstance();
         database=FirebaseDatabase.getInstance();
@@ -217,4 +225,38 @@ public class UserPhotoActivity extends AppCompatActivity {
                 });
 
     }
+
+    //Requesting permission
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
+        }
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
+    }
+
+
+    //This method will be called when the user will tap on allow or deny
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission accordée maintenant, vous pouvez lire le stockage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oups vous venez de refuser la permission", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
 }

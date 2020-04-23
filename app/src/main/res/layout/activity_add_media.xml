@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/importer_une_chanson"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:fontFamily="@font/comfortaa_bold"
+                android:fontFamily="@font/carter_one"
                 android:textColor="@color/colorBtn"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"/>
@@ -83,6 +83,14 @@
             android:layout_marginRight="@dimen/petite_marge"
             android:layout_marginTop="@dimen/tres_petite_marge"
             android:layout_marginBottom="@dimen/tres_petite_marge">
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="@dimen/petite_taille"
+                android:layout_height="@dimen/petite_taille"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                app:lottie_rawRes="@raw/ecouter"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -90,12 +98,10 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/coutez_la_chanson_que_vous_avez_import"
                 android:layout_weight="1"
-                android:drawableStart="@drawable/ic_music_note_black_24dp"
-                android:drawableTint="@color/colorPrimaryDark"
                 android:textColor="@color/colorPrimary"
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:fontFamily="@font/comfortaa_light"/>
+                android:fontFamily="@font/ubuntu_mono"/>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/information_supplementaire"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:fontFamily="@font/comfortaa_bold"
+                android:fontFamily="@font/carter_one"
                 android:textColor="@color/colorBtn"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
@@ -135,54 +141,47 @@
         </LinearLayout>
 
 
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardMaxElevation="@dimen/normale_marge"
-            app:cardElevation="@dimen/petite_marge"
-            app:cardBackgroundColor="@android:color/white"
-            app:cardCornerRadius="@dimen/petite_marge"
-            android:layout_margin="@dimen/petite_marge">
+            android:orientation="vertical"
+            android:layout_margin="@dimen/petite_marge"
+            android:id="@+id/lineTop">
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/lineTop">
-
-                <EditText
+                android:hint="@string/le_nom_du_morceau"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/petite_taille"
-                    android:background="@android:color/transparent"
                     android:id="@+id/music_name"
                     android:inputType="text"
                     android:maxLines="1"
                     android:fontFamily="@font/comfortaa_light"
                     android:layout_margin="@dimen/tres_petite_marge"
-                    android:textAppearance="?android:textAppearance"
-                    android:hint="@string/le_nom_du_morceau"/>
+                    android:textAppearance="?android:textAppearance"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/colorback"
-                    android:layout_marginTop="@dimen/tres_petite_marge"
-                    android:layout_marginBottom="@dimen/tres_petite_marge"/>
-
-                <EditText
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/nom_de_l_artiste"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/petite_taille"
-                    android:background="@android:color/transparent"
                     android:id="@+id/music_artiste"
                     android:inputType="text"
                     android:maxLines="1"
                     android:fontFamily="@font/comfortaa_light"
                     android:layout_margin="@dimen/tres_petite_marge"
-                    android:textAppearance="?android:textAppearance"
-                    android:hint="@string/nom_de_l_artiste"/>
+                    android:textAppearance="?android:textAppearance"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
 
         <androidx.cardview.widget.CardView
@@ -205,7 +204,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/publier"
                     android:textAppearance="?android:textAppearance"
-                    android:fontFamily="@font/comfortaa_bold"
+                    android:fontFamily="@font/carter_one"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="@android:color/white"/>

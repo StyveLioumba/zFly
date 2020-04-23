@@ -119,7 +119,6 @@ public class PostPlaceActivity extends AppCompatActivity {
                 .child("place"+System.currentTimeMillis()+".jpg");
 
         if (uriPreviewImage !=null){
-
             mStorageRef.putFile(uriPreviewImage).addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
 
@@ -139,6 +138,8 @@ public class PostPlaceActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
             });
+        }else {
+            Toast.makeText(this, "tu n'as pas ajouté une image", Toast.LENGTH_SHORT).show();
         }
     }
 

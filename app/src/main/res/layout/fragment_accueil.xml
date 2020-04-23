@@ -60,7 +60,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="140dp"
                 android:id="@+id/recycleArtiste"
                 android:layout_margin="@dimen/micro_petite_marge"/>
             <TextView

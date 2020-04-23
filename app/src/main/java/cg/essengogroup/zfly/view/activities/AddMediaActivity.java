@@ -12,22 +12,19 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +32,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +39,7 @@ import cg.essengogroup.zfly.R;
 
 public class AddMediaActivity extends AppCompatActivity {
     private Button addSong;
-    private EditText morceauName,artisteName;
+    private TextInputEditText morceauName,artisteName;
     private CardView btnPublier;
     private ProgressBar progressBar;
     private ImageButton playPreview;
@@ -60,7 +56,7 @@ public class AddMediaActivity extends AppCompatActivity {
 
     private Intent intent;
 
-    private static final int CHOIX_CHANSON=102,resquestPermissionCode=1;
+    private static final int CHOIX_CHANSON=102,STORAGE_PERMISSION_CODE = 123;
 
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
@@ -70,7 +66,8 @@ public class AddMediaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_media);
 
-        requestRuntimePermission();
+        //Requesting storage permission
+        requestStoragePermission();
 
         mAuth=FirebaseAuth.getInstance();
         firebaseUser=mAuth.getCurrentUser();
@@ -97,10 +94,6 @@ public class AddMediaActivity extends AppCompatActivity {
         btnPublier.setOnClickListener(v->uploadSongToFireBase());
         addSong.setOnClickListener(v->getMusic());
         playPreview.setOnClickListener(v->playPreview());
-
-        int permissionCheck= ContextCompat.checkSelfPermission(AddMediaActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
-
-        if (permissionCheck== PackageManager.PERMISSION_DENIED) requestRuntimePermission();
 
     }
 
@@ -213,29 +206,38 @@ public class AddMediaActivity extends AppCompatActivity {
 
     }
 
-    private void requestRuntimePermission(){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(AddMediaActivity.this,Manifest.permission.READ_EXTERNAL_STORAGE)){
-            Toast.makeText(this, "zFly doit accedé à votre memoire", Toast.LENGTH_SHORT).show();
-        }else {
-            ActivityCompat.requestPermissions(
-                    AddMediaActivity.this,
-                    new String[]{Manifest.permission.CAMERA},
-                    resquestPermissionCode);
+    //Requesting permission
+    private void requestStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+            return;
+
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            //If the user has denied the permission previously your code will come to this block
+            //Here you can explain why you need this permission
+            //Explain here why you need this permission
         }
+        //And finally ask for the permission
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
 
+
+    //This method will be called when the user will tap on allow or deny
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode){
-            case resquestPermissionCode:
-                if (grantResults.length>0 && grantResults[0]== PackageManager.PERMISSION_GRANTED ){
-                    Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-                }else {
-                    Toast.makeText(this, "Permission canceled", Toast.LENGTH_SHORT).show();
-                }
+        //Checking the request code of our request
+        if (requestCode == STORAGE_PERMISSION_CODE) {
+
+            //If permission is granted
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //Displaying a toast
+                Toast.makeText(this, "Permission accordée maintenant, vous pouvez lire le stockage", Toast.LENGTH_LONG).show();
+            } else {
+                //Displaying another toast if permission is not granted
+                Toast.makeText(this, "Oups vous venez de refuser la permission", Toast.LENGTH_LONG).show();
+            }
         }
     }
+
 
 }
