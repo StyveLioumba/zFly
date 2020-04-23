@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,11 @@ import cg.essengogroup.zfly.controller.adapter.SliderPagerPlaceAdapter;
 import cg.essengogroup.zfly.model.Gallerie;
 import cg.essengogroup.zfly.model.User;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,6 +29,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -127,6 +133,8 @@ public class DetailPlaceActivity extends AppCompatActivity {
 
 
         menuPhoto.setOnClickListener(v->actionMenuPhoto());
+
+        findViewById(R.id.callBtn).setOnClickListener(v->onCallBtnClick());
 
         newUser=new User();
 
@@ -269,6 +277,48 @@ public class DetailPlaceActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                 }
             });
+        }
+    }
+
+    private void onCallBtnClick(){
+        if (Build.VERSION.SDK_INT < 23) {
+            phoneCall();
+        }else {
+            if (ActivityCompat.checkSelfPermission(DetailPlaceActivity.this,
+                    Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+
+                phoneCall();
+            }else {
+                final String[] PERMISSIONS_STORAGE = {Manifest.permission.CALL_PHONE};
+                //Asking request Permissions
+                ActivityCompat.requestPermissions(DetailPlaceActivity.this, PERMISSIONS_STORAGE, 9);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        boolean permissionGranted = false;
+        switch(requestCode){
+            case 9:
+                permissionGranted = grantResults[0]== PackageManager.PERMISSION_GRANTED;
+                break;
+        }
+        if(permissionGranted){
+            phoneCall();
+        }else {
+            Toast.makeText(DetailPlaceActivity.this, "You don't assign permission.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void phoneCall(){
+        if (ActivityCompat.checkSelfPermission(DetailPlaceActivity.this,
+                Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setData(Uri.parse("tel:"+numValue));
+            startActivity(callIntent);
+        }else{
+            Toast.makeText(DetailPlaceActivity.this, "You don't assign permission.", Toast.LENGTH_SHORT).show();
         }
     }
 }

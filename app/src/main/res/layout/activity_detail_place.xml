@@ -141,6 +141,16 @@
                             android:text="@string/app_name"
                             android:fontFamily="@font/ubuntu_mono_bold"/>
 
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:id="@+id/callBtn"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            app:lottie_rawRes="@raw/calling"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
+
                     </LinearLayout>
 
                 </LinearLayout>

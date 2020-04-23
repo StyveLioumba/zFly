@@ -59,6 +59,7 @@
                 android:layout_height="@dimen/petite_taille"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_reply_black_24dp"
+                android:tint="@color/colorBlanc"
                 android:layout_marginLeft="@dimen/tres_petite_marge"
                 android:layout_marginRight="@dimen/tres_petite_marge"
                 android:id="@+id/share"/>
@@ -107,6 +108,7 @@
                 android:layout_height="@dimen/tres_petite_taille"
                 android:background="@android:color/transparent"
                 android:src="@drawable/ic_repeat_black_24dp"
+                android:tint="@color/colorBlanc"
                 android:layout_marginLeft="@dimen/tres_petite_marge"
                 android:layout_marginRight="@dimen/tres_petite_marge"
                 android:id="@+id/repeat"/>
@@ -124,6 +126,7 @@
                 android:id="@+id/txtChanson"
                 android:text="@string/le_nom_du_morceau"
                 android:textSize="@dimen/tres_petite_police"
+                android:fontFamily="@font/carter_one"
                 android:textAppearance="?android:textAppearanceLarge"
                 android:textAlignment="center"
                 android:textAllCaps="true"
@@ -134,6 +137,7 @@
                 android:id="@+id/txtArtiste"
                 android:text="@string/le_nom_du_morceau"
                 android:textSize="@dimen/tres_petite_police"
+                android:fontFamily="@font/comfortaa"
                 android:textAppearance="?android:textAppearance"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlanc"/>
@@ -150,6 +154,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0:00"
+                    android:textColor="@color/colorBlanc"
+                    android:fontFamily="@font/comfortaa"
                     android:layout_margin="@dimen/micro_petite_marge"/>
 
                 <SeekBar
@@ -163,6 +169,8 @@
                     android:id="@+id/remainingTimeLabel"
                     android:layout_width="wrap_content"
                     android:layout_margin="@dimen/micro_petite_marge"
+                    android:textColor="@color/colorBlanc"
+                    android:fontFamily="@font/comfortaa"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
@@ -173,10 +181,12 @@
                 android:layout_gravity="center_horizontal">
 
                 <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/btnPrevious"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_default"
                     android:src="@android:drawable/ic_media_previous"/>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -189,9 +199,11 @@
                     android:src="@drawable/ic_play_circle_outline_black_24dp"/>
 
                 <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_vertical"
+                    android:background="@drawable/circle"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_default"
                     android:src="@android:drawable/ic_media_next"
                     android:id="@+id/btnNext"/>
 
