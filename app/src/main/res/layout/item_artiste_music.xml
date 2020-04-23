@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/micro_petite_marge"
+    android:id="@+id/item_artiste">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgArtist"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/ic_launcher_round"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pseudoUser"
+        android:layout_margin="@dimen/micro_petite_marge"
+        android:textSize="@dimen/tres_petite_police"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:fontFamily="@font/comfortaa_light"
+        android:textAlignment="center"
+        android:text="@string/pseudo"/>
+
+</LinearLayout>

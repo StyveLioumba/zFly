@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#D10000</color>
+    <color name="colorPrimaryDark">#470000</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorback">#F5F6F8</color>
+    <color name="colorbtn">#470000</color>
+    <color name="colorTxt">#515C6F</color>
+    <color name="colorTint">#727C8E</color>
+    <color name="colorMenu">#707070</color>
+    <color name="colorFlouNoir">#5B000000</color>
+    <color name="colorBlanc">#FFFFFF</color>
+    <color name="colorCard">#B3B3B3</color>
+    <color name="colorSms">#78849E</color>
+    <color name="colorBtn">#00163F</color>
+    <color name="colorToolbar">#940000</color>
+    <color name="colorBackFlou">#81B6B6B6</color>
+    <color name="colorbaskSMS">#97DDDDDD</color>
+
+    <color name="c1">#F2360C</color>
+    <color name="c2">#A67C58</color>
+    <color name="c3">#402C1A</color>
+    <color name="c4">#A60303</color>
+    <color name="c5">#018786</color>
+</resources>

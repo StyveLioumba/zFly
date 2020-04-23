@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/c4</item>
+        <item name="colorPrimaryDark">@color/colorbtn</item>
+        <item name="colorAccent">@color/c2</item>
+        <item name="android:fontFamily">@font/ubuntu_mono_bold</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar"/>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="full_screen_dialog" parent="DarkTheme">
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">65%</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="MyAlertDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@color/colorBlanc</item>
+        <item name="android:layout_gravity">center</item>
+        <!-- NOPE!!!!! -->
+        <item name="android:layout_width">200dp</item>
+        <!-- NOPE!!!!! -->
+        <item name="android:layout_height">200dp</item>
+    </style>
+
+
+</resources>

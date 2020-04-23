@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activities.AddPhotoActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        android:background="@color/colorToolbar"
+        app:titleTextAppearance="?android:textAppearance"
+        app:titleTextColor="@android:color/white" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/default_img"
+        android:id="@+id/imgPreview"
+        android:layout_below="@id/toolbar"
+        android:adjustViewBounds="true"
+        android:layout_above="@id/btnPublier"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/petite_taille"
+        app:cardBackgroundColor="@color/colorBtn"
+        app:cardCornerRadius="@dimen/grande_marge"
+        app:cardElevation="@dimen/petite_marge"
+        app:cardMaxElevation="@dimen/normale_marge"
+        android:id="@+id/btnPublier"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/tres_petite_marge"
+        android:layout_marginRight="@dimen/tres_petite_marge"
+        android:layout_marginTop="@dimen/moyenne_marge"
+        android:layout_marginBottom="@dimen/moyenne_marge">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/publier"
+                android:textAppearance="?android:textAppearance"
+                android:fontFamily="@font/comfortaa_bold"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:id="@+id/addImg"
+        app:tint="@color/colorBlanc"
+        app:backgroundTint="@color/common_google_signin_btn_text_dark_focused"
+        android:src="@drawable/ic_add_box_black_24dp"/>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:id="@+id/progress"/>
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tres_petite_taille">25dp</dimen>
+    <dimen name="petite_taille">50dp</dimen>
+    <dimen name="taille_normale">75dp</dimen>
+    <dimen name="moyenne_taille">100dp</dimen>
+    <dimen name="grande_taille">125dp</dimen>
+    <dimen name="tres_grande_taille">150dp</dimen>
+    <dimen name="large_taille">200dp</dimen>
+    <dimen name="tres_large_taille">250dp</dimen>
+    <dimen name="super_large_taille">300dp</dimen>
+    <dimen name="super_large_moyenne_taille">320dp</dimen>
+    <dimen name="hyper_large_taille">350dp</dimen>
+    <dimen name="mega_hyper_large_taille">400dp</dimen>
+
+    <dimen name="micro_petite_marge">2.5dp</dimen>
+    <dimen name="tres_petite_marge">5dp</dimen>
+    <dimen name="petite_marge">10dp</dimen>
+    <dimen name="normale_marge">15dp</dimen>
+    <dimen name="moyenne_marge">20dp</dimen>
+    <dimen name="grande_marge">25dp</dimen>
+    <dimen name="tres_grande_marge">30dp</dimen>
+
+    <dimen name="tres_petite_police">11sp</dimen>
+    <dimen name="petite_police">14sp</dimen>
+    <dimen name="police_normale">18sp</dimen>
+    <dimen name="moyenne_police">22sp</dimen>
+    <dimen name="grande_police">26sp</dimen>
+    <dimen name="tres_grande_police">30sp</dimen>
+    <dimen name="super_grande_police">40sp</dimen>
+    <dimen name="large_police">60sp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+
+
+</resources>

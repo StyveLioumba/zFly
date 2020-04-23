@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/papierpeint"
+    android:layout_height="@dimen/large_taille">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/moyenne_taille"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center"
+            android:id="@+id/imgCover"
+            app:lottie_rawRes="@raw/music"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lineM"
+            android:layout_below="@id/imgCover"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/petite_marge"
+                android:layout_marginBottom="@dimen/petite_marge"
+                android:layout_marginRight="@dimen/tres_petite_marge"
+                android:layout_marginLeft="@dimen/tres_petite_marge"
+                android:orientation="horizontal">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/playBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/petite_marge"
+                    app:tint="@color/colorBlanc"
+                    android:layout_gravity="center"
+                    app:backgroundTint="@color/colorPrimaryDark"
+                    android:src="@drawable/ic_play_circle_outline_black_24dp"/>
+
+                <TextView
+                    android:id="@+id/elapsedTimeLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/micro_petite_marge"
+                    android:textColor="@color/colorBtn"
+                    android:textAppearance="?android:textAppearance"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:layout_gravity="center"
+                    android:text="0:11"/>
+
+                <SeekBar
+                    android:id="@+id/positionBar"
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/micro_petite_marge"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/lineBottom"
+            android:layout_margin="@dimen/petite_marge"
+            android:visibility="gone"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_lock_silent_mode_off"/>
+            <SeekBar
+                android:id="@+id/volumeBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:progress="50"
+                android:layout_weight="1"
+                android:max="100"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

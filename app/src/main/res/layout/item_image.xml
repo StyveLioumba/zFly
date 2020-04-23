@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardImg"
+    app:cardCornerRadius="@dimen/petite_marge"
+    app:cardElevation="@dimen/tres_petite_marge"
+    app:cardMaxElevation="@dimen/petite_marge"
+    android:layout_margin="@dimen/tres_petite_marge">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/tres_petite_marge"
+            android:layout_alignParentTop="true"
+            android:id="@+id/lineTop">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="@dimen/petite_taille"
+                android:layout_height="@dimen/petite_taille"
+                android:id="@+id/imgUser"
+                app:civ_border_color="@color/colorbtn"
+                app:civ_border_width="1dp"
+                android:src="@mipmap/ic_launcher_round"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pseudo"
+                    android:id="@+id/pseudoUser"
+                    android:textAppearance="?android:textAppearance"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:layout_marginStart="@dimen/tres_petite_marge"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/a_pseudo"
+                    android:textSize="@dimen/tres_petite_police"
+                    android:id="@+id/Apseudo"
+                    android:textAppearance="?android:textAppearance"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:layout_marginStart="@dimen/tres_petite_marge"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="@dimen/tres_large_taille"
+                android:layout_height="wrap_content"
+                android:text="@string/date"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/tres_petite_police"
+                android:id="@+id/datePoster"
+                android:textAppearance="?android:textAppearance"
+                android:fontFamily="@font/ubuntu_mono_bold"
+                android:layout_marginStart="@dimen/tres_petite_marge"/>
+        </LinearLayout>
+
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt"
+            android:layout_below="@id/lineTop"
+            android:textAppearance="?android:textAppearance"
+            android:layout_margin="@dimen/tres_petite_marge"
+            app:trimExpandedText="Voir plus"
+            app:trimCollapsedText=" Voir moins"
+            app:trimMode="trimModeLine"
+            app:trimLines="6"
+            app:colorClickableText="@color/colorPrimary"
+            android:fontFamily="@font/comfortaa_bold"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tres_large_taille"
+            android:layout_below="@+id/txt">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/img"
+                android:layout_above="@id/lineBottom"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lineBottom"
+                android:background="@drawable/degrade_action"
+                android:layout_alignParentBottom="true">
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/partager"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center"
+                    android:tint="@color/colorBlanc"
+                    android:src="@drawable/ic_reply_black_24dp"
+                    android:layout_weight="1"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/txtLikes"
+                        android:layout_gravity="center"
+                        android:textAppearance="?android:textAppearance"
+                        android:textColor="@android:color/white"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/tres_petite_marge"
+                        android:id="@+id/imgLikes"
+                        android:src="@drawable/ic_favorite_border_black_24dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

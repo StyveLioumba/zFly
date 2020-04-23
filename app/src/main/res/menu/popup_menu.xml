@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/one"
+        android:icon="@drawable/ic_remove_red_eye_black_24dp"
+        android:title="Tout voir" />
+    <item
+        android:id="@+id/two"
+        android:icon="@drawable/ic_add_box_black_24dp"
+        android:title="Ajouter"/>
+</menu>

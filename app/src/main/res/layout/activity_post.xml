@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activities.PostActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar"
+        app:titleTextColor="@color/colorBtn"
+        app:titleTextAppearance="?android:textAppearanceSmall"
+        app:title="@string/publier"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_above="@+id/lineBottom"
+        android:layout_below="@id/toolbar">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:cardBackgroundColor="@color/colorSms"
+                app:cardCornerRadius="@dimen/grande_marge"
+                app:cardElevation="@dimen/petite_marge"
+                app:cardMaxElevation="@dimen/normale_marge"
+                android:id="@+id/btnImg"
+                android:layout_margin="@dimen/tres_petite_marge"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/ajouter_une_image"
+                        android:textAppearance="?android:textAppearance"
+                        android:fontFamily="@font/comfortaa_bold"
+                        android:gravity="center"
+                        android:textSize="@dimen/tres_petite_police"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:cardBackgroundColor="@color/colorPrimaryDark"
+                app:cardCornerRadius="@dimen/grande_marge"
+                app:cardElevation="@dimen/petite_marge"
+                app:cardMaxElevation="@dimen/normale_marge"
+                android:id="@+id/btnSon"
+                android:layout_margin="@dimen/tres_petite_marge"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/aujouter_une_chanson"
+                        android:textAppearance="?android:textAppearance"
+                        android:fontFamily="@font/comfortaa_bold"
+                        android:gravity="center"
+                        android:textSize="@dimen/tres_petite_police"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/white"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_img"
+                android:id="@+id/imgPreview"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/relaSong"
+                android:visibility="gone"
+                android:layout_margin="@dimen/tres_petite_marge"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ecouteur"
+                    android:id="@+id/importeSon"
+                    android:layout_above="@id/fab"/>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/fab"
+                    app:tint="@android:color/white"
+                    android:src="@drawable/ic_play_circle_outline_black_24dp"
+                    android:tint="@color/colorBlanc"
+                    android:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:id="@+id/progress"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/lineBottom"
+        android:layout_alignParentBottom="true">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/petite_marge"
+            android:layout_marginBottom="@dimen/petite_marge"
+            android:layout_marginLeft="@dimen/tres_petite_marge"
+            android:layout_marginRight="@dimen/tres_petite_marge"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            app:hintTextAppearance="?android:textAppearance"
+            android:textColorHint="@color/colorTxt">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/txtDescription"
+                android:textAppearance="?android:textAppearance"
+                android:textColor="@color/colorTxt"
+                android:hint="@string/description_"
+                android:inputType="textMultiLine"
+                android:drawablePadding="@dimen/tres_petite_marge"
+                android:fontFamily="@font/comfortaa"
+                tools:targetApi="m" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/petite_taille"
+            app:cardBackgroundColor="@color/colorBtn"
+            app:cardCornerRadius="@dimen/grande_marge"
+            app:cardElevation="@dimen/petite_marge"
+            app:cardMaxElevation="@dimen/normale_marge"
+            android:id="@+id/btnPublier"
+            android:layout_marginLeft="@dimen/tres_petite_marge"
+            android:layout_marginRight="@dimen/tres_petite_marge"
+            android:layout_marginTop="@dimen/moyenne_marge"
+            android:layout_marginBottom="@dimen/moyenne_marge">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/publier"
+                    android:textAppearance="?android:textAppearance"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/white"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:layout_below="@id/toolbar"
+        android:id="@+id/progressTop"/>
+
+
+
+
+</RelativeLayout>

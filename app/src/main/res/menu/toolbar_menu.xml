@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="@string/profile"
+        android:id="@+id/profile"
+        app:showAsAction="always"
+        app:actionLayout="@layout/profile_menu_layout"/>
+
+    <item android:title="@string/chat"
+        android:id="@+id/chat"
+        app:showAsAction="always"
+        app:actionLayout="@layout/sms_menu_layout"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@drawable/ic_more_vert_black_24dp"
+        android:iconTint="@color/colorTxt"
+        android:title="@string/action_settings"
+        app:showAsAction="always">
+        <menu>
+            <item android:title="@string/a_propos"
+                android:id="@+id/about"/>
+
+            <item android:title="@string/inviter"
+                android:id="@+id/inviter"/>
+
+            <item android:title="@string/d_connexion"
+                android:id="@+id/deconnexion"/>
+        </menu>
+    </item>
+</menu>

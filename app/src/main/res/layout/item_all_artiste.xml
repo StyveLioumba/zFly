@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/large_taille"
+    app:cardCornerRadius="@dimen/tres_petite_marge"
+    app:cardElevation="@dimen/tres_petite_marge"
+    android:layout_margin="@dimen/micro_petite_marge"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_artiste">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="@dimen/moyenne_taille"
+            android:layout_height="@dimen/moyenne_taille"
+            android:background="@drawable/circle"
+            android:id="@+id/relaTop"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true">
+
+            <RelativeLayout
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/circle"
+                android:backgroundTint="@color/colorback">
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:id="@+id/imgArtist"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/ic_launcher_round"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/relaTop">
+            <View
+                android:layout_width="@dimen/grande_taille"
+                android:layout_height="1dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/petite_marge"
+                android:layout_marginBottom="@dimen/petite_marge"
+                android:background="@color/colorPrimaryDark"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/pseudoUser"
+                android:layout_margin="@dimen/micro_petite_marge"
+                android:textAppearance="?android:textAppearance"
+                android:fontFamily="@font/comfortaa_light"
+                android:textStyle="bold"
+                android:textSize="@dimen/police_normale"
+                android:textAlignment="center"
+                android:text="@string/pseudo"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ApseudoUser"
+                android:layout_margin="@dimen/micro_petite_marge"
+                android:textAppearance="?android:textAppearance"
+                android:fontFamily="@font/comfortaa_light"
+                android:textAlignment="center"
+                android:text="@string/pseudo"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lineTop"
+        android:layout_margin="@dimen/micro_petite_marge"
+        android:layout_marginBottom="@dimen/petite_marge"
+        android:padding="@dimen/tres_petite_marge"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <SearchView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/search"
+            android:layout_weight="1"
+            android:layout_margin="@dimen/micro_petite_marge"
+            android:iconifiedByDefault="true"
+            android:queryHint="recherche..." />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/lineFiltre"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="lister par :"
+                android:textAllCaps="true"
+                android:textAppearance="?android:textAppearance"
+                android:textStyle="bold"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:id="@+id/spinnerFiltre"/>
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnFiltrer"
+                android:text="filtrer"
+                android:drawableLeft="@drawable/ic_filter_list_black_24dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/carter_one"
+                android:textAppearance="?android:textAppearance"
+                app:backgroundTint="@color/c2"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lineTop"
+        android:id="@+id/recyclePlace"/>
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/moyenne_taille"
+    android:id="@+id/cardM"
+    android:layout_margin="@dimen/micro_petite_marge"
+    app:cardElevation="@dimen/tres_petite_marge"
+    app:cardMaxElevation="@dimen/petite_marge">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/lineBottom">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ecouteur"
+                android:id="@+id/imgUser"/>
+            <ImageView
+                android:layout_width="@dimen/grande_marge"
+                android:layout_height="@dimen/grande_marge"
+                android:id="@+id/fab"
+                android:src="@drawable/ic_play_circle_outline_black_24dp"
+                android:layout_centerInParent="true"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnClose"
+                android:src="@drawable/ic_close_black_24dp"
+                android:background="@android:color/transparent"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/lineBottom"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/micro_petite_marge">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:textSize="10sp"
+                android:textColor="@color/colorBtn"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="@font/comfortaa_bold"
+                android:id="@+id/txtTitre"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:textSize="8sp"
+                android:textColor="@color/colorMenu"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="@font/comfortaa_light"
+                android:id="@+id/txtArtiste"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

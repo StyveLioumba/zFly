@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/viewpager"
+        android:layout_below="@id/btnClose"
+        android:layout_marginBottom="@dimen/micro_petite_marge"
+        android:layout_marginTop="@dimen/micro_petite_marge"
+        android:layout_above="@id/recycle"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="65dp"
+        android:layout_marginRight="@dimen/micro_petite_marge"
+        android:layout_marginLeft="@dimen/micro_petite_marge"
+        android:id="@+id/recycle"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnClose"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:background="@android:color/transparent"
+        android:layout_margin="@dimen/micro_petite_marge"/>
+</RelativeLayout>

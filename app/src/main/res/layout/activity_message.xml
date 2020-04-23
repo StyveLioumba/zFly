@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    tools:context=".view.activities.MessageActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorToolbar"
+        android:id="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/tres_petite_marge"
+            android:layout_alignParentTop="true"
+            android:id="@+id/lineTop">
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="@dimen/petite_taille"
+                android:layout_height="@dimen/petite_taille"
+                android:id="@+id/imgUser"
+                app:civ_border_color="@color/colorbtn"
+                app:civ_border_width="1dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_launcher_round"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:layout_marginLeft="@dimen/petite_marge"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pseudo"
+                    android:id="@+id/pseudoUser"
+                    android:textColor="@color/colorBlanc"
+                    android:textAppearance="?android:textAppearance"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:layout_marginStart="@dimen/tres_petite_marge"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/a_pseudo"
+                    android:textSize="@dimen/tres_petite_police"
+                    android:id="@+id/Apseudo"
+                    android:textColor="@color/colorBlanc"
+                    android:textAppearance="?android:textAppearance"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:layout_marginStart="@dimen/tres_petite_marge"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycleSms"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/relatBottom"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relatBottom"
+        android:background="@android:color/white"
+        android:layout_above="@id/relatBottom"
+        android:padding="@dimen/tres_petite_marge"
+        android:layout_alignParentBottom="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editSms"
+            android:background="@android:color/transparent"
+            android:hint="@string/r_diger_un_message"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btnSend"/>
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_send_black_24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/btnSend"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

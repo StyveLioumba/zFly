@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "845881538441",
+    "firebase_url": "https://zfly2020-151d6.firebaseio.com",
+    "project_id": "zfly2020-151d6",
+    "storage_bucket": "zfly2020-151d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845881538441:android:8b7960ffe143a20a00d358",
+        "android_client_info": {
+          "package_name": "cg.essengogroup.zfly"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845881538441-gi5dt9ev906d3gh5lf27sgafgsva0q5p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cg.essengogroup.zfly",
+            "certificate_hash": "4926343fd00eda2ac93323f038e45fc8cf9023b0"
+          }
+        },
+        {
+          "client_id": "845881538441-ac4471sbv1gg08dg8q5kn3tc66hjia7k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "cg.essengogroup.zfly",
+            "certificate_hash": "860bbe96141efe973f4d60ac92001d26f4111cbe"
+          }
+        },
+        {
+          "client_id": "845881538441-gniighqkq9o49bvqsh5rej0ul4rpvt3l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbHUMnXiU7aC61iMJHR8LSzFJ1WPbWr_c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845881538441-gniighqkq9o49bvqsh5rej0ul4rpvt3l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
