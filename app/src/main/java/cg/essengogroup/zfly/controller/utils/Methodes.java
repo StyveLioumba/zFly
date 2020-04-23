@@ -26,6 +26,7 @@ import com.android.volley.ParseError;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
+import com.borjabravo.readmoretextview.BuildConfig;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -217,5 +218,17 @@ public class Methodes {
         long m = (seconds / 60) % 60;
         long h = (seconds / (60 * 60)) % 24;
         return String.format("%d:%02d",h,m);
+    }
+
+    public static void shareApp(Context context) {
+        final String appPackageName = BuildConfig.APPLICATION_ID;
+        final String appName = context.getString(R.string.app_name);
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        String shareBodyText = "https://play.google.com/store/apps/details?id=" +
+                appPackageName;
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, appName);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
+        context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.app_name)));
     }
 }

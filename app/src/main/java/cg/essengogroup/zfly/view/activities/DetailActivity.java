@@ -10,8 +10,14 @@ import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.utils.Methodes;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +34,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,6 +107,7 @@ public class DetailActivity extends AppCompatActivity {
         txtDate.setText(Methodes.getDate(Long.parseLong(dateValue),"dd-MM-yyyy"));
 
         imageLike.setOnClickListener(v->likeOrDislike());
+        partager.setOnClickListener(v->shareContent(imageView));
         verifierIfIsLike();
         getNbreLikes();
         getInfoUser();
@@ -243,4 +252,40 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
     }*/
+
+
+    private void shareContent(ImageView imageView){
+
+        Bitmap bitmap =getBitmapFromView(imageView);
+        try {
+            File file = new File(getExternalCacheDir(),getResources().getString(R.string.app_name)+System.currentTimeMillis()+".png");
+            FileOutputStream fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            file.setReadable(true, false);
+            final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.app_name));
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            intent.setType("image/png");
+            startActivity(Intent.createChooser(intent, "Share image via"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable =view.getBackground();
+        if (bgDrawable!=null) {
+            bgDrawable.draw(canvas);
+        }   else{
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return returnedBitmap;
+    }
 }

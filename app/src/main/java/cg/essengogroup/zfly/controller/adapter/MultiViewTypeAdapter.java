@@ -1,7 +1,12 @@
 package cg.essengogroup.zfly.controller.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -33,6 +38,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,6 +137,8 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                             )
                     );
 
+                    ((ImageTypeViewHolder) holder).partager.setOnClickListener(v->shareContent( ((ImageTypeViewHolder) holder).imagePoster));
+
                     referenceUser.child(model.getUser_id()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -210,6 +219,8 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                     ((AudioTypeViewHolder) holder).txtDesignation_.setText(model.getDescription());
                     ((AudioTypeViewHolder) holder).txtDate.setText(Methodes.getDate(Long.parseLong(model.getCreateAt()),"dd-MMMM-yyyy"));
 
+                    ((AudioTypeViewHolder) holder).partager.setOnClickListener(v->shareAudio(model.getAudio()));
+
                     referenceUser.child(model.getUser_id()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -231,29 +242,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         }
                     });
 
-                    /*((AudioTypeViewHolder) holder).fab.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                           *//* if (fabStateVolume) {
-                                if (mPlayer.isPlaying()) {
-                                    mPlayer.stop();
-                                }
-                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
-                                fabStateVolume = false;
-
-                            }
-                            else {
-                                mPlayer = MediaPlayer.create(mContext, Uri.parse(model.getAudio()));
-                                mPlayer.start();
-                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_stop_black_24dp);
-                                fabStateVolume = true;
-
-                            }*//*
-
-                        }
-                    });*/
-
-                    ((AudioTypeViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
+                    ((AudioTypeViewHolder) holder).fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             dialog=new DialogMusicAccueil(mContext,model.getAudio());
@@ -384,4 +373,47 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
         }
     }
 
+
+    private void shareContent(ImageView imageView){
+
+        Bitmap bitmap =getBitmapFromView(imageView);
+        try {
+            File file = new File(mContext.getExternalCacheDir(),mContext.getResources().getString(R.string.app_name)+System.currentTimeMillis()+".png");
+            FileOutputStream fOut = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            file.setReadable(true, false);
+            final Intent intent = new Intent(android.content.Intent.ACTION_SEND);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra(Intent.EXTRA_TEXT, mContext.getResources().getString(R.string.app_name));
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+            intent.setType("image/png");
+            mContext.startActivity(Intent.createChooser(intent, "Share image via"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private Bitmap getBitmapFromView(View view) {
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable =view.getBackground();
+        if (bgDrawable!=null) {
+            bgDrawable.draw(canvas);
+        }   else{
+            canvas.drawColor(Color.WHITE);
+        }
+        view.draw(canvas);
+        return returnedBitmap;
+    }
+
+    private void shareAudio(String sharePath){
+        Uri uri = Uri.parse(sharePath);
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("audio/*");
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        mContext.startActivity(Intent.createChooser(share, "Share Sound File"));
+    }
 }

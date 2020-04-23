@@ -34,6 +34,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static cg.essengogroup.zfly.controller.utils.Methodes.shareApp;
+
 public class AccueilActivity extends AppCompatActivity {
 
     private long backPressedTime;
@@ -185,7 +187,7 @@ public class AccueilActivity extends AppCompatActivity {
                 return true;
 
             case R.id.inviter:
-                Toast.makeText(this, "Inviter", Toast.LENGTH_SHORT).show();
+                shareApp(AccueilActivity.this);
                 return true;
 
             case R.id.chat:
