@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -63,7 +64,10 @@ public class ChansonsFragment extends Fragment {
         musicArrayList=new ArrayList<>();
 
         recyclerView=root.findViewById(R.id.recycleMorceau);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL));
+        LinearLayoutManager manager=new LinearLayoutManager(context);
+        manager.setStackFromEnd(true);
+        manager.setReverseLayout(true);
+        recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
         adapter=new MorceauAdapter(context,musicArrayList,(music, postion) -> {
 
@@ -99,11 +103,11 @@ public class ChansonsFragment extends Fragment {
         request.getSongList(new MorceauInterface() {
             @Override
             public void onScucces(ArrayList<Music> musics) {
-                currentIndex=0;
                 musicArrayList.clear();
+                currentIndex=musics.size()-1;
                 musicArrayList.addAll(musics);
                 adapter.notifyDataSetChanged();
-                adapter.setSelectedPostion(0);
+                adapter.setSelectedPostion(currentIndex);
             }
 
             @Override

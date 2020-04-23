@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cg.essengogroup.zfly.R;
@@ -56,8 +57,8 @@ public class ArtistesFragment extends Fragment {
         referenceMusic=database.getReference("music/artistes");
 
         recyclerView=root.findViewById(R.id.recycleArtiste);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-//        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        GridLayoutManager manager=new GridLayoutManager(context, 2);
+        recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 
         musicArrayList=new ArrayList<>();
