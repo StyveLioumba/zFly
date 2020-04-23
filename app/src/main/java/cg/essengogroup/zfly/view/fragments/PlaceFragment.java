@@ -112,27 +112,25 @@ public class PlaceFragment extends Fragment {
             public boolean onClose() {
                 if (lineFiltre.getVisibility()==View.GONE){
                     lineFiltre.setVisibility(View.VISIBLE);
+                    searchView.onActionViewCollapsed();
                 }
                 return true;
             }
         });
-
+        searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if (lineFiltre.getVisibility()==View.GONE){
                     lineFiltre.setVisibility(View.VISIBLE);
+                    searchView.onActionViewCollapsed();
                 }
+                getDataRechercher(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (TextUtils.isEmpty(newText)){
-
-                }else {
-
-                }
                 return false;
             }
         });
@@ -205,6 +203,44 @@ public class PlaceFragment extends Fragment {
                  }
              });
          }
+        }
+
+    }
+
+    private void getDataRechercher(String value){
+
+         if (TextUtils.isEmpty(value)){
+             getDataSansFiltre();
+         }else {
+             referencePlace.orderByChild("nom")
+                     .startAt(value).endAt(value+"\uf8ff")
+                     .addValueEventListener(new ValueEventListener() {
+                 @Override
+                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                     placeArrayList.clear();
+                     for (DataSnapshot data : dataSnapshot.getChildren()){
+                         Place place=new Place();
+
+                         place.setAdresse(data.child("adresse").getValue().toString());
+                         place.setCreateAt(data.child("createAt").getValue().toString());
+                         place.setDescription(data.child("description").getValue().toString());
+                         place.setImage_couverture(data.child("image_couverture").getValue().toString());
+                         place.setNom(data.child("nom").getValue().toString());
+                         place.setNumero(data.child("numero").getValue().toString());
+                         place.setType(data.child("type").getValue().toString());
+                         place.setUser_id(data.child("user_id").getValue().toString());
+                         place.setPlace_id(data.getKey());
+                         placeArrayList.add(place);
+                     }
+
+                     adapter=new PlaceAdapter(context,placeArrayList);
+                     recyclerView.setAdapter(adapter);
+                 }
+                 @Override
+                 public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                 }
+             });
         }
 
     }
