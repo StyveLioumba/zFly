@@ -56,7 +56,7 @@
                             android:text="#zFly"
                             android:textAppearance="?android:textAppearanceLarge"
                             android:textColor="@color/colorPrimaryDark"
-                            android:fontFamily="@font/comfortaa_bold"
+                            android:fontFamily="@font/carter_one"
                             android:gravity="center"
                             android:layout_gravity="center"/>
                     </LinearLayout>
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:text="Application de music"
                         android:textAppearance="?android:textAppearance"
-                        android:fontFamily="@font/comfortaa_light"
+                        android:fontFamily="@font/ubuntu_mono_bold"
                         android:layout_marginEnd="@dimen/petite_marge"
                         android:layout_marginStart="@dimen/moyenne_marge"
                         android:layout_marginTop="@dimen/tres_petite_marge"
@@ -105,7 +105,7 @@
                                 android:text="@string/b_ta_1_0"
                                 android:textAppearance="?android:textAppearanceLarge"
                                 android:textColor="@color/colorTint"
-                                android:fontFamily="@font/comfortaa_bold"
+                                android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
 
@@ -115,6 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/_2020"
+                        android:fontFamily="@font/carter_one"
                         android:textAppearance="?android:textAppearance"
                         android:textColor="@color/colorPrimaryDark"
                         android:textAlignment="textEnd"
@@ -177,7 +178,7 @@
                                 android:textAppearance="?android:textAppearanceLarge"
                                 android:textColor="@color/colorTxt"
                                 android:textSize="@dimen/police_normale"
-                                android:fontFamily="@font/comfortaa_bold"
+                                android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
 
@@ -274,7 +275,7 @@
                                 android:text="@string/_242_06_6"
                                 android:textAppearance="?android:textAppearance"
                                 android:textColor="@color/colorTxt"
-                                android:fontFamily="@font/comfortaa_bold"
+                                android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
                             <TextView
                                 android:layout_width="match_parent"
