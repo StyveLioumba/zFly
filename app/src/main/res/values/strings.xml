@@ -9,7 +9,7 @@
     <string name="cnx">Connexion</string>
     <string name="email_numero_tel">email</string>
     <string name="mot_de_passe">mot de passe</string>
-    <string name="vous_n_avez_pas_de_compte_cliquez_ici">vous n\'avez pas de compte? inscrivez vous ici</string>
+    <string name="vous_n_avez_pas_de_compte_cliquez_ici">vous n\'avez pas de compte? cliquez ici</string>
     <string name="s_inscrire">S\'inscrire</string>
     <string name="insription">Insription</string>
     <string name="vous_avez_d_j_un_compte_cliquez_ici">vous avez déjà un compte? cliquez ici</string>
