@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -62,6 +63,10 @@ public class ModifierProfilActivity extends AppCompatActivity {
 
     private Dialog_loading dialogLoading;
 
+    private TextInputLayout txtBioLayout;
+
+    private String biographieValue="J'utilise Zfly";
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -92,6 +97,7 @@ public class ModifierProfilActivity extends AppCompatActivity {
         btnModifier=findViewById(R.id.btnModifier);
         progressBar=findViewById(R.id.progress);
         btnRetour=findViewById(R.id.back);
+        txtBioLayout=findViewById(R.id.txtBio);
 
         chargeImageProfileIfExist();
         chargeDataTextIfExist();
@@ -110,6 +116,22 @@ public class ModifierProfilActivity extends AppCompatActivity {
         btnModifier.setOnClickListener(v->{
             progressBar.setVisibility(View.VISIBLE);
             uploadImageToStorage();
+        });
+
+        DatabaseReference isArtisteRef = database.getReference("users/"+user.getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (!((Boolean) dataSnapshot.child("isArtiste").getValue())){
+                    txtBioLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
 
     }
@@ -184,7 +206,7 @@ public class ModifierProfilActivity extends AppCompatActivity {
     private void validateSendDataToFirebase(){
         String telValue=telephone.getText().toString();
         String pseudoValue=pseudo.getText().toString();
-        String biographieValue=biographie.getText().toString();
+        biographieValue=biographie.getText().toString();
 
         if (TextUtils.isEmpty(telValue)){
             telephone.setError("entrez votre numero");

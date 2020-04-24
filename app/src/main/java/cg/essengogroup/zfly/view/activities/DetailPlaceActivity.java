@@ -156,6 +156,21 @@ public class DetailPlaceActivity extends AppCompatActivity {
         Timer timer= new Timer();
         timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
 
+        DatabaseReference isArtisteRef = database.getReference("users/"+user.getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!((Boolean) dataSnapshot.child("isPlace").getValue())){
+                    menuPhoto.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void actionMenuPhoto(){

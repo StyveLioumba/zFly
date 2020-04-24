@@ -114,212 +114,274 @@
                 style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 
         </RelativeLayout>
-
+        <!-- vue des artistes-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/petite_marge"
-            android:layout_marginTop="@dimen/petite_marge"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:id="@+id/lineTop">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/lineAbonnes"
-                android:layout_weight="1">
+                android:layout_marginBottom="@dimen/petite_marge"
+                android:layout_marginTop="@dimen/petite_marge"
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:text="0"
-                    android:id="@+id/nbreAbonne"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceLarge" />
-                <TextView
+                    android:orientation="vertical"
+                    android:id="@+id/lineAbonnes"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comfortaa_bold"
+                        android:text="0"
+                        android:id="@+id/nbreAbonne"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:textAppearanceLarge" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/carter_one"
+                        android:text="@string/abonn_s"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:textAppearanceSmall" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
-                    android:text="@string/abonn_s"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceSmall" />
+                    android:orientation="vertical"
+                    android:id="@+id/linePost"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comfortaa_bold"
+                        android:text="0"
+                        android:id="@+id/nbrePost"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:textAppearanceLarge" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/carter_one"
+                        android:text="@string/publications"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/lineAbonnement"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comfortaa_bold"
+                        android:text="0"
+                        android:id="@+id/nbreAbonnement"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:textAppearanceLarge" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/carter_one"
+                        android:text="Abonnements"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:textAppearanceSmall" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorBackFlou"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/linePost"
-                android:layout_weight="1">
+                android:text="@string/biographie"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:drawableStart="@drawable/ic_person_outline"
+                android:drawableTint="@color/colorBackFlou"
+                android:drawablePadding="@dimen/tres_petite_marge"
+                android:textAppearance="?android:textAppearance"
+                android:fontFamily="@font/carter_one"
+                android:layout_marginTop="@dimen/tres_petite_marge"
+                android:layout_marginBottom="@dimen/tres_petite_marge"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:text="0"
-                    android:id="@+id/nbrePost"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceLarge" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
-                    android:text="@string/publications"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceSmall" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.borjabravo.readmoretextview.ReadMoreTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/lineAbonnement"
-                android:layout_weight="1">
+                android:text="@string/lorem"
+                android:layout_marginLeft="@dimen/tres_grande_marge"
+                android:id="@+id/biographie"
+                app:trimExpandedText="Voir plus"
+                app:trimCollapsedText=" Voir moins"
+                app:trimMode="trimModeLine"
+                app:trimLines="5"
+                app:colorClickableText="@color/colorPrimary"
+                android:textAppearance="?android:textAppearanceSmall"
+                android:fontFamily="@font/comfortaa_light"
+                android:layout_marginBottom="@dimen/tres_petite_marge"/>
 
-                <TextView
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/micro_petite_marge"
+                    android:gravity="center">
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:adjustViewBounds="true"
+                        app:lottie_rawRes="@raw/galery"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/photos"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:drawablePadding="@dimen/micro_petite_marge"
+                        android:textAppearance="?android:textAppearance"
+                        android:fontFamily="@font/carter_one"
+                        android:layout_margin="@dimen/tres_petite_marge"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_more_vert_black_24dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/menuPhoto"
+                    android:tint="@color/colorPrimaryDark"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/tres_petite_marge"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/grande_taille"
+                android:layout_marginStart="@dimen/tres_grande_marge">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/img_404_photo" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/recyclePhoto"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/micro_petite_marge"
+                    android:gravity="center">
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:adjustViewBounds="true"
+                        app:lottie_rawRes="@raw/ecouteur"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/music"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="@dimen/tres_petite_marge"
+                        android:textAppearance="?android:textAppearance"
+                        android:fontFamily="@font/carter_one"
+                        android:layout_margin="@dimen/micro_petite_marge"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_more_vert_black_24dp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/menuSons"
+                    android:tint="@color/colorPrimaryDark"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="@dimen/tres_petite_marge"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:text="0"
-                    android:id="@+id/nbreAbonnement"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceLarge" />
-                <TextView
+                    android:id="@+id/img_404_media"/>
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/comfortaa_light"
-                    android:text="Abonnements"
-                    android:textAlignment="center"
-                    android:textAppearance="?android:textAppearanceSmall" />
-
-            </LinearLayout>
+                    android:id="@+id/recycleMusic"
+                    android:layout_marginStart="@dimen/tres_grande_marge"/>
+            </RelativeLayout>
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorBackFlou"/>
+        <!-- vue des utilisateur lambda-->
 
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/biographie"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:drawableStart="@drawable/ic_person_outline"
-            android:drawableTint="@color/colorBackFlou"
-            android:drawablePadding="@dimen/tres_petite_marge"
-            android:textAppearance="?android:textAppearance"
-            android:fontFamily="@font/comfortaa_bold"
-            android:layout_marginTop="@dimen/tres_petite_marge"
-            android:layout_marginBottom="@dimen/tres_petite_marge"/>
-
-        <com.borjabravo.readmoretextview.ReadMoreTextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/lorem"
-            android:layout_marginLeft="@dimen/tres_grande_marge"
-            android:id="@+id/biographie"
-            app:trimExpandedText="Voir plus"
-            app:trimCollapsedText=" Voir moins"
-            app:trimMode="trimModeLine"
-            app:trimLines="6"
-            app:colorClickableText="@color/colorPrimary"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:fontFamily="@font/comfortaa_light"
-            android:layout_marginBottom="@dimen/tres_petite_marge"/>
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/micro_petite_marge"
+            android:gravity="center">
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:adjustViewBounds="true"
+                app:lottie_rawRes="@raw/list"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/photos"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:drawableStart="@drawable/ic_camera_alt_black_24dp"
-                android:drawableTint="@color/colorBackFlou"
+                android:text="Mes publications"
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:textAppearance="?android:textAppearance"
-                android:fontFamily="@font/comfortaa_bold"
-                android:layout_marginTop="@dimen/tres_petite_marge"
-                android:layout_marginBottom="@dimen/tres_petite_marge"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_more_vert_black_24dp"
-                android:layout_centerVertical="true"
-                android:id="@+id/menuPhoto"
-                android:tint="@color/colorPrimaryDark"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/tres_petite_marge"/>
-        </RelativeLayout>
+                android:fontFamily="@font/carter_one"
+                android:layout_margin="@dimen/tres_petite_marge"/>
+        </LinearLayout>
 
-        <RelativeLayout
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/grande_taille"
-            android:layout_marginStart="@dimen/tres_grande_marge">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/img_404_photo" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/recyclePhoto"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/music"
-                android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
-                android:drawableStart="@drawable/ic_music_note_black_24dp"
-                android:drawableTint="@color/colorBackFlou"
-                android:drawablePadding="@dimen/tres_petite_marge"
-                android:textAppearance="?android:textAppearance"
-                android:fontFamily="@font/comfortaa_bold"
-                android:layout_marginTop="@dimen/tres_petite_marge"
-                android:layout_marginBottom="@dimen/tres_petite_marge"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_more_vert_black_24dp"
-                android:layout_centerVertical="true"
-                android:id="@+id/menuSons"
-                android:tint="@color/colorPrimaryDark"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="@dimen/tres_petite_marge"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/img_404_media"/>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recycleMusic"
-                android:layout_marginStart="@dimen/tres_grande_marge"/>
-        </RelativeLayout>
-
+            android:layout_height="match_parent"
+            android:id="@+id/recycleAllPost"
+            android:layout_below="@id/toolbar"/>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

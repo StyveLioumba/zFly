@@ -49,7 +49,9 @@ public class UserPhotoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Intent intent;
     private FloatingActionButton fab;
-    private String nomValue,prenomValue,telValue,pseudoValue,lienProfileImage;
+    private String nomValue,prenomValue,telValue,pseudoValue,
+            lienCouverture="",
+            lienProfileImage="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2F264x264-000000-80-0-0.jpg?alt=media&token=feceb79d-6109-43b7-8275-c6ab0f2fc4a3";
     private boolean artisteValue;
 
     private StorageReference mStorageRef;
@@ -206,7 +208,7 @@ public class UserPhotoActivity extends AppCompatActivity {
         user.put("Apseudo", "@"+prenomValue.toLowerCase().charAt(0)+nomValue);
         user.put("tel", telValue);
         user.put("image", lienProfileImage);
-        user.put("image_couverture", lienProfileImage);
+        user.put("image_couverture", lienCouverture);
         user.put("isArtiste", artisteValue);
         user.put("isPlace", false);
         user.put("status", "deconnecte");

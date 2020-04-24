@@ -5,14 +5,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.adapter.GallerieAdapter;
+import cg.essengogroup.zfly.controller.adapter.MultiViewTypeAdapter;
 import cg.essengogroup.zfly.controller.adapter.MusicProfilAdapter;
 import cg.essengogroup.zfly.model.Gallerie;
+import cg.essengogroup.zfly.model.Model;
 import cg.essengogroup.zfly.model.Music;
 
 import android.content.Intent;
@@ -25,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -60,9 +64,12 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase database;
     private FirebaseUser user;
-    private DatabaseReference reference;
+    private DatabaseReference reference,referenceModel;
     private FirebaseStorage storage;
     private StorageReference storageReference,storageReferenceProfile;
+
+
+    private LinearLayoutManager manager;
 
     private ArrayList<Gallerie> gallerieArrayList;
     private ArrayList<Music> musicArrayList;
@@ -70,7 +77,10 @@ public class ProfileActivity extends AppCompatActivity {
     private GallerieAdapter adapterG;
     private MusicProfilAdapter adapterM;
 
-    private RecyclerView recycleGallerie,recycleMusic;
+    private RecyclerView recycleGallerie,recycleMusic,recyclerView;
+
+    private MultiViewTypeAdapter adapter;
+    private ArrayList<Model> modelArrayList;
 
     private static final int CHOIX_IMAGE=101,CHOIX_IMAGE_P=102;
     private Uri uriPreviewImage,uriImageP;
@@ -80,6 +90,8 @@ public class ProfileActivity extends AppCompatActivity {
     private String lienImage,lienImageP,pseudoValue;
 
     private FloatingActionButton fab;
+
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
         reference=database.getReference().child("users/"+String.valueOf(user.getUid()));
         storageReference=storage.getReference().child("image_couverture").child("post"+System.currentTimeMillis()+".jpg");;
         storageReferenceProfile=storage.getReference().child("profileImage").child("profile"+System.currentTimeMillis()+".jpg");
+        referenceModel=database.getReference("post");
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -114,6 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress);
         progressBarProfil=findViewById(R.id.progressP);
         fab=findViewById(R.id.addImg);
+        linearLayout=findViewById(R.id.lineTop);
 
         menuPhoto=findViewById(R.id.menuPhoto);
         menuSon=findViewById(R.id.menuSons);
@@ -140,6 +154,34 @@ public class ProfileActivity extends AppCompatActivity {
         getGallerieTopTen();
         getNbreAbonne();
         getMusicPost();
+
+        recyclerView=findViewById(R.id.recycleAllPost);
+
+        modelArrayList=new ArrayList<>();
+        manager=new LinearLayoutManager(ProfileActivity.this);
+
+        getDataActualite();
+
+        DatabaseReference isArtisteRef = database.getReference("users/"+user.getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if ((Boolean) dataSnapshot.child("isArtiste").getValue()){
+                    recyclerView.setVisibility(View.GONE);
+                    linearLayout.setVisibility(View.VISIBLE);
+                }else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    linearLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void getUserInfo(){
@@ -441,6 +483,46 @@ public class ProfileActivity extends AppCompatActivity {
             reference.child("updateAt").setValue(ServerValue.TIMESTAMP).addOnSuccessListener(aVoid -> {
                 progressBarProfil.setVisibility(View.GONE);
             });
+        });
+    }
+
+
+    private void getDataActualite(){
+
+        referenceModel.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                modelArrayList.clear();
+
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    Model model=new Model() ;
+                    model.setUser_id(""+data.child("user_id").getValue());
+                    model.setImage(""+data.child("imagePost").getValue());
+                    model.setAudio(""+data.child("sonPost").getValue());
+                    model.setDescription(""+data.child("description").getValue());
+                    model.setType(Integer.parseInt(""+data.child("type").getValue()));
+                    model.setCreateAt(String.valueOf(data.child("createAt").getValue()));
+                    model.setPost_id(data.getKey());
+
+                    if (model.getUser_id().equalsIgnoreCase(user.getUid())){
+                        modelArrayList.add(model);
+                    }
+                }
+
+                adapter=new MultiViewTypeAdapter(modelArrayList,ProfileActivity.this);
+                recyclerView.setLayoutManager(manager);
+                manager.setReverseLayout(true);
+                manager.setStackFromEnd(true);
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                recyclerView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
     }
 

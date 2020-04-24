@@ -156,6 +156,8 @@ public class AddMediaActivity extends AppCompatActivity {
                     dialogLoading.dismiss();
                 }
             });
+        }else {
+            Toast.makeText(this, "pensez à ajouter une chanson", Toast.LENGTH_SHORT).show();
         }
     }
 

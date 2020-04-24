@@ -121,6 +121,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_margin="@dimen/tres_petite_marge"
+            android:id="@+id/txtBio"
             app:hintTextAppearance="?android:textAppearance"
             android:textColorHint="@color/colorTxt">
 
