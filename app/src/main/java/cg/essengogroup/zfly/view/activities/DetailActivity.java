@@ -41,7 +41,7 @@ import java.util.Map;
 
 public class DetailActivity extends AppCompatActivity {
     private ImageView imageView,imageLike,imageUser;
-    private TextView textView,txtDescription,txtLikes,txtComment,nomUser,txtDate;
+    private TextView txtDescription,txtLikes,nomUser,txtDate;
     private ImageButton partager;
 
     private Intent intent;
@@ -252,7 +252,6 @@ public class DetailActivity extends AppCompatActivity {
             return true;
         }
     }*/
-
 
     private void shareContent(ImageView imageView){
 

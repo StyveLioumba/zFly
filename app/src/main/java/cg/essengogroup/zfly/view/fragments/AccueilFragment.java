@@ -259,7 +259,6 @@ public class AccueilFragment extends Fragment {
         });
     }
 
-
     class SliderTimer extends TimerTask {
 
         @Override

@@ -1,6 +1,7 @@
 package cg.essengogroup.zfly.controller.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.utils.Methodes;
 import cg.essengogroup.zfly.model.Slider;
+import cg.essengogroup.zfly.view.dialogs.DialogShowSlide;
 
 public class SliderPagerAdapter extends PagerAdapter {
 
@@ -44,7 +46,24 @@ public class SliderPagerAdapter extends PagerAdapter {
                 R.drawable.ic_launcher_background,
                 slideImg
         );
-        slideText.setText(mList.get(position).getDesignation());
+
+        sliderLayout.findViewById(R.id.btnVoirPlus).setOnClickListener(v->{
+            if (!TextUtils.isEmpty(mList.get(position).getImage())){
+                new DialogShowSlide(mContext,mList.get(position)).show();
+            }
+        });
+
+        sliderLayout.findViewById(R.id.relatSlider).setOnClickListener(v->{
+            if (!TextUtils.isEmpty(mList.get(position).getImage())){
+                new DialogShowSlide(mContext,mList.get(position)).show();
+            }
+        });
+
+        if (TextUtils.isEmpty(mList.get(position).getDesignation())){
+            slideText.setVisibility(View.GONE);
+        }else {
+            slideText.setText(mList.get(position).getDesignation());
+        }
 
         container.addView(sliderLayout);
         return sliderLayout;

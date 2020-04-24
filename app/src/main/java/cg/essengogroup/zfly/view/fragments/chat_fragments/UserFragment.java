@@ -98,7 +98,7 @@ public class UserFragment extends Fragment {
     }
 
     private void getData(){
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.orderByChild("isArtiste").equalTo(true).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

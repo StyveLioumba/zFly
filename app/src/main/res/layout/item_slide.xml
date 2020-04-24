@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:id="@+id/relatSlider"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +14,7 @@
         android:src="@drawable/ic_launcher_background"
         android:scaleType="centerCrop"/>
 
-    <TextView
+    <com.borjabravo.readmoretextview.ReadMoreTextView
         android:layout_width="@dimen/tres_grande_taille"
         android:layout_height="wrap_content"
         android:id="@+id/txtDescription"
@@ -21,8 +23,12 @@
         android:text="@string/app_name"
         android:textSize="@dimen/tres_petite_police"
         android:padding="@dimen/micro_petite_marge"
+        app:trimExpandedText="Voir plus"
+        app:trimCollapsedText=" Voir moins"
+        app:trimMode="trimModeLine"
+        app:trimLines="3"
         android:background="@color/colorFlouNoir"
-        android:fontFamily="@font/comfortaa_bold"
+        android:fontFamily="@font/ubuntu_mono"
         android:layout_marginStart="@dimen/petite_marge"
         android:layout_above="@id/btnVoirPlus"
         android:layout_marginBottom="@dimen/micro_petite_marge"/>
@@ -69,7 +75,7 @@
                 android:layout_marginBottom="@dimen/tres_petite_marge"
                 android:text="@string/plus_d_info"
                 android:textAppearance="?android:textAppearance"
-                android:fontFamily="@font/comfortaa_bold"
+                android:fontFamily="@font/carter_one"
                 android:layout_weight="1"
                 android:textSize="@dimen/tres_petite_police"/>
             <ImageView

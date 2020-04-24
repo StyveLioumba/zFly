@@ -211,4 +211,16 @@ public class AccueilActivity extends AppCompatActivity {
         super.onResume();
         status("enligne");
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        status("deconnecte");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        status("deconnecte");
+    }
 }

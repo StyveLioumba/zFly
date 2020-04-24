@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/micro_petite_marge">
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnClose"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        android:background="@android:color/transparent"
+        android:layout_margin="@dimen/micro_petite_marge"/>
+    <com.github.chrisbanes.photoview.PhotoView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imgSelected"
+        android:layout_below="@id/btnClose"
+        android:layout_above="@id/txtDescription"
+        android:src="@drawable/ic_launcher_background"
+        android:adjustViewBounds="true"/>
+    <com.borjabravo.readmoretextview.ReadMoreTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtDescription"
+        android:text="@string/app_name"
+        app:trimExpandedText="Voir plus"
+        app:trimCollapsedText=" Voir moins"
+        app:trimMode="trimModeLine"
+        app:trimLines="6"
+        android:layout_alignParentBottom="true"
+        app:colorClickableText="@color/colorPrimary"
+        android:layout_margin="@dimen/micro_petite_marge"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:fontFamily="@font/comfortaa_light"/>
+</RelativeLayout>

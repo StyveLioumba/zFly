@@ -124,6 +124,8 @@ public class MessageActivity extends AppCompatActivity {
         readMessage(mUser.getUid(),user.getUser_id(),String.valueOf(user.getImage()));
 
         messageVu(user.getUser_id());
+
+        status("enligne");
     }
 
 
@@ -245,6 +247,28 @@ public class MessageActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         referenceSms.removeEventListener(vueListener);
+    }
+
+    private void status(String status){
+        DatabaseReference referenceStatus=database.getReference().child("users").child(mUser.getUid());
+        referenceStatus.child("status").setValue(status).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status("enligne");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        status("deconnecte");
     }
 
 }

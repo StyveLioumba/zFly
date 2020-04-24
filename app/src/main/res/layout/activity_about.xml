@@ -191,18 +191,21 @@
                         android:layout_marginLeft="@dimen/petite_marge"
                         android:layout_marginTop="@dimen/tres_petite_marge"
                         android:layout_marginBottom="@dimen/tres_petite_marge">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:adjustViewBounds="true"
                             android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/petite_marge"
-                            android:layout_marginLeft="@dimen/petite_marge"
-                            android:src="@drawable/ic_group_black_24dp"/>
+                            app:lottie_rawRes="@raw/dev"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+                            android:layout_gravity="center"
                             android:layout_marginTop="@dimen/tres_petite_marge"
+                            android:layout_marginLeft="@dimen/tres_petite_marge"
                             android:layout_marginBottom="@dimen/tres_petite_marge">
                             <TextView
                                 android:layout_width="match_parent"
@@ -256,17 +259,21 @@
                         android:layout_marginLeft="@dimen/petite_marge"
                         android:layout_marginTop="@dimen/tres_petite_marge"
                         android:layout_marginBottom="@dimen/tres_petite_marge">
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:adjustViewBounds="true"
                             android:layout_gravity="center"
-                            android:layout_marginRight="@dimen/petite_marge"
-                            android:layout_marginLeft="@dimen/petite_marge"
-                            android:src="@drawable/ic_contacts_black_24dp"/>
+                            app:lottie_rawRes="@raw/contactus"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/tres_petite_marge"
                             android:layout_marginTop="@dimen/tres_petite_marge"
                             android:layout_marginBottom="@dimen/tres_petite_marge">
                             <TextView
@@ -283,7 +290,7 @@
                                 android:text="@string/essengogroup_cg_gmail_com"
                                 android:textAppearance="?android:textAppearance"
                                 android:textColor="@color/colorTxt"
-                                android:fontFamily="@font/comfortaa_bold"
+                                android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
 

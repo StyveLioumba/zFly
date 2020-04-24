@@ -91,7 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
 
-    private LinearLayout linearLayout;
+    private LinearLayout linearLayout,lineBottom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +128,7 @@ public class ProfileActivity extends AppCompatActivity {
         progressBarProfil=findViewById(R.id.progressP);
         fab=findViewById(R.id.addImg);
         linearLayout=findViewById(R.id.lineTop);
+        lineBottom=findViewById(R.id.lineBottom);
 
         menuPhoto=findViewById(R.id.menuPhoto);
         menuSon=findViewById(R.id.menuSons);
@@ -168,10 +169,10 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if ((Boolean) dataSnapshot.child("isArtiste").getValue()){
-                    recyclerView.setVisibility(View.GONE);
+                    lineBottom.setVisibility(View.GONE);
                     linearLayout.setVisibility(View.VISIBLE);
                 }else {
-                    recyclerView.setVisibility(View.VISIBLE);
+                    lineBottom.setVisibility(View.VISIBLE);
                     linearLayout.setVisibility(View.GONE);
                 }
             }
@@ -277,7 +278,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getGallerieTopTen(){
-        reference.child("galerie").addValueEventListener(new ValueEventListener() {
+        reference.child("galerie").limitToLast(10).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 gallerieArrayList.clear();
@@ -316,7 +317,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getMusicPost(){
-        reference.child("chansons").addValueEventListener(new ValueEventListener() {
+        reference.child("chansons").limitToLast(12).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 musicArrayList.clear();
