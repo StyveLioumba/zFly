@@ -108,6 +108,7 @@
             android:layout_marginBottom="@dimen/tres_petite_marge"
             android:layout_marginEnd="@dimen/tres_petite_marge"
             android:id="@+id/fab_place"
+            android:visibility="gone"
             app:tint="@android:color/white"
             app:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
             android:src="@drawable/ic_place_black_24dp"/>

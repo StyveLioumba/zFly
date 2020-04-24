@@ -2,12 +2,13 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="35dp"
-    android:layout_height="35dp">
+    android:layout_height="35dp"
+    android:padding="@dimen/tres_petite_marge">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/message"
+        android:src="@drawable/sms_icon"
         android:layout_centerInParent="true"
         android:id="@+id/imgSMS" />
     <ImageView

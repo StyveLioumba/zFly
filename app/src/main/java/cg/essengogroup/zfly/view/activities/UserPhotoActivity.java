@@ -208,6 +208,7 @@ public class UserPhotoActivity extends AppCompatActivity {
         user.put("image", lienProfileImage);
         user.put("image_couverture", lienProfileImage);
         user.put("isArtiste", artisteValue);
+        user.put("isPlace", false);
         user.put("status", "deconnecte");
         user.put("hasNewSMS", false);
         user.put("createAt", ServerValue.TIMESTAMP);

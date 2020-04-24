@@ -20,12 +20,11 @@
             android:layout_margin="@dimen/tres_petite_marge"
             android:layout_alignParentTop="true"
             android:id="@+id/lineTop">
-            <com.mikhaellopez.circularimageview.CircularImageView
+            <ImageView
                 android:layout_width="@dimen/petite_taille"
                 android:layout_height="@dimen/petite_taille"
                 android:id="@+id/imgUser"
-                app:civ_border_color="@color/colorbtn"
-                app:civ_border_width="1dp"
+                android:padding="@dimen/micro_petite_marge"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_launcher_round"/>
             <LinearLayout
@@ -79,6 +78,8 @@
             android:id="@+id/editSms"
             android:background="@android:color/transparent"
             android:hint="@string/r_diger_un_message"
+            android:fontFamily="@font/ubuntu_mono"
+            android:inputType="textMultiLine"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/btnSend"/>
         <ImageButton

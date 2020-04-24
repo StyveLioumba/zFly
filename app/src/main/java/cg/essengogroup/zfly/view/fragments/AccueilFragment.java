@@ -125,10 +125,37 @@ public class AccueilFragment extends Fragment {
         manager=new LinearLayoutManager(context);
 
 
-        root.findViewById(R.id.fab_).setOnClickListener(v->startActivity(new Intent(context, PostMusicActivity.class)));
+        FloatingActionButton fabMusic=root.findViewById(R.id.fab_);
+        fabMusic.setOnClickListener(v->startActivity(new Intent(context, PostMusicActivity.class)));
+
+        FloatingActionButton fabPlace=root.findViewById(R.id.fab_place);
+        fabPlace.setOnClickListener(v->startActivity(new Intent(context, PostPlaceActivity.class)));
+
         root.findViewById(R.id.fab).setOnClickListener(v->startActivity(new Intent(context, PostActivity.class)));
-        root.findViewById(R.id.fab_place).setOnClickListener(v->startActivity(new Intent(context, PostPlaceActivity.class)));
+
         root.findViewById(R.id.seeMore).setOnClickListener(v->startActivity(new Intent(context, AllUserActivity.class)));
+
+        DatabaseReference isArtisteRef = database.getReference("users/"+mUser.getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (!((Boolean) dataSnapshot.child("isArtiste").getValue())){
+                    fabMusic.setVisibility(View.GONE);
+                }
+
+                if (dataSnapshot.child("isPlace").exists()){
+                    if ((Boolean) dataSnapshot.child("isPlace").getValue()){
+                        fabPlace.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         Timer timer= new Timer();
         timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);

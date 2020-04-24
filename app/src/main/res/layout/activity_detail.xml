@@ -23,6 +23,7 @@
                 android:layout_width="@dimen/petite_taille"
                 android:layout_height="@dimen/petite_taille"
                 android:id="@+id/imgUser"
+                android:padding="@dimen/micro_petite_marge"
                 android:src="@mipmap/ic_launcher_round"/>
             <LinearLayout
                 android:layout_width="match_parent"

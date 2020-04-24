@@ -25,6 +25,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -75,6 +76,8 @@ public class PostActivity extends AppCompatActivity {
 
     private Dialog_loading dialogLoading;
 
+    private LinearLayout linearLayout;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -116,6 +119,7 @@ public class PostActivity extends AppCompatActivity {
         relativeLayout=findViewById(R.id.relaSong);
         fab=findViewById(R.id.fab);
         imageAddSon=findViewById(R.id.importeSon);
+        linearLayout=findViewById(R.id.lineTop);
 
         dialogLoading=new Dialog_loading(PostActivity.this);
         dialogLoading.setCancelable(false);
@@ -153,6 +157,22 @@ public class PostActivity extends AppCompatActivity {
             if (relativeLayout.getVisibility()==View.VISIBLE){
                 relativeLayout.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
+            }
+        });
+
+        DatabaseReference isArtisteRef = database.getReference("users/"+firebaseUser.getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (!((Boolean) dataSnapshot.child("isArtiste").getValue())){
+                    linearLayout.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
     }
@@ -376,7 +396,6 @@ public class PostActivity extends AppCompatActivity {
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, STORAGE_PERMISSION_CODE);
     }
-
 
     //This method will be called when the user will tap on allow or deny
     @Override
