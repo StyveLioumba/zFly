@@ -189,7 +189,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (user!=null){
             Glide.with(ProfileActivity.this)
                     .load(user.getPhotoUrl().toString())
-                    .placeholder(R.drawable.default_img)
+                    .placeholder(R.drawable.imgdefault)
                     .centerCrop()
                     .into(userImage);
         }
@@ -211,13 +211,11 @@ public class ProfileActivity extends AppCompatActivity {
                 }else {
                     txtBio.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()).toUpperCase()+" n'a pas encore ajouter sa biographie");
                 }
-                if (dataSnapshot.child("image_couverture").exists()){
-                    Glide.with(ProfileActivity.this)
-                            .load(String.valueOf(dataSnapshot.child("image_couverture").getValue()))
-                            .placeholder(R.drawable.default_img)
-                            .centerCrop()
-                            .into(imageCouverture);
-                }
+                Glide.with(ProfileActivity.this)
+                        .load(String.valueOf(dataSnapshot.child("image_couverture").getValue()))
+                        .placeholder(R.drawable.default_img)
+                        .centerCrop()
+                        .into(imageCouverture);
             }
 
             @Override

@@ -50,7 +50,7 @@ public class UserPhotoActivity extends AppCompatActivity {
     private Intent intent;
     private FloatingActionButton fab;
     private String nomValue,prenomValue,telValue,pseudoValue,
-            lienCouverture="",
+            lienCouverture="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2Fdefault_img.png?alt=media&token=acb214d0-afcc-4afd-82ea-fea66baf789f",
             lienProfileImage="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2F264x264-000000-80-0-0.jpg?alt=media&token=feceb79d-6109-43b7-8275-c6ab0f2fc4a3";
     private boolean artisteValue;
 
@@ -119,7 +119,6 @@ public class UserPhotoActivity extends AppCompatActivity {
     }
 
     private void selectionnerImage(){
-//        intent=new Intent();
         intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, CHOIX_IMAGE);
     }

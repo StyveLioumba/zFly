@@ -40,7 +40,7 @@ public class GallerieAdapter extends RecyclerView.Adapter<GallerieAdapter.MyView
 
         Glide.with(context)
                 .load(arrayList.get(position).getImage())
-                .placeholder(R.drawable.default_img)
+                .placeholder(R.drawable.imgdefault)
                 .into(holder.imageUser);
 
         holder.cardView.setOnClickListener(v->

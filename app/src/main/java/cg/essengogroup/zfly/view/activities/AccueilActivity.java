@@ -146,7 +146,7 @@ public class AccueilActivity extends AppCompatActivity {
         if (user!=null){
             Glide.with(this)
                     .load(user.getPhotoUrl().toString())
-                    .placeholder( R.drawable.default_img)
+                    .placeholder( R.drawable.imgdefault)
                     .circleCrop()
                     .into(imageView);
         }

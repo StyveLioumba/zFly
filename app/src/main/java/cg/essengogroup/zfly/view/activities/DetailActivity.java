@@ -99,7 +99,7 @@ public class DetailActivity extends AppCompatActivity {
         Methodes.glideDownload(
                 DetailActivity.this,
                 imageValue,
-                R.drawable.default_img,
+                R.drawable.imgdefault,
                 imageView
         );
 

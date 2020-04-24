@@ -168,7 +168,7 @@ public class DetailArtistActivity extends AppCompatActivity {
     private void getUserInfo(){
         Glide.with(DetailArtistActivity.this)
                 .load(intent.getStringExtra("image"))
-                .placeholder(R.drawable.default_img)
+                .placeholder(R.drawable.imgdefault)
                 .centerCrop()
                 .into(userImage);
 

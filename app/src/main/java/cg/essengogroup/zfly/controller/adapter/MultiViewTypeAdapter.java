@@ -146,7 +146,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                             if (dataSnapshot!=null){
                                 Glide.with(mContext.getApplicationContext())
                                         .load(String.valueOf(dataSnapshot.child("image").getValue()))
-                                        .placeholder( R.drawable.default_img)
+                                        .placeholder( R.drawable.imgdefault)
                                         .circleCrop()
                                         .into(((ImageTypeViewHolder) holder).imageUser);
 
@@ -228,7 +228,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                             if (dataSnapshot!=null){
                                 Glide.with(mContext.getApplicationContext())
                                         .load(String.valueOf(dataSnapshot.child("image").getValue()))
-                                        .placeholder( R.drawable.default_img)
+                                        .placeholder( R.drawable.imgdefault)
                                         .circleCrop()
                                         .into(((AudioTypeViewHolder) holder).imageUser);
 

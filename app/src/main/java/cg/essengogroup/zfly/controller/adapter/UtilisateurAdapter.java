@@ -58,7 +58,7 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurAdapter.
         holder.txtPseudo.setText(user.getPseudo());
         Glide.with(context)
                 .load(user.getImage())
-                .placeholder( R.drawable.default_img)
+                .placeholder( R.drawable.imgdefault)
                 .fitCenter()
                 .into(holder.imageView);
 
