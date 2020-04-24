@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 import android.Manifest;
 import android.content.Intent;
@@ -65,6 +66,8 @@ public class PostPlaceActivity extends AppCompatActivity {
 
     private String[] listeType={"hotel","vip","restaurant"};
 
+    private Dialog_loading dialogLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +103,9 @@ public class PostPlaceActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress);
         progressBarTop=findViewById(R.id.progressTop);
 
+        dialogLoading=new Dialog_loading(PostPlaceActivity.this);
+        dialogLoading.setCancelable(false);
+
         imageCouverture.setOnClickListener(v->selectionnerImage());
         btnPublier.setOnClickListener(v->uploadImageToFireBase());
     }
@@ -119,6 +125,7 @@ public class PostPlaceActivity extends AppCompatActivity {
                 .child("place"+System.currentTimeMillis()+".jpg");
 
         if (uriPreviewImage !=null){
+            dialogLoading.show();
             mStorageRef.putFile(uriPreviewImage).addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
 
@@ -136,7 +143,9 @@ public class PostPlaceActivity extends AppCompatActivity {
 
             }).addOnFailureListener(exception -> {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
+                if (dialogLoading.isShowing()){
+                    dialogLoading.dismiss();
+                }
             });
         }else {
             Toast.makeText(this, "tu n'as pas ajouté une image", Toast.LENGTH_SHORT).show();
@@ -196,6 +205,9 @@ public class PostPlaceActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Void aVoid) {
                             progressBarTop.setVisibility(View.GONE);
+                            if (dialogLoading.isShowing()){
+                                dialogLoading.dismiss();
+                            }
                             startActivity(new Intent(PostPlaceActivity.this,AccueilActivity.class));
                             finish();
                         }

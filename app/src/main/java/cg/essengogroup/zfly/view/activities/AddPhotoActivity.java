@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 public class AddPhotoActivity extends AppCompatActivity {
     private CardView btnPublier;
@@ -52,6 +53,9 @@ public class AddPhotoActivity extends AppCompatActivity {
     private static final int CHOIX_IMAGE=101;
 
     private String lienImage,activityValue,place_idValue;
+
+    private Dialog_loading dialogLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +97,10 @@ public class AddPhotoActivity extends AppCompatActivity {
 
         fab=findViewById(R.id.addImg);
 
+
+        dialogLoading=new Dialog_loading(AddPhotoActivity.this);
+        dialogLoading.setCancelable(false);
+
         fab.setOnClickListener(v->selectImageFromGallery());
         imageView.setOnClickListener(v->selectImageFromGallery());
 
@@ -104,6 +112,7 @@ public class AddPhotoActivity extends AppCompatActivity {
 
     private void uploadImageToStorage(){
         if (imageUri!=null){
+            dialogLoading.show();
             storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -130,6 +139,9 @@ public class AddPhotoActivity extends AppCompatActivity {
             public void onSuccess(Void aVoid) {
                 progressBar.setVisibility(View.GONE);
                 if (activityValue.equalsIgnoreCase("profile")){
+                    if (dialogLoading.isShowing()){
+                        dialogLoading.dismiss();
+                    }
                     startActivity(new Intent(AddPhotoActivity.this,ProfileActivity.class));
                     finish();
                 }else {

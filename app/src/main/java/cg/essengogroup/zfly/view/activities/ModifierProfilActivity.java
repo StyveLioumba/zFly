@@ -36,6 +36,7 @@ import com.mikhaellopez.circularimageview.CircularImageView;
 import java.io.IOException;
 
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 public class ModifierProfilActivity extends AppCompatActivity {
 
@@ -58,6 +59,8 @@ public class ModifierProfilActivity extends AppCompatActivity {
     private static final int CHOIX_IMAGE=101;
     private Uri imageUri=null;
     private Intent intent;
+
+    private Dialog_loading dialogLoading;
 
     @Override
     protected void onStart() {
@@ -99,6 +102,10 @@ public class ModifierProfilActivity extends AppCompatActivity {
             startActivity(new Intent(ModifierProfilActivity.this,ProfileActivity.class));
             finish();
         });
+
+
+        dialogLoading=new Dialog_loading(ModifierProfilActivity.this);
+        dialogLoading.setCancelable(false);
 
         btnModifier.setOnClickListener(v->{
             progressBar.setVisibility(View.VISIBLE);
@@ -146,6 +153,7 @@ public class ModifierProfilActivity extends AppCompatActivity {
      */
     private void uploadImageToStorage(){
         if (imageUri!=null){
+            dialogLoading.show();
             mStorageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -201,6 +209,9 @@ public class ModifierProfilActivity extends AppCompatActivity {
                 referenceUser.child("biographie").setValue(biographieValue).addOnSuccessListener(aVoidB -> {
                     referenceUser.child("image").setValue(lienProfileImage).addOnSuccessListener(aVoidI -> {
                         referenceUser.child("updateAt").setValue(ServerValue.TIMESTAMP).addOnSuccessListener(aVoid -> {
+                            if (dialogLoading.isShowing()){
+                                dialogLoading.dismiss();
+                            }
                             progressBar.setVisibility(View.GONE);
                             startActivity(new Intent(ModifierProfilActivity.this,ProfileActivity.class));
                             finish();

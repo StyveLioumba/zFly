@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -72,6 +73,8 @@ public class PostActivity extends AppCompatActivity {
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
 
+    private Dialog_loading dialogLoading;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -113,6 +116,9 @@ public class PostActivity extends AppCompatActivity {
         relativeLayout=findViewById(R.id.relaSong);
         fab=findViewById(R.id.fab);
         imageAddSon=findViewById(R.id.importeSon);
+
+        dialogLoading=new Dialog_loading(PostActivity.this);
+        dialogLoading.setCancelable(false);
 
         imageView.setOnClickListener(v->selectionnerImage());
         fab.setOnClickListener(v->playPreview());
@@ -236,7 +242,7 @@ public class PostActivity extends AppCompatActivity {
                 .child("post"+System.currentTimeMillis()+".jpg");
 
         if (uriPreviewImage !=null){
-
+            dialogLoading.show();
             progressBar.setVisibility(View.VISIBLE);
 
             mStorageRef.putFile(uriPreviewImage).addOnSuccessListener(taskSnapshot -> {
@@ -268,7 +274,7 @@ public class PostActivity extends AppCompatActivity {
                 .child("son"+System.currentTimeMillis()+".mp3");
 
         if (uriChanson !=null){
-
+            dialogLoading.show();
             mStorageRef.putFile(uriChanson).addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
@@ -283,6 +289,9 @@ public class PostActivity extends AppCompatActivity {
                 }
 
             }).addOnFailureListener(exception -> {
+                if (dialogLoading.isShowing()){
+                    dialogLoading.dismiss();
+                }
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
             });
@@ -326,8 +335,9 @@ public class PostActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        // Write failed
-                        // ...
+                        if (dialogLoading.isShowing()){
+                            dialogLoading.dismiss();
+                        }
                     }
                 });
     }
@@ -344,6 +354,9 @@ public class PostActivity extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onSuccess(Void aVoid) {
+                if (dialogLoading.isShowing()){
+                    dialogLoading.dismiss();
+                }
                 startActivity(new Intent(PostActivity.this,AccueilActivity.class));
                 finish();
             }

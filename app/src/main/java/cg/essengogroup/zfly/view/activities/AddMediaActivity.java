@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 public class AddMediaActivity extends AppCompatActivity {
     private Button addSong;
@@ -60,6 +61,8 @@ public class AddMediaActivity extends AppCompatActivity {
 
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
+
+    private Dialog_loading dialogLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,11 @@ public class AddMediaActivity extends AppCompatActivity {
         btnPublier=findViewById(R.id.btnPublier);
 
         progressBar=findViewById(R.id.progress);
+
+
+        dialogLoading=new Dialog_loading(AddMediaActivity.this);
+        dialogLoading.setCancelable(false);
+
         btnPublier.setOnClickListener(v->uploadSongToFireBase());
         addSong.setOnClickListener(v->getMusic());
         playPreview.setOnClickListener(v->playPreview());
@@ -130,6 +138,7 @@ public class AddMediaActivity extends AppCompatActivity {
 
     private void uploadSongToFireBase(){
         if (uriChanson !=null){
+            dialogLoading.show();
             mStorageRef.putFile(uriChanson).addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
@@ -143,7 +152,9 @@ public class AddMediaActivity extends AppCompatActivity {
                 }
             }).addOnFailureListener(exception -> {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
+                if (dialogLoading.isShowing()){
+                    dialogLoading.dismiss();
+                }
             });
         }
     }
@@ -177,6 +188,9 @@ public class AddMediaActivity extends AppCompatActivity {
                              * si l'insertion du son est un succes
                              * on cree une table genre d'abord puis album et enfin artiste
                              */
+                            if (dialogLoading.isShowing()){
+                                dialogLoading.dismiss();
+                            }
                             startActivity(new Intent(AddMediaActivity.this,ProfileActivity.class));
                             finish();
 
@@ -185,8 +199,9 @@ public class AddMediaActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            // Write failed
-                            // ...
+                            if (dialogLoading.isShowing()){
+                                dialogLoading.dismiss();
+                            }
                         }
                     });
 

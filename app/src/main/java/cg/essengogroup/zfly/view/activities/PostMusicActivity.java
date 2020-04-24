@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 import android.Manifest;
 import android.content.Intent;
@@ -71,6 +72,8 @@ public class PostMusicActivity extends AppCompatActivity {
 
     private String[] listeGenre={"rap","rnb","zouk","hip hop","jazz","classic"};
 
+    private Dialog_loading dialogLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +109,10 @@ public class PostMusicActivity extends AppCompatActivity {
 
         progressBar=findViewById(R.id.progress);
         progressBarTop=findViewById(R.id.progressTop);
+
+
+        dialogLoading=new Dialog_loading(PostMusicActivity.this);
+        dialogLoading.setCancelable(false);
 
         imageCover.setOnClickListener(v->selectionnerImage());
         btnPublier.setOnClickListener(v->uploadSongToFireBase());
@@ -197,7 +204,7 @@ public class PostMusicActivity extends AppCompatActivity {
                 .child("son"+System.currentTimeMillis()+".mp3");
 
         if (uriChanson !=null){
-
+            dialogLoading.show();
             mStorageRef.putFile(uriChanson).addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
@@ -215,7 +222,9 @@ public class PostMusicActivity extends AppCompatActivity {
 
             }).addOnFailureListener(exception -> {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
+                if (dialogLoading.isShowing()){
+                    dialogLoading.dismiss();
+                }
             });
         }
     }
@@ -402,6 +411,9 @@ public class PostMusicActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         progressBarTop.setVisibility(View.GONE);
+                        if (dialogLoading.isShowing()){
+                            dialogLoading.dismiss();
+                        }
                         startActivity(new Intent(PostMusicActivity.this,AccueilActivity.class));
                         finish();
                     }

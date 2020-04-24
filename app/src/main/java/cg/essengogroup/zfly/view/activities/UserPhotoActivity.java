@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 import android.Manifest;
 import android.content.Intent;
@@ -56,6 +57,8 @@ public class UserPhotoActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
 
+    private Dialog_loading dialogLoading;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -91,6 +94,9 @@ public class UserPhotoActivity extends AppCompatActivity {
             artisteValue=intent.getBooleanExtra("artiste",false);
         }
 
+        dialogLoading=new Dialog_loading(UserPhotoActivity.this);
+        dialogLoading.setCancelable(false);
+
         fab.setOnClickListener(v->selectionnerImage());
 
         btnContinuer.setOnClickListener(v->savegarderAllInformation());
@@ -121,6 +127,7 @@ public class UserPhotoActivity extends AppCompatActivity {
 
         if (uriProfileImage !=null){
             if (firebaseUser !=null){
+                dialogLoading.show();
                 UserProfileChangeRequest profileChangeRequest=new UserProfileChangeRequest
                         .Builder()
                         .setDisplayName(nomValue)
@@ -212,6 +219,9 @@ public class UserPhotoActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        if (dialogLoading.isShowing()){
+                            dialogLoading.dismiss();
+                        }
                         startActivity(new Intent(getApplicationContext(),AccueilActivity.class));
                         finish();
                     }
