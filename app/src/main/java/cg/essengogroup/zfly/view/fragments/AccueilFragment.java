@@ -4,27 +4,22 @@ package cg.essengogroup.zfly.view.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -46,8 +41,6 @@ import cg.essengogroup.zfly.model.Slider;
 import cg.essengogroup.zfly.model.User;
 import cg.essengogroup.zfly.view.activities.AllUserActivity;
 import cg.essengogroup.zfly.view.activities.PostActivity;
-import cg.essengogroup.zfly.view.activities.PostMusicActivity;
-import cg.essengogroup.zfly.view.activities.PostPlaceActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,7 +97,6 @@ public class AccueilFragment extends Fragment {
         modelArrayList=new ArrayList<>();
         sliderArrayList=new ArrayList<>();
 
-        FloatingActionButton fab = root.findViewById(R.id.fab1);
         recyclerView=root.findViewById(R.id.recycleActualite);
         recycleH=root.findViewById(R.id.recycleArtiste);
         progressBar=root.findViewById(R.id.progress);
@@ -112,50 +104,12 @@ public class AccueilFragment extends Fragment {
         viewPager=root.findViewById(R.id.viewpager);
         nestedScrollView=root.findViewById(R.id.nestedscrol);
 
-        fab.setOnClickListener(v -> {
-            if (linearLayout.getVisibility()== View.GONE){
-                linearLayout.setVisibility(View.VISIBLE);
-                fab.setAnimation(AnimationUtils.loadAnimation(context,R.anim.rotate_clockwise));
-            }else {
-                linearLayout.setVisibility(View.GONE);
-                fab.setAnimation(AnimationUtils.loadAnimation(context,R.anim.rotate_anticlockwise));
-            }
-        });
-
         manager=new LinearLayoutManager(context);
-
-
-        FloatingActionButton fabMusic=root.findViewById(R.id.fab_);
-        fabMusic.setOnClickListener(v->startActivity(new Intent(context, PostMusicActivity.class)));
-
-        FloatingActionButton fabPlace=root.findViewById(R.id.fab_place);
-        fabPlace.setOnClickListener(v->startActivity(new Intent(context, PostPlaceActivity.class)));
 
         root.findViewById(R.id.fab).setOnClickListener(v->startActivity(new Intent(context, PostActivity.class)));
 
         root.findViewById(R.id.seeMore).setOnClickListener(v->startActivity(new Intent(context, AllUserActivity.class)));
 
-        DatabaseReference isArtisteRef = database.getReference("users/"+mUser.getUid());
-        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if (!((Boolean) dataSnapshot.child("isArtiste").getValue())){
-                    fabMusic.setVisibility(View.GONE);
-                }
-
-                if (dataSnapshot.child("isPlace").exists()){
-                    if ((Boolean) dataSnapshot.child("isPlace").getValue()){
-                        fabPlace.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         Timer timer= new Timer();
         timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);

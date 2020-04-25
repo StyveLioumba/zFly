@@ -109,58 +109,14 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/lineBottom"
-        android:layout_above="@id/fab1"
-        android:visibility="gone"
-        android:layout_alignParentEnd="true">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/tres_petite_marge"
-            android:layout_marginEnd="@dimen/tres_petite_marge"
-            android:id="@+id/fab_place"
-            android:visibility="gone"
-            app:tint="@android:color/white"
-            app:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
-            android:src="@drawable/ic_place_black_24dp"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorBackFlou"
-            android:layout_marginBottom="@dimen/tres_petite_marge"
-            android:layout_marginEnd="@dimen/tres_petite_marge"
-            android:id="@+id/fab_"
-            app:tint="@color/colorPrimaryDark"
-            android:src="@drawable/ic_headset_black_24dp"/>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:backgroundTint="@color/colorTxt"
-            android:layout_marginBottom="@dimen/tres_petite_marge"
-            android:layout_marginEnd="@dimen/tres_petite_marge"
-            android:id="@+id/fab"
-            app:tint="@android:color/white"
-            android:src="@drawable/ic_add_black_24dp"/>
-
-    </LinearLayout>
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/colorbtn"
-        android:src="@drawable/ic_unfold_more_black_24dp"
-        android:id="@+id/fab1"
-        app:tint="@android:color/white"
-        android:layout_marginBottom="@dimen/tres_petite_marge"
-        android:layout_marginEnd="@dimen/tres_petite_marge"
+        app:backgroundTint="@color/colorTxt"
+        android:layout_margin="@dimen/petite_marge"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"/>
+        android:id="@+id/fab"
+        app:tint="@android:color/white"
+        android:src="@drawable/ic_add_black_24dp"/>
 </RelativeLayout>

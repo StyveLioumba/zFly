@@ -47,4 +47,16 @@
             android:id="@+id/viewpager"/>
     </RelativeLayout>
 
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundTint="@color/colorBackFlou"
+        android:layout_margin="@dimen/petite_marge"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/fab_"
+        app:tint="@color/colorPrimaryDark"
+        android:src="@drawable/ic_headset_black_24dp"/>
+
 </RelativeLayout>

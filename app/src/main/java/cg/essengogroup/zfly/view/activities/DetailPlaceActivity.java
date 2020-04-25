@@ -262,6 +262,22 @@ public class DetailPlaceActivity extends AppCompatActivity {
         View viewImgOn= MenuItemCompat.getActionView(menuImgOn);
 
         ImageView imageSMS=viewImgOn.findViewById(R.id.imgSMS);
+        DatabaseReference isArtisteRef = database.getReference("users/"+user.getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("isPlace").exists()){
+                    if (!(Boolean) dataSnapshot.child("isPlace").getValue()){
+                        imageSMS.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         imageSMS.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(),MessageActivity.class).putExtra("user",newUser)));
 

@@ -39,6 +39,7 @@ public class GallerieAdapter extends RecyclerView.Adapter<GallerieAdapter.MyView
     public void onBindViewHolder(@NonNull GallerieAdapter.MyViewHolder holder, int position) {
         Picasso.get()
                 .load(arrayList.get(position).getImage())
+                .placeholder(R.drawable.default_img)
                 .error(R.drawable.default_img)
                 .into(holder.imageUser);
 

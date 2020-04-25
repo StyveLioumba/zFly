@@ -2,6 +2,7 @@ package cg.essengogroup.zfly.view.fragments;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,8 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -31,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.adapter.PlaceAdapter;
 import cg.essengogroup.zfly.model.Place;
+import cg.essengogroup.zfly.view.activities.PostPlaceActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -72,6 +77,9 @@ public class PlaceFragment extends Fragment {
         referencePlace=database.getReference("place");
 
         referencePlace.keepSynced(true);
+
+        FloatingActionButton fabPlace=root.findViewById(R.id.fab_place);
+        fabPlace.setOnClickListener(v->startActivity(new Intent(context, PostPlaceActivity.class)));
 
         searchView=root.findViewById(R.id.search);
         lineFiltre=root.findViewById(R.id.lineFiltre);
@@ -135,6 +143,22 @@ public class PlaceFragment extends Fragment {
             }
         });
 
+        DatabaseReference isArtisteRef = database.getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (!((Boolean) dataSnapshot.child("isPlace").getValue())){
+                    fabPlace.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         return root;
     }
 

@@ -53,4 +53,16 @@
         android:layout_height="match_parent"
         android:layout_below="@id/lineTop"
         android:id="@+id/recyclePlace"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab_place"
+        android:visibility="visible"
+        android:layout_margin="@dimen/petite_marge"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/common_google_signin_btn_text_light_pressed"
+        android:src="@drawable/ic_place_black_24dp"/>
 </RelativeLayout>

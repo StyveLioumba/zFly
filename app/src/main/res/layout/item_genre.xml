@@ -18,7 +18,7 @@
         android:layout_weight="1"
         android:textColor="@color/colorBtn"
         android:textAppearance="?android:textAppearanceLarge"
-        android:fontFamily="@font/comfortaa_bold"
+        android:fontFamily="@font/carter_one"
         android:id="@+id/txtTitre"
         tools:ignore="RtlCompat" />
 

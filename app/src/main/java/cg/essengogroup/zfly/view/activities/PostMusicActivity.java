@@ -70,7 +70,7 @@ public class PostMusicActivity extends AppCompatActivity {
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
 
-    private String[] listeGenre={"rap","rnb","zouk","hip hop","jazz","classic"};
+    private String[] listeGenre={"rap","rnb","zouk","hip hop","jazz","classic","electro"};
 
     private Dialog_loading dialogLoading;
 
@@ -308,6 +308,7 @@ public class PostMusicActivity extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
+                            if (dialogLoading.isShowing()) dialogLoading.dismiss();
                             // Write failed
                             // ...
                         }
@@ -348,7 +349,8 @@ public class PostMusicActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        if (dialogLoading.isShowing())
+                            dialogLoading.dismiss();
                     }
                 });
     }
@@ -379,6 +381,8 @@ public class PostMusicActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
+                        if (dialogLoading.isShowing())
+                            dialogLoading.dismiss();
                     }
                 });
     }
@@ -421,7 +425,8 @@ public class PostMusicActivity extends AppCompatActivity {
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-
+                        if (dialogLoading.isShowing())
+                            dialogLoading.dismiss();
                     }
                 });
     }
