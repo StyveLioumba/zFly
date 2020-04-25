@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,10 +56,11 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurAdapter.
         User user=users.get(position);
 
         holder.txtPseudo.setText(user.getPseudo());
-        Glide.with(context)
+
+        Picasso.get()
                 .load(user.getImage())
-                .placeholder( R.drawable.imgdefault)
-                .fitCenter()
+                .placeholder(R.drawable.imgdefault)
+                .error(R.drawable.imgdefault)
                 .into(holder.imageView);
 
         holder.relativeLayout.setOnClickListener(v->context.startActivity(new Intent(context, MessageActivity.class).putExtra("user",user)));

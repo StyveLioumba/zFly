@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,10 +40,10 @@ public class ArtisteAdapter extends RecyclerView.Adapter<ArtisteAdapter.MyViewHo
         Music music=musicArrayList.get(position);
         holder.txtArtist.setText(music.getArtiste());
 
-        Glide.with(context)
-                .load(music.getCover())
-                .placeholder( R.drawable.music_cover)
-                .circleCrop()
+        Picasso.get()
+                .load( music.getCover())
+                .placeholder(R.drawable.music_cover)
+                .error(R.drawable.music_cover)
                 .into(holder.imageView);
 
         holder.relativeLayout.setOnClickListener(v->{

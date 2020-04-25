@@ -18,13 +18,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="@dimen/tres_petite_marge"
+            android:padding="@dimen/micro_petite_marge"
             android:layout_alignParentTop="true"
             android:id="@+id/lineTop">
-            <ImageView
+            <com.mikhaellopez.circularimageview.CircularImageView
                 android:layout_width="@dimen/petite_taille"
                 android:layout_height="@dimen/petite_taille"
                 android:id="@+id/imgUser"
-                android:padding="@dimen/micro_petite_marge"
+                app:civ_border_width="0.5dp"
                 android:layout_gravity="center"
                 android:src="@mipmap/ic_launcher_round"/>
             <LinearLayout

@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -33,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
@@ -140,8 +140,10 @@ public class ModifierProfilActivity extends AppCompatActivity {
         user=mAuth.getCurrentUser();
         if (user!=null){
             if (user.getPhotoUrl()!=null){
-                Glide.with(this)
+                Picasso.get()
                         .load(user.getPhotoUrl().toString())
+                        .placeholder(R.drawable.imgdefault)
+                        .error(R.drawable.imgdefault)
                         .into(imageProfile);
             }
         }

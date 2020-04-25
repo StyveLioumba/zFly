@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -44,11 +43,10 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
         holder.txtTitre.setText(placeArrayList.get(position).getNom());
         holder.txtAdresse.setText(placeArrayList.get(position).getAdresse());
 
-        Glide.with(context)
+        Picasso.get()
                 .load(placeArrayList.get(position).getImage_couverture())
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .placeholder(R.drawable.default_img)
-                .centerCrop()
+                .error(R.drawable.default_img)
                 .into(holder.imageView);
 
         holder.relativeLayout.setOnClickListener(v->{

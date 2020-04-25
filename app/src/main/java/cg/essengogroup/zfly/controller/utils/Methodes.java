@@ -27,8 +27,6 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.borjabravo.readmoretextview.BuildConfig;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,12 +43,12 @@ public class Methodes {
         context.startActivity(new Intent(context,c));
     }
 
-    public static void glideDownload(Context context, String url, int imageParDefaut, ImageView imageView){
+    /*public static void glideDownload(Context context, String url, int imageParDefaut, ImageView imageView){
         Glide.with(context)
                 .load(url)
                 .placeholder(imageParDefaut)
                 .into(imageView);
-    }
+    }*/
 
     public static String parseDateToddMMyyyy(String time) {
         String inputPattern = "yyyy-MM-dd";

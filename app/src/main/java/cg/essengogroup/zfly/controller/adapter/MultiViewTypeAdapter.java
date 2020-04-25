@@ -7,12 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.text.Html;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +16,10 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.FirebaseError;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,10 +28,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +47,6 @@ import cg.essengogroup.zfly.view.activities.DetailActivity;
 import cg.essengogroup.zfly.view.dialogs.DialogMusicAccueil;
 
 import static cg.essengogroup.zfly.controller.utils.Constantes.*;
-import static cg.essengogroup.zfly.controller.utils.Methodes.makeTextViewResizable;
 
 public class MultiViewTypeAdapter extends RecyclerView.Adapter {
 
@@ -121,12 +111,12 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                     ((ImageTypeViewHolder) holder).txtDesignation.setText(model.getDescription());
                     ((ImageTypeViewHolder) holder).txtDate.setText(Methodes.getDate(Long.parseLong(model.getCreateAt()),"dd-MMMM-yyyy"));
 
-                    Methodes.glideDownload(
-                            mContext,
-                            model.getImage(),
-                            R.drawable.default_img,
-                            ((ImageTypeViewHolder) holder).imagePoster
-                    );
+                    Picasso.get()
+                            .load(model.getImage())
+                            .placeholder(R.drawable.default_img)
+                            .error(R.drawable.default_img)
+                            .into( ((ImageTypeViewHolder) holder).imagePoster);
+
                     ((ImageTypeViewHolder) holder).cardView.setOnClickListener(v->
                             mContext.startActivity(new Intent(mContext, DetailActivity.class)
                                     .putExtra("image",model.getImage())
@@ -144,11 +134,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             if (dataSnapshot!=null){
-                                Glide.with(mContext.getApplicationContext())
+                                Picasso.get()
                                         .load(String.valueOf(dataSnapshot.child("image").getValue()))
-                                        .placeholder( R.drawable.imgdefault)
-                                        .circleCrop()
-                                        .into(((ImageTypeViewHolder) holder).imageUser);
+                                        .placeholder(R.drawable.imgdefault)
+                                        .error(R.drawable.imgdefault)
+                                        .into( ((ImageTypeViewHolder) holder).imageUser);
 
                                 ((ImageTypeViewHolder) holder).txtApseudo.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
                                 ((ImageTypeViewHolder) holder).nomUser.setText(String.valueOf(dataSnapshot.child("pseudo").getValue()));
@@ -226,11 +216,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             if (dataSnapshot!=null){
-                                Glide.with(mContext.getApplicationContext())
+                                Picasso.get()
                                         .load(String.valueOf(dataSnapshot.child("image").getValue()))
-                                        .placeholder( R.drawable.imgdefault)
-                                        .circleCrop()
-                                        .into(((AudioTypeViewHolder) holder).imageUser);
+                                        .placeholder(R.drawable.imgdefault)
+                                        .error(R.drawable.imgdefault)
+                                        .into( ((AudioTypeViewHolder) holder).imageUser);
 
                                 ((AudioTypeViewHolder) holder).txtApseudo.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
                                 ((AudioTypeViewHolder) holder).nomUser.setText(String.valueOf(dataSnapshot.child("pseudo").getValue()));

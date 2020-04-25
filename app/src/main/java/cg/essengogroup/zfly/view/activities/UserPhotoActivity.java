@@ -21,7 +21,6 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -34,6 +33,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -111,8 +111,10 @@ public class UserPhotoActivity extends AppCompatActivity {
         firebaseUser=mAuth.getCurrentUser();
         if (firebaseUser!=null){
             if (firebaseUser.getPhotoUrl()!=null){
-                Glide.with(this)
+                Picasso.get()
                         .load(firebaseUser.getPhotoUrl().toString())
+                        .placeholder(R.drawable.imgdefault)
+                        .error(R.drawable.imgdefault)
                         .into(imageView);
             }
         }

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -52,10 +52,10 @@ public class MorceauAdapter extends RecyclerView.Adapter<MorceauAdapter.MyViewHo
         holder.txtArtiste.setText(music.getArtiste());
         holder.txtMorceau.setText(music.getMorceau());
 
-        Glide.with(context)
-                .load(music.getCover())
-                .placeholder( R.drawable.default_img)
-                .fitCenter()
+        Picasso.get()
+                .load( music.getCover())
+                .placeholder(R.drawable.default_img)
+                .error(R.drawable.default_img)
                 .into(holder.imageView);
 
         holder.bind(music,listener);

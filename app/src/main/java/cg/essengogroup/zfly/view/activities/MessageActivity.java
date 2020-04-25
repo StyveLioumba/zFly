@@ -16,7 +16,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -103,10 +103,11 @@ public class MessageActivity extends AppCompatActivity {
 
         txtPseudo.setText(user.getPseudo());
         txtApseudo.setText(user.getApseudo());
-        Glide.with(MessageActivity.this)
+
+        Picasso.get()
                 .load(user.getImage())
-                .placeholder( R.drawable.default_img)
-                .circleCrop()
+                .placeholder(R.drawable.imgdefault)
+                .error(R.drawable.imgdefault)
                 .into(imageView);
 
         btnSend.setOnClickListener(v->{

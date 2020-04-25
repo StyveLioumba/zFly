@@ -5,6 +5,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,7 +16,14 @@ import cg.essengogroup.zfly.view.fragments.AccueilFragment;
 import cg.essengogroup.zfly.view.fragments.MusicFragment;
 import cg.essengogroup.zfly.view.fragments.PlaceFragment;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +31,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -33,6 +41,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import static cg.essengogroup.zfly.controller.utils.Methodes.shareApp;
 
@@ -45,6 +55,7 @@ public class AccueilActivity extends AppCompatActivity {
     private FirebaseUser user;
     private FirebaseDatabase database;
     private DatabaseReference reference;
+    public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
     @Override
     protected void onStart() {
@@ -59,6 +70,10 @@ public class AccueilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accueil);
+
+        if (!checkPermissionREAD_EXTERNAL_STORAGE(this)) {
+            checkPermissionREAD_EXTERNAL_STORAGE(this);
+        }
 
         mAuth=FirebaseAuth.getInstance();
         user=mAuth.getCurrentUser();
@@ -139,15 +154,15 @@ public class AccueilActivity extends AppCompatActivity {
 
         View viewImgOn= MenuItemCompat.getActionView(menuImgOn);
 
-        ImageView imageView=view.findViewById(R.id.imgUser);
+        CircularImageView imageView=view.findViewById(R.id.imgUser);
         ImageView imageOn=viewImgOn.findViewById(R.id.imgOn);
         ImageView imageSMS=viewImgOn.findViewById(R.id.imgSMS);
 
         if (user!=null){
-            Glide.with(this)
+            Picasso.get()
                     .load(user.getPhotoUrl().toString())
-                    .placeholder( R.drawable.imgdefault)
-                    .circleCrop()
+                    .placeholder(R.drawable.imgdefault)
+                    .error(R.drawable.imgdefault)
                     .into(imageView);
         }
 
@@ -157,11 +172,11 @@ public class AccueilActivity extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               if ((Boolean) dataSnapshot.child("hasNewSMS").getValue()){
-                   imageOn.setVisibility(View.VISIBLE);
-               }else {
-                   imageOn.setVisibility(View.GONE);
-               }
+                if ((Boolean) dataSnapshot.child("hasNewSMS").getValue()){
+                    imageOn.setVisibility(View.VISIBLE);
+                }else {
+                    imageOn.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -222,5 +237,66 @@ public class AccueilActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         status("deconnecte");
+    }
+
+    public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
+        int currentAPIVersion = Build.VERSION.SDK_INT;
+        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        (Activity) context,
+                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    showDialog("External storage", context,
+                            Manifest.permission.READ_EXTERNAL_STORAGE);
+
+                } else {
+                    ActivityCompat.requestPermissions(
+                                    (Activity) context,
+                                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                }
+                return false;
+            } else {
+                return true;
+            }
+
+        } else {
+            return true;
+        }
+    }
+
+    public void showDialog(final String msg, final Context context, final String permission) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context);
+        alertBuilder.setCancelable(true);
+        alertBuilder.setTitle("Permission necessary");
+        alertBuilder.setMessage(msg + " permission is necessary");
+        alertBuilder.setPositiveButton(android.R.string.yes,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions((Activity) context,
+                                new String[] { permission },
+                                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                    }
+                });
+        AlertDialog alert = alertBuilder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // do your stuff
+                } else {
+                    Toast.makeText(AccueilActivity.this, "GET_ACCOUNTS Denied",
+                            Toast.LENGTH_SHORT).show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions,
+                        grantResults);
+        }
     }
 }

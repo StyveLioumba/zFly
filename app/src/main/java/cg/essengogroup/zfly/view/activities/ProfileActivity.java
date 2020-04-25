@@ -34,7 +34,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,6 +50,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -187,10 +187,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void getUserInfo(){
         if (user!=null){
-            Glide.with(ProfileActivity.this)
+            Picasso.get()
                     .load(user.getPhotoUrl().toString())
-                    .placeholder(R.drawable.imgdefault)
-                    .centerCrop()
+                    .error(R.drawable.imgdefault)
                     .into(userImage);
         }
 
@@ -211,11 +210,12 @@ public class ProfileActivity extends AppCompatActivity {
                 }else {
                     txtBio.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()).toUpperCase()+" n'a pas encore ajouter sa biographie");
                 }
-                Glide.with(ProfileActivity.this)
-                        .load(String.valueOf(dataSnapshot.child("image_couverture").getValue()))
-                        .placeholder(R.drawable.default_img)
-                        .centerCrop()
-                        .into(imageCouverture);
+                if(dataSnapshot.child("image_couverture").exists() && !TextUtils.isEmpty(String.valueOf(dataSnapshot.child("image_couverture").getValue())) ){
+                    Picasso.get()
+                            .load(String.valueOf(dataSnapshot.child("image_couverture").getValue()))
+                            .error(R.drawable.default_img)
+                            .into(imageCouverture);
+                }
             }
 
             @Override

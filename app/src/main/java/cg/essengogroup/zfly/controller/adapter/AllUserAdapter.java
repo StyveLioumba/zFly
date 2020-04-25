@@ -11,11 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -66,10 +65,9 @@ public class AllUserAdapter extends RecyclerView.Adapter<AllUserAdapter.MyViewHo
         holder.pseudo.setText(arrayList.get(position).getPseudo().toLowerCase());
         holder.Apseudo.setText(arrayList.get(position).getApseudo().toLowerCase());
 
-        Glide.with(context.getApplicationContext())
+        Picasso.get()
                 .load(arrayList.get(position).getImage())
-                .placeholder(R.drawable.default_img)
-                .circleCrop()
+                .error(R.drawable.imgdefault)
                 .into(holder.imageUser);
 
     }

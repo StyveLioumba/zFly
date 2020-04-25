@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
@@ -37,12 +39,11 @@ public class SliderPagerPlaceAdapter extends PagerAdapter {
 
         ImageView slideImg=sliderLayout.findViewById(R.id.imgPlace);
 
-        Methodes.glideDownload(
-                mContext,
-                mList.get(position).getImage(),
-                R.drawable.default_img,
-                slideImg
-        );
+        Picasso.get()
+                .load( mList.get(position).getImage())
+                .placeholder(R.drawable.default_img)
+                .error(R.drawable.default_img)
+                .into(slideImg);
 
         container.addView(sliderLayout);
         return sliderLayout;

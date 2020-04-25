@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.controller.utils.Methodes;
 import cg.essengogroup.zfly.model.Slider;
 import cg.essengogroup.zfly.view.dialogs.DialogShowSlide;
 
@@ -40,12 +41,11 @@ public class SliderPagerAdapter extends PagerAdapter {
         ImageView slideImg=sliderLayout.findViewById(R.id.imgSlide);
         TextView slideText =sliderLayout.findViewById(R.id.txtDescription);
 
-        Methodes.glideDownload(
-                mContext,
-                mList.get(position).getImage(),
-                R.drawable.ic_launcher_background,
-                slideImg
-        );
+        Picasso.get()
+                .load( mList.get(position).getImage())
+                .placeholder(R.drawable.default_img)
+                .error(R.drawable.default_img)
+                .into(slideImg);
 
         sliderLayout.findViewById(R.id.btnVoirPlus).setOnClickListener(v->{
             if (!TextUtils.isEmpty(mList.get(position).getImage())){

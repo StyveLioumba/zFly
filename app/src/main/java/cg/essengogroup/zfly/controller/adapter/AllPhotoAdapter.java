@@ -17,12 +17,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -64,9 +64,9 @@ public class AllPhotoAdapter extends RecyclerView.Adapter<AllPhotoAdapter.MyView
     public void onBindViewHolder(@NonNull AllPhotoAdapter.MyViewHolder holder, int position) {
 
         Gallerie gallerie=arrayList.get(position);
-        Glide.with(context)
+        Picasso.get()
                 .load(gallerie.getImage())
-                .placeholder(R.drawable.default_img)
+                .error(R.drawable.default_img)
                 .into(holder.imageUser);
         holder.btnClose.setOnClickListener(v->dialog(gallerie.getRacine()));
         holder.cardView.setOnClickListener(v-> new DialogShowPhoto(context,arrayList,position).show());

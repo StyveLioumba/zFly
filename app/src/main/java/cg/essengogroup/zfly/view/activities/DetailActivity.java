@@ -22,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -96,12 +96,11 @@ public class DetailActivity extends AppCompatActivity {
             user_idValue=intent.getStringExtra("user_id");
         }
 
-        Methodes.glideDownload(
-                DetailActivity.this,
-                imageValue,
-                R.drawable.imgdefault,
-                imageView
-        );
+        Picasso.get()
+                .load(imageValue)
+                .placeholder(R.drawable.imgdefault)
+                .error(R.drawable.imgdefault)
+                .into(imageView);
 
         txtDescription.setText(descriptionValue);
         txtDate.setText(Methodes.getDate(Long.parseLong(dateValue),"dd-MM-yyyy"));
@@ -221,10 +220,10 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot!=null){
-                    Glide.with(DetailActivity.this)
+                    Picasso.get()
                             .load(String.valueOf(dataSnapshot.child("image").getValue()))
-                            .placeholder( R.drawable.default_img)
-                            .circleCrop()
+                            .placeholder(R.drawable.imgdefault)
+                            .error(R.drawable.imgdefault)
                             .into(imageUser);
 
                    nomUser.setText(String.valueOf(dataSnapshot.child("pseudo").getValue()));

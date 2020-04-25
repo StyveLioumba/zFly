@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
@@ -16,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -94,9 +95,11 @@ public class DialogShowPhoto extends Dialog {
 
         @Override
         public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
-            Glide.with(context)
+
+            Picasso.get()
                     .load(galleries.get(position).getImage())
-                    .placeholder(R.drawable.default_img)
+                    .placeholder(R.drawable.imgdefault)
+                    .error(R.drawable.imgdefault)
                     .into(holder.imageUser);
 
             holder.cardView.setOnClickListener(v->onClickItem.onGalerieClicked(position));

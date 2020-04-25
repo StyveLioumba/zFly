@@ -29,7 +29,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -317,10 +317,11 @@ public class LecteurActivity extends AppCompatActivity {
         if (music!=null){
             getNumEcouter(music);
             progressBar.setVisibility(View.VISIBLE);
-            Glide.with(LecteurActivity.this)
-                    .load(music.getCover())
-                    .placeholder( R.drawable.music_cover)
-                    .circleCrop()
+
+            Picasso.get()
+                    .load( music.getCover())
+                    .placeholder(R.drawable.music_cover)
+                    .error(R.drawable.music_cover)
                     .into(imageCover);
 
             morceauName.setText(music.getMorceau());

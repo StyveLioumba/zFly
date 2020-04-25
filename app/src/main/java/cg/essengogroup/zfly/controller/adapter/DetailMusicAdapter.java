@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -53,10 +53,10 @@ public class DetailMusicAdapter extends RecyclerView.Adapter<DetailMusicAdapter.
         holder.txtArtiste.setText(music.getArtiste());
         holder.txtMorceau.setText(music.getMorceau());
 
-        Glide.with(context)
-                .load(music.getCover())
-                .placeholder( R.drawable.default_img)
-                .fitCenter()
+        Picasso.get()
+                .load( music.getCover())
+                .placeholder(R.drawable.default_img)
+                .error(R.drawable.default_img)
                 .into(holder.imageView);
 
         holder.bind(music,listener);

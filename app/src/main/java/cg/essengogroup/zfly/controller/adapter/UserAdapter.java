@@ -2,18 +2,16 @@ package cg.essengogroup.zfly.controller.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -70,11 +68,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
             );
         }
         holder.pseudo.setText(arrayList.get(position).getPseudo().toLowerCase());
-
-        Glide.with(context)
+        Picasso.get()
                 .load(arrayList.get(position).getImage())
                 .placeholder(R.drawable.imgdefault)
-                .circleCrop()
+                .error(R.drawable.imgdefault)
                 .into(holder.imageUser);
 
     }

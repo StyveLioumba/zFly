@@ -130,13 +130,20 @@ public class ChatFragment extends Fragment {
 
                             if (users.size() !=0){
 
-                                for (User userObject : users){
+                                for (int i=0; i<users.size();i++){
+                                    if (!user.getUser_id().equalsIgnoreCase(users.get(i).getUser_id())){
+                                        if (!users.contains(users.get(i))){
+                                            users.add(user);
+                                        }
+                                    }
+                                }
+                               /* for (User userObject : users){
 
                                     if (!user.getUser_id().equalsIgnoreCase(userObject.getUser_id())){
                                         users.add(user);
                                     }
 
-                                }
+                                }*/
 
                             }else {
                                 users.add(user);

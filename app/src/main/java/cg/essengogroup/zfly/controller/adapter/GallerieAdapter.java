@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -37,10 +37,9 @@ public class GallerieAdapter extends RecyclerView.Adapter<GallerieAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull GallerieAdapter.MyViewHolder holder, int position) {
-
-        Glide.with(context)
+        Picasso.get()
                 .load(arrayList.get(position).getImage())
-                .placeholder(R.drawable.imgdefault)
+                .error(R.drawable.default_img)
                 .into(holder.imageUser);
 
         holder.cardView.setOnClickListener(v->

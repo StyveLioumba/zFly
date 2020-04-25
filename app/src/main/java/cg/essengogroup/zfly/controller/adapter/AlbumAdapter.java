@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,11 +39,10 @@ public class AlbumAdapter extends RecyclerView.Adapter<AlbumAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Music music=musicArrayList.get(position);
         holder.txtAlbum.setText(music.getAlbum());
-
-        Glide.with(context)
-                .load(music.getCover())
-                .placeholder( R.drawable.default_img)
-                .fitCenter()
+        Picasso.get()
+                .load( music.getCover())
+                .placeholder(R.drawable.default_img)
+                .error(R.drawable.music_cover)
                 .into(holder.imageView);
 
         holder.cardView.setOnClickListener(v->{

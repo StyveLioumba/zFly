@@ -8,12 +8,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import androidx.annotation.NonNull;
 
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.controller.utils.Methodes;
 import cg.essengogroup.zfly.model.Slider;
-import cg.essengogroup.zfly.view.activities.DetailActivity;
 
 public class DialogShowSlide extends Dialog {
     private Context context;
@@ -37,12 +37,12 @@ public class DialogShowSlide extends Dialog {
         imageView=findViewById(R.id.imgSelected);
         txtDescription=findViewById(R.id.txtDescription);
 
-        Methodes.glideDownload(
-                context,
-                slider.getImage(),
-                R.drawable.default_img,
-                imageView
-        );
+        Picasso.get()
+                .load(slider.getImage())
+                .placeholder(R.drawable.default_img)
+                .error(R.drawable.default_img)
+                .into(imageView);
+
         if (TextUtils.isEmpty(slider.getDescription())){
             txtDescription.setText(slider.getDesignation());
         }else {

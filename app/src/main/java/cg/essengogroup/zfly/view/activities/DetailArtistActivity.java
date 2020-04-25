@@ -21,17 +21,15 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.borjabravo.readmoretextview.ReadMoreTextView;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -42,6 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mikhaellopez.circularimageview.CircularImageView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -166,10 +165,10 @@ public class DetailArtistActivity extends AppCompatActivity {
     }
 
     private void getUserInfo(){
-        Glide.with(DetailArtistActivity.this)
+        Picasso.get()
                 .load(intent.getStringExtra("image"))
                 .placeholder(R.drawable.imgdefault)
-                .centerCrop()
+                .error(R.drawable.imgdefault)
                 .into(userImage);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -184,11 +183,15 @@ public class DetailArtistActivity extends AppCompatActivity {
                     txtBio.setText(String.valueOf(dataSnapshot.child("biographie").getValue()));
                 }
 
-                if (activity!=null && dataSnapshot.child("image_couverture").exists()){
-                    Glide.with(activity)
+                if(dataSnapshot.child("image_couverture").exists() && !TextUtils.isEmpty(String.valueOf(dataSnapshot.child("image_couverture").getValue())) ){
+                    /*Glide.with(activity)
                             .load(String.valueOf(dataSnapshot.child("image_couverture").getValue()))
                             .placeholder(R.drawable.default_img)
                             .centerCrop()
+                            .into(imageCouverture);*/
+                    Picasso.get()
+                            .load(String.valueOf(dataSnapshot.child("image_couverture").getValue()))
+                            .error(R.drawable.default_img)
                             .into(imageCouverture);
                 }
             }
