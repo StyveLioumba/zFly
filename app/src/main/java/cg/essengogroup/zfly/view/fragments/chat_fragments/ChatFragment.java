@@ -50,6 +50,8 @@ public class ChatFragment extends Fragment {
     private ArrayList<String> listDesId=new ArrayList<>();
     private ArrayList<User> maNouvelleListUsers=new ArrayList<>();
 
+    private OnSetArrayList onSetArrayList;
+
     public ChatFragment() {
         // Required empty public constructor
     }
@@ -70,15 +72,17 @@ public class ChatFragment extends Fragment {
 
         recyclerView=root.findViewById(R.id.recycleDiscussion);
         manager=new LinearLayoutManager(context);
+        manager.setReverseLayout(true);
+        manager.setStackFromEnd(true);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
         userArrayList=new ArrayList<>();
 
-        getDiscussion();
-
+//        getDiscussion();
+        readRecentDiscussionJustID();
         return root;
     }
-
+/*
     private void getDiscussion(){
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -142,13 +146,13 @@ public class ChatFragment extends Fragment {
                                         }
                                     }
                                 }
-                               /* for (User userObject : users){
+                               *//* for (User userObject : users){
 
                                     if (!user.getUser_id().equalsIgnoreCase(userObject.getUser_id())){
                                         users.add(user);
                                     }
 
-                                }*/
+                                }*//*
 
                             }else {
                                 users.add(user);
@@ -168,7 +172,7 @@ public class ChatFragment extends Fragment {
 
             }
         });
-    }
+    }*/
 
     private void readRecentDiscussionJustID(){
         reference.addValueEventListener(new ValueEventListener() {
@@ -176,7 +180,6 @@ public class ChatFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 listDesId.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()) {
-
                     if (!String.valueOf(data.child("recevoir").getValue()).equalsIgnoreCase(mUser.getUid())){
 
                         if (!listDesId.contains(String.valueOf(data.child("recevoir").getValue()))){
@@ -184,7 +187,14 @@ public class ChatFragment extends Fragment {
                         }
                     }
                 }
-                getUserParRapportListId(listDesId);
+
+                getUserParRapportListId(listDesId, new OnSetArrayList() {
+                    @Override
+                    public void onGetUserArrayList(ArrayList<User> users) {
+                        adapter=new UtilisateurAdapter(context,users,true);
+                        recyclerView.setAdapter(adapter);
+                    }
+                });
             }
 
             @Override
@@ -192,14 +202,17 @@ public class ChatFragment extends Fragment {
 
             }
         });
+
     }
 
-    private void getUserParRapportListId(ArrayList<String> listDesId){
+    private void getUserParRapportListId(ArrayList<String> listDesId,OnSetArrayList onSetArrayList){
+
         for (int i=0;i<listDesId.size();i++){
 
             refUser.child(listDesId.get(i)).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                     User user=new User();
 
                     user.setImage(String.valueOf(dataSnapshot.child("image").getValue()));
@@ -208,13 +221,8 @@ public class ChatFragment extends Fragment {
                     user.setApseudo(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
                     user.setStatus(String.valueOf(dataSnapshot.child("status").getValue()));
 
-                    if (maNouvelleListUsers.contains(user)){
-                        Log.e("TAG", "onDataChange:  "+user.getApseudo()+" "+maNouvelleListUsers.contains(user) );
-                    }else {
-                        Log.e("TAG", "onDataChange:  "+user.getApseudo()+" "+maNouvelleListUsers.contains(user) );
-                    }
-
                     maNouvelleListUsers.add(user);
+                    onSetArrayList.onGetUserArrayList(maNouvelleListUsers);
                 }
 
                 @Override
@@ -223,10 +231,16 @@ public class ChatFragment extends Fragment {
                 }
             });
         }
-
-        adapter=new UtilisateurAdapter(context,maNouvelleListUsers,true);
-        recyclerView.setAdapter(adapter);
-
     }
 
+    /**
+     * cette interface me permet de recupperer la liste des discution avec les derniers utilisateurs
+     * d'abord j'ai commencé a recuperer la list des id quand retrouve dans le chat sans doublant
+     * ensuite j'ai recherche les donnees des utilisateurs par rapport a ma list des id
+     * vu que je ne parvenait pas a recuperer la liste des utilisateurs par rapport a la list des id
+     * j'ai crée cette interface pour me permetre de recuperer
+     */
+    public interface OnSetArrayList{
+        void onGetUserArrayList(ArrayList<User> users);
+    }
 }
