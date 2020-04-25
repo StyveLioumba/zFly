@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,9 @@ public class ChatFragment extends Fragment {
 
     private View root;
     private Context context;
+
+    private ArrayList<String> listDesId=new ArrayList<>();
+    private ArrayList<User> maNouvelleListUsers=new ArrayList<>();
 
     public ChatFragment() {
         // Required empty public constructor
@@ -96,7 +100,8 @@ public class ChatFragment extends Fragment {
                     if (message.getReceveur().equalsIgnoreCase(mUser.getUid())){
                         userArrayList.add(message.getEnvoyeur());
                     }
-                    readDiscussion();
+//                    readDiscussion();
+                    readRecentDiscussionJustID();
                 }
             }
 
@@ -163,6 +168,65 @@ public class ChatFragment extends Fragment {
 
             }
         });
+    }
+
+    private void readRecentDiscussionJustID(){
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                listDesId.clear();
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+
+                    if (!String.valueOf(data.child("recevoir").getValue()).equalsIgnoreCase(mUser.getUid())){
+
+                        if (!listDesId.contains(String.valueOf(data.child("recevoir").getValue()))){
+                            listDesId.add(String.valueOf(data.child("recevoir").getValue()));
+                        }
+                    }
+                }
+                getUserParRapportListId(listDesId);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getUserParRapportListId(ArrayList<String> listDesId){
+        for (int i=0;i<listDesId.size();i++){
+
+            refUser.child(listDesId.get(i)).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user=new User();
+
+                    user.setImage(String.valueOf(dataSnapshot.child("image").getValue()));
+                    user.setUser_id(String.valueOf(dataSnapshot.child("user_id").getValue()));
+                    user.setPseudo(String.valueOf(dataSnapshot.child("pseudo").getValue()));
+                    user.setApseudo(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
+                    user.setStatus(String.valueOf(dataSnapshot.child("status").getValue()));
+
+                    if (maNouvelleListUsers.contains(user)){
+                        Log.e("TAG", "onDataChange:  "+user.getApseudo()+" "+maNouvelleListUsers.contains(user) );
+                    }else {
+                        Log.e("TAG", "onDataChange:  "+user.getApseudo()+" "+maNouvelleListUsers.contains(user) );
+                    }
+
+                    maNouvelleListUsers.add(user);
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+        adapter=new UtilisateurAdapter(context,maNouvelleListUsers,true);
+        recyclerView.setAdapter(adapter);
+
     }
 
 }
