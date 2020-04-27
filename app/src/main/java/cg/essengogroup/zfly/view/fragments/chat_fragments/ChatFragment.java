@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.adapter.UtilisateurAdapter;
@@ -78,11 +79,10 @@ public class ChatFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         userArrayList=new ArrayList<>();
 
-//        getDiscussion();
-        readRecentDiscussionJustID();
+        getDiscussion();
+//        readRecentDiscussionJustID();
         return root;
     }
-/*
     private void getDiscussion(){
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,9 +104,10 @@ public class ChatFragment extends Fragment {
                     if (message.getReceveur().equalsIgnoreCase(mUser.getUid())){
                         userArrayList.add(message.getEnvoyeur());
                     }
-//                    readDiscussion();
-                    readRecentDiscussionJustID();
+//                    readRecentDiscussionJustID();
                 }
+
+                readDiscussion();
             }
 
             @Override
@@ -141,18 +142,18 @@ public class ChatFragment extends Fragment {
 
                                 for (int i=0; i<users.size();i++){
                                     if (!user.getUser_id().equalsIgnoreCase(users.get(i).getUser_id())){
-                                        if (!users.contains(users.get(i))){
+                                        if (!users.contains(user)){
                                             users.add(user);
                                         }
                                     }
                                 }
-                               *//* for (User userObject : users){
-
-                                    if (!user.getUser_id().equalsIgnoreCase(userObject.getUser_id())){
-                                        users.add(user);
-                                    }
-
-                                }*//*
+//                                for (User userObject : users){
+//
+//                                    if (!user.getUser_id().equalsIgnoreCase(userObject.getUser_id())){
+//                                        users.add(user);
+//                                    }
+//
+//                                }
 
                             }else {
                                 users.add(user);
@@ -172,66 +173,70 @@ public class ChatFragment extends Fragment {
 
             }
         });
-    }*/
-
-    private void readRecentDiscussionJustID(){
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                listDesId.clear();
-                for (DataSnapshot data : dataSnapshot.getChildren()) {
-                    if (!String.valueOf(data.child("recevoir").getValue()).equalsIgnoreCase(mUser.getUid())){
-
-                        if (!listDesId.contains(String.valueOf(data.child("recevoir").getValue()))){
-                            listDesId.add(String.valueOf(data.child("recevoir").getValue()));
-                        }
-                    }
-                }
-
-                getUserParRapportListId(listDesId, new OnSetArrayList() {
-                    @Override
-                    public void onGetUserArrayList(ArrayList<User> users) {
-                        adapter=new UtilisateurAdapter(context,users,true);
-                        recyclerView.setAdapter(adapter);
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
-    private void getUserParRapportListId(ArrayList<String> listDesId,OnSetArrayList onSetArrayList){
+//    private void readRecentDiscussionJustID(){
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                listDesId.clear();
+//                for (DataSnapshot data : dataSnapshot.getChildren()) {
+//                    if (!String.valueOf(data.child("recevoir").getValue()).equalsIgnoreCase(mUser.getUid())){
+//
+//                        if ((String.valueOf(data.child("envoyer").getValue()).equalsIgnoreCase(mUser.getUid()) || String.valueOf(data.child("recevoir").getValue()).equalsIgnoreCase(mUser.getUid()))
+//                                && !listDesId.contains(String.valueOf(data.child("recevoir").getValue())) ){
+//                            listDesId.add(String.valueOf(data.child("recevoir").getValue()));
+//                        }
+//                    }
+//                }
+//
+//                Log.e("TAG", "onDataChange: "+listDesId.size() );
+//                getUserParRapportListId(listDesId, new OnSetArrayList() {
+//                    @Override
+//                    public void onGetUserArrayList(ArrayList<User> users) {
+//                        adapter=new UtilisateurAdapter(context,users,true);
+//                        recyclerView.setAdapter(adapter);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+//
+//    }
 
-        for (int i=0;i<listDesId.size();i++){
-
-            refUser.child(listDesId.get(i)).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    User user=new User();
-
-                    user.setImage(String.valueOf(dataSnapshot.child("image").getValue()));
-                    user.setUser_id(String.valueOf(dataSnapshot.child("user_id").getValue()));
-                    user.setPseudo(String.valueOf(dataSnapshot.child("pseudo").getValue()));
-                    user.setApseudo(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
-                    user.setStatus(String.valueOf(dataSnapshot.child("status").getValue()));
-
-                    maNouvelleListUsers.add(user);
-                    onSetArrayList.onGetUserArrayList(maNouvelleListUsers);
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
-            });
-        }
-    }
+//    private void getUserParRapportListId(ArrayList<String> listDesId,OnSetArrayList onSetArrayList){
+//        maNouvelleListUsers.clear();
+//        for (int i=0;i<listDesId.size();i++){
+//
+//            refUser.child(listDesId.get(i)).addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                    User user=new User();
+//
+//                    user.setImage(String.valueOf(dataSnapshot.child("image").getValue()));
+//                    user.setUser_id(String.valueOf(dataSnapshot.child("user_id").getValue()));
+//                    user.setPseudo(String.valueOf(dataSnapshot.child("pseudo").getValue()));
+//                    user.setApseudo(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
+//                    user.setStatus(String.valueOf(dataSnapshot.child("status").getValue()));
+//                    if (!maNouvelleListUsers.contains(user)){
+//                        maNouvelleListUsers.add(user);
+//
+//                        onSetArrayList.onGetUserArrayList(maNouvelleListUsers);
+//                    }
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                }
+//            });
+//        }
+//    }
 
     /**
      * cette interface me permet de recupperer la liste des discution avec les derniers utilisateurs

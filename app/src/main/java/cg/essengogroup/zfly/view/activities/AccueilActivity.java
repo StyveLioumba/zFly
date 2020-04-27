@@ -158,7 +158,7 @@ public class AccueilActivity extends AppCompatActivity {
         ImageView imageOn=viewImgOn.findViewById(R.id.imgOn);
         ImageView imageSMS=viewImgOn.findViewById(R.id.imgSMS);
 
-        if (user!=null){
+        if (user!=null && user.getPhotoUrl()!=null){
             Picasso.get()
                     .load(user.getPhotoUrl().toString())
                     .placeholder(R.drawable.imgdefault)
