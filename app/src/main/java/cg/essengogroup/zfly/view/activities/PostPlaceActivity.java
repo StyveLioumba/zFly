@@ -220,7 +220,7 @@ public class PostPlaceActivity extends AppCompatActivity {
                         }
                     });
         }else {
-            Toast.makeText(this, "importer une chanson", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "importer une image", Toast.LENGTH_SHORT).show();
         }
 
     }

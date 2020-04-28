@@ -8,7 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -18,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.model.Place;
 import cg.essengogroup.zfly.view.activities.DetailPlaceActivity;
+import cg.essengogroup.zfly.view.activities.ModifierPlaceActivity;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder> {
 
@@ -63,6 +71,25 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
             );
 
         });
+
+        DatabaseReference isArtisteRef = FirebaseDatabase.getInstance().getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
+        isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (!((Boolean) dataSnapshot.child("isPlace").getValue()) && !String.valueOf(dataSnapshot.child("user_id").getValue()).equalsIgnoreCase(placeArrayList.get(position).getUser_id())){
+                    holder.imgBtn.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        holder.imgBtn.setOnClickListener(v-> context.startActivity(new Intent(context, ModifierPlaceActivity.class).putExtra("place",placeArrayList.get(position))));
     }
 
     @Override
@@ -73,7 +100,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout relativeLayout;
-        ImageView imageView;
+        ImageView imageView,imgBtn;
         TextView txtTitre,txtAdresse,txtType;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -83,6 +110,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
             txtAdresse=itemView.findViewById(R.id.txtAdresse);
             txtTitre=itemView.findViewById(R.id.txtTitre);
             txtType=itemView.findViewById(R.id.txtType);
+            imgBtn=itemView.findViewById(R.id.btnModifier);
         }
     }
 }

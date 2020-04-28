@@ -25,10 +25,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="m">
-        <activity android:name=".view.activities.AllPostActivity"
+        <activity android:name=".view.activities.ModifierPlaceActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".view.activities.AllAbonnerActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.activities.AllPostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.activities.AllAbonnerActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.activities.AllUserActivity"
             android:screenOrientation="portrait" />

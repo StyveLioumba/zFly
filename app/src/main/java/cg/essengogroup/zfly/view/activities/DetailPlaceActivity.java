@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -48,7 +49,7 @@ public class DetailPlaceActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private SliderPagerPlaceAdapter slideAdapter;
 
-    private ImageView menuPhoto;
+    private ImageView menuPhoto,imgCouverture;
     private RecyclerView recycleGallerie;
     private ArrayList<Gallerie> gallerieArrayList;
     private GallerieAdapter adapter;
@@ -83,7 +84,7 @@ public class DetailPlaceActivity extends AppCompatActivity {
             emailValue=intent.getStringExtra("email");
             adresseValue=intent.getStringExtra("adresse");
             numValue=intent.getStringExtra("numero");
-            image_couverture=intent.getStringExtra("imageCouverture");
+            image_couverture=intent.getStringExtra("image_couverture");
             createAt=intent.getStringExtra("createAt");
             place_idValue=intent.getStringExtra("place_id");
         }
@@ -100,6 +101,7 @@ public class DetailPlaceActivity extends AppCompatActivity {
         TextView txtType=findViewById(R.id.txtType);
         TextView txtEmail=findViewById(R.id.txtEmail);
         viewPager=findViewById(R.id.viewpager);
+        imgCouverture=findViewById(R.id.imgCouverture);
 
         menuPhoto=findViewById(R.id.menuPhoto);
 
@@ -241,6 +243,17 @@ public class DetailPlaceActivity extends AppCompatActivity {
                 }
 
                 slideAdapter=new SliderPagerPlaceAdapter(DetailPlaceActivity.this,gallerieArrayList);
+                if (gallerieArrayList.size()!=0){
+
+                    imgCouverture.setVisibility(View.GONE);
+                }else {
+                    imgCouverture.setVisibility(View.VISIBLE);
+                    Picasso.get()
+                            .load(image_couverture)
+                            .placeholder(R.drawable.default_img)
+                            .error(R.drawable.default_img)
+                            .into(imgCouverture);
+                }
                 viewPager.setAdapter(slideAdapter);
 
 

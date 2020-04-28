@@ -27,11 +27,20 @@
                 android:layout_height="@dimen/hyper_large_taille"
                 android:layout_margin="@dimen/tres_petite_marge"
                 app:cardElevation="@dimen/tres_petite_marge">
-
-                <androidx.viewpager.widget.ViewPager
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/viewpager"/>
+                    android:layout_height="match_parent">
+
+                    <androidx.viewpager.widget.ViewPager
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/viewpager"/>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/imgCouverture"
+                        android:scaleType="centerCrop"/>
+                </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 

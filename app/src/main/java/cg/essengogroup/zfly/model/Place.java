@@ -1,6 +1,9 @@
 package cg.essengogroup.zfly.model;
 
-public class Place {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Place implements Parcelable {
     private String user_id,image_couverture,nom,description,type,adresse,numero,createAt,place_id;
 
     public Place() {
@@ -17,6 +20,30 @@ public class Place {
         this.createAt = createAt;
         this.place_id = place_id;
     }
+
+    protected Place(Parcel in) {
+        user_id = in.readString();
+        image_couverture = in.readString();
+        nom = in.readString();
+        description = in.readString();
+        type = in.readString();
+        adresse = in.readString();
+        numero = in.readString();
+        createAt = in.readString();
+        place_id = in.readString();
+    }
+
+    public static final Creator<Place> CREATOR = new Creator<Place>() {
+        @Override
+        public Place createFromParcel(Parcel in) {
+            return new Place(in);
+        }
+
+        @Override
+        public Place[] newArray(int size) {
+            return new Place[size];
+        }
+    };
 
     public String getUser_id() {
         return user_id;
@@ -88,5 +115,23 @@ public class Place {
 
     public void setPlace_id(String place_id) {
         this.place_id = place_id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(user_id);
+        dest.writeString(image_couverture);
+        dest.writeString(nom);
+        dest.writeString(description);
+        dest.writeString(type);
+        dest.writeString(adresse);
+        dest.writeString(numero);
+        dest.writeString(createAt);
+        dest.writeString(place_id);
     }
 }
