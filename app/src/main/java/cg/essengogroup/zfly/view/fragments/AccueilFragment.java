@@ -171,10 +171,12 @@ public class AccueilFragment extends Fragment {
                 }
 
                 adapter=new MultiViewTypeAdapter(modelArrayList,context);
-                recyclerView.setLayoutManager(manager);
                 manager.setReverseLayout(true);
                 manager.setStackFromEnd(true);
-                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                manager.setAutoMeasureEnabled(true);
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setNestedScrollingEnabled(false);
+                recyclerView.setHasFixedSize(true);
                 recyclerView.setAdapter(adapter);
 
             }

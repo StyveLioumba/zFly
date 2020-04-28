@@ -77,17 +77,16 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurAdapter.
 
         if (isOnlinge){
             holder.lastMessage(user.getUser_id(), holder.dernierSms,holder.txtH);
-            holder.txtApseudo.setVisibility(View.GONE);
         }else {
-            holder.txtApseudo.setText(user.getApseudo());
-            holder.dernierSms.setVisibility(View.GONE);
+            holder.dernierSms.setText(user.getApseudo());
+            holder.txtH.setVisibility(View.GONE);
         }
 
-        if (holder.dernierSms.getVisibility()==View.GONE){
+        /*if (holder.dernierSms.getVisibility()==View.GONE){
             holder.txtH.setVisibility(View.GONE);
         }else {
             holder.txtH.setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     @Override
@@ -97,7 +96,7 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView,imgOn,imgOff;
-        TextView txtPseudo,txtApseudo,dernierSms,txtH;
+        TextView txtPseudo,dernierSms,txtH;
         RelativeLayout relativeLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,7 +104,7 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurAdapter.
             imgOn=itemView.findViewById(R.id.imgOn);
             imgOff=itemView.findViewById(R.id.imgoff);
             txtPseudo=itemView.findViewById(R.id.pseudoUser);
-            txtApseudo=itemView.findViewById(R.id.Apseudo_);
+//            txtApseudo=itemView.findViewById(R.id.Apseudo_);
             txtH=itemView.findViewById(R.id.txtH);
             dernierSms=itemView.findViewById(R.id.Apseudo);
             relativeLayout=itemView.findViewById(R.id.relaUser);

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -41,6 +42,7 @@ public class MusicProfilAdapter extends RecyclerView.Adapter<MusicProfilAdapter.
         holder.txtMorceau.setText(musicArrayList.get(position).getMorceau());
 
         holder.cardView.setOnClickListener(v->{
+            Toast.makeText(context, "chargement...", Toast.LENGTH_LONG).show();
             dialog=new DialogMusicAccueil(context,musicArrayList.get(position).getChanson());
             dialog.setCancelable(false);
             dialog.show();

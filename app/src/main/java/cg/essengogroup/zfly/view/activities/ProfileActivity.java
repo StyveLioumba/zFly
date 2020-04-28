@@ -186,7 +186,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void getUserInfo(){
-        if (user!=null){
+        if (user.getPhotoUrl()!=null && user!=null ){
             Picasso.get()
                     .load(user.getPhotoUrl().toString())
                     .error(R.drawable.imgdefault)

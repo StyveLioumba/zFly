@@ -1,6 +1,5 @@
 package cg.essengogroup.zfly.controller.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +16,7 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -138,6 +139,8 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                                         .load(String.valueOf(dataSnapshot.child("image").getValue()))
                                         .placeholder(R.drawable.imgdefault)
                                         .error(R.drawable.imgdefault)
+                                        .resize(200, 200)
+                                        .centerCrop()
                                         .into( ((ImageTypeViewHolder) holder).imageUser);
 
                                 ((ImageTypeViewHolder) holder).txtApseudo.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
@@ -220,6 +223,8 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                                         .load(String.valueOf(dataSnapshot.child("image").getValue()))
                                         .placeholder(R.drawable.imgdefault)
                                         .error(R.drawable.imgdefault)
+                                        .resize(200, 200)
+                                        .centerCrop()
                                         .into( ((AudioTypeViewHolder) holder).imageUser);
 
                                 ((AudioTypeViewHolder) holder).txtApseudo.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
@@ -236,13 +241,15 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                         @Override
                         public void onClick(View v) {
                             dialog=new DialogMusicAccueil(mContext,model.getAudio());
-                            dialog.setCancelable(false);
+                            dialog.setCancelable(true);
                             dialog.show();
 
                             Window window = dialog.getWindow();
                             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                             if (dialog.isShowing()){
+                                dialog.prepareSong();
+
                                 Map<String,Object> data=new HashMap<>();
                                 data.put("createAt",ServerValue.TIMESTAMP);
 
@@ -340,7 +347,7 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
         CardView cardView;
         FloatingActionButton fab;
         ImageView imageUser,imageLike,imagePoster;
-        ImageButton commentaires,partager;
+        ImageButton partager;
 
         public AudioTypeViewHolder(View itemView) {
             super(itemView);
@@ -355,11 +362,18 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
             imageUser=itemView.findViewById(R.id.imgUser);
             imagePoster=itemView.findViewById(R.id.img);
 
-            commentaires=itemView.findViewById(R.id.comment);
             partager=itemView.findViewById(R.id.partager);
             fab=itemView.findViewById(R.id.fab);
 
             cardView=itemView.findViewById(R.id.cardImg);
+        }
+
+        class AsyncClass extends AsyncTask<Void, Void, Void> {
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                return null;
+            }
         }
     }
 
@@ -406,4 +420,5 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
         share.putExtra(Intent.EXTRA_STREAM, uri);
         mContext.startActivity(Intent.createChooser(share, "Share Sound File"));
     }
+
 }

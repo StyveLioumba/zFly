@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -31,7 +32,6 @@ public class DialogMusicAccueil extends Dialog {
     private MediaPlayer mp;
     private int totalTime;
     private String lienAudio;
-    private ProgressDialog chargement;
 
     public DialogMusicAccueil(@NonNull Context context,String lienAudio) {
         super(context);
@@ -39,14 +39,6 @@ public class DialogMusicAccueil extends Dialog {
         this.lienAudio=lienAudio;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        chargement=new ProgressDialog(context);
-        chargement.setMessage("chargement...");
-        chargement.setCancelable(false);
-        chargement.show();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +50,6 @@ public class DialogMusicAccueil extends Dialog {
 
 
         // Media Player
-//        mp = MediaPlayer.create(context, Uri.parse(lienAudio));
         mp = new MediaPlayer();
         try {
             mp.setDataSource(lienAudio);
@@ -146,10 +137,13 @@ public class DialogMusicAccueil extends Dialog {
             }
         });
 
+//        prepareSong();
+    }
+
+    public void prepareSong(){
         mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
-                chargement.dismiss();
                 if (!mp.isPlaying()) {
                     // Stopping
                     mp.start();
@@ -172,7 +166,6 @@ public class DialogMusicAccueil extends Dialog {
                 }
             }
         });
-
     }
 
     private Handler handler = new Handler() {
@@ -208,6 +201,19 @@ public class DialogMusicAccueil extends Dialog {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if (mp!=null && mp.isPlaying()){
+            mp.stop();
+            mp.release();
+            mp = null;
+        }
+        if (isShowing()){
+            dismiss();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
         if (mp!=null && mp.isPlaying()){
             mp.stop();
             mp.release();

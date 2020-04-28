@@ -22,7 +22,7 @@
                 android:id="@+id/imgUser"
                 app:civ_border_color="@color/colorbtn"
                 app:civ_border_width="1dp"
-                android:src="@mipmap/ic_launcher_round"/>
+                android:src="@drawable/imgdefault"/>
             <ImageView
                 android:layout_width="10dp"
                 android:layout_height="10dp"
@@ -51,7 +51,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pseudo"
                 android:id="@+id/pseudoUser"
                 android:textAppearance="?android:textAppearance"
                 android:fontFamily="@font/comfortaa_bold"
@@ -59,16 +58,6 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/a_pseudo"
-                android:textSize="@dimen/tres_petite_police"
-                android:id="@+id/Apseudo_"
-                android:textAppearance="?android:textAppearance"
-                android:fontFamily="@font/comfortaa_light"
-                android:layout_marginStart="@dimen/tres_petite_marge"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/a_pseudo"
                 android:textSize="@dimen/tres_petite_police"
                 android:id="@+id/Apseudo"
                 android:textColor="@color/colorPrimaryDark"
@@ -79,7 +68,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/a_pseudo"
             android:textSize="9sp"
             android:gravity="center"
             android:layout_gravity="center"

@@ -14,11 +14,9 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/tres_grande_taille"
+            android:layout_width="@dimen/moyenne_taille"
             android:layout_height="match_parent"
             android:id="@+id/imgAlbum"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/micro_petite_marge"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_background"/>
 
@@ -54,12 +52,13 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="@dimen/moyenne_taille"
+            android:layout_width="@dimen/tres_grande_taille"
             android:layout_height="match_parent"
             android:tint="@color/colorBtn"
             android:layout_weight="1"
+            android:layout_marginRight="@dimen/tres_petite_marge"
             android:id="@+id/btnPlay"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_gravity="center_vertical"
             android:src="@drawable/ic_play_circle_outline_black_24dp"/>
     </LinearLayout>

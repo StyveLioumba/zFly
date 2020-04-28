@@ -282,9 +282,11 @@ public class LecteurActivity extends AppCompatActivity {
                     requestPermissions(permissions,PERMISSION_STORAGE_CODE);
                 }else {
                     startDownloading(music);
+                    Toast.makeText(this, "Téléchargement encours...", Toast.LENGTH_SHORT).show();
                 }
             }else {
                 startDownloading(music);
+                Toast.makeText(this, "Téléchargement encours...", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -514,6 +516,7 @@ public class LecteurActivity extends AppCompatActivity {
             case PERMISSION_STORAGE_CODE:
                 if (grantResults.length>0 && grantResults[0]== PackageManager.PERMISSION_GRANTED){
                     startDownloading(music);
+                    Toast.makeText(this, "Téléchargement encours...", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "Permission refusé ...!", Toast.LENGTH_SHORT).show();
                 }

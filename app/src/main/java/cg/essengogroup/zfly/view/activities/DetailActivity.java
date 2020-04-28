@@ -103,7 +103,7 @@ public class DetailActivity extends AppCompatActivity {
                 .into(imageView);
 
         txtDescription.setText(descriptionValue);
-        txtDate.setText(Methodes.getDate(Long.parseLong(dateValue),"dd-MM-yyyy"));
+        txtDate.setText("le "+Methodes.getDate(Long.parseLong(dateValue),"dd-MM-yyyy"));
 
         imageLike.setOnClickListener(v->likeOrDislike());
         partager.setOnClickListener(v->shareContent(imageView));
