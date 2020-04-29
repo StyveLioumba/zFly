@@ -41,6 +41,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
@@ -97,6 +99,19 @@ public class AccueilActivity extends AppCompatActivity {
 
         FirebaseAuth mAuth=FirebaseAuth.getInstance();
         FirebaseUser user=mAuth.getCurrentUser();
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()) {
+                            String token = task.getResult().getToken();
+                            saveToken(token);
+                        } else {
+
+                        }
+                    }
+                });
 
     }
 
@@ -298,5 +313,17 @@ public class AccueilActivity extends AppCompatActivity {
                 super.onRequestPermissionsResult(requestCode, permissions,
                         grantResults);
         }
+    }
+
+    private void saveToken(String token) {
+        reference.child("token").setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(AccueilActivity.this, "Token Saved", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 }

@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -28,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -35,8 +38,15 @@ import java.util.Map;
 
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.adapter.MessageAdapter;
+import cg.essengogroup.zfly.controller.interfaces.Api;
 import cg.essengogroup.zfly.model.Message;
 import cg.essengogroup.zfly.model.User;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -157,6 +167,7 @@ public class MessageActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         editMessage.setHint(getResources().getString(R.string.r_diger_un_message));
+                        sendNotification(user,"Nouveau message de"+user.getPseudo(),leMessage);
                     }
                 });
             }
@@ -266,10 +277,34 @@ public class MessageActivity extends AppCompatActivity {
         status("enligne");
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        status("deconnecte");
+    private  void sendNotification(User user,String title,String body){
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://androidnotificationtutorial.firebaseapp.com/api/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        Api api = retrofit.create(Api.class);
+
+        Call<ResponseBody> call = api.sendNotification(user.getToken(), title, body);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    Toast.makeText(MessageActivity.this, response.body().string(), Toast.LENGTH_LONG).show();
+                    Log.e("TAG", "onResponse: "+ response.body());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
     }
 
 }

@@ -112,6 +112,7 @@ public class UserFragment extends Fragment {
                     user.setPseudo(String.valueOf(data.child("pseudo").getValue()));
                     user.setApseudo(String.valueOf(data.child("Apseudo").getValue()));
                     user.setStatus(String.valueOf(data.child("status").getValue()));
+                    user.setToken(String.valueOf(data.child("token").getValue()));
 
                     if (!user.getUser_id().equalsIgnoreCase(mUser.getUid())){
                         userArrayList.add(user);

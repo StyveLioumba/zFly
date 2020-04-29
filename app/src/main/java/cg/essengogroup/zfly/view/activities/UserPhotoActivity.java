@@ -213,6 +213,7 @@ public class UserPhotoActivity extends AppCompatActivity {
         user.put("isArtiste", artisteValue);
         user.put("isPlace", false);
         user.put("status", "deconnecte");
+        user.put("token", "token");
         user.put("hasNewSMS", false);
         user.put("createAt", ServerValue.TIMESTAMP);
 

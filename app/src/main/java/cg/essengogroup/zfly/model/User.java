@@ -5,14 +5,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class User implements Parcelable {
-    private String Apseudo,nom,prenom,pseudo,tel,user_id,image,imageCouverture=null,status;
+    private String Apseudo,nom,prenom,pseudo,tel,user_id,image,imageCouverture=null,status,token;
     private long  createAt;
     private boolean isArtiste,hasNewSMS;
 
     public User() {
     }
 
-    public User(String apseudo, String nom, String prenom, String pseudo, String tel, String user_id, String image, String imageCouverture, String status, long createAt, boolean isArtiste) {
+    public User(String apseudo, String nom, String prenom, String pseudo, String tel, String user_id, String image, String imageCouverture, String status, String token, long createAt, boolean isArtiste, boolean hasNewSMS) {
         Apseudo = apseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -22,8 +22,10 @@ public class User implements Parcelable {
         this.image = image;
         this.imageCouverture = imageCouverture;
         this.status = status;
+        this.token = token;
         this.createAt = createAt;
         this.isArtiste = isArtiste;
+        this.hasNewSMS = hasNewSMS;
     }
 
     protected User(Parcel in) {
@@ -35,6 +37,7 @@ public class User implements Parcelable {
         user_id = in.readString();
         image = in.readString();
         status = in.readString();
+        token = in.readString();
         imageCouverture = in.readString();
         createAt = in.readLong();
         isArtiste = in.readByte() != 0;
@@ -149,6 +152,14 @@ public class User implements Parcelable {
         this.hasNewSMS = hasNewSMS;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -180,6 +191,7 @@ public class User implements Parcelable {
         dest.writeString(user_id);
         dest.writeString(image);
         dest.writeString(status);
+        dest.writeString(token);
         dest.writeString(imageCouverture);
         dest.writeLong(createAt);
         dest.writeByte((byte) (isArtiste ? 1 : 0));

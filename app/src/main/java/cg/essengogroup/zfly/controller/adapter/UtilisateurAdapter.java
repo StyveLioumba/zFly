@@ -81,12 +81,6 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurAdapter.
             holder.dernierSms.setText(user.getApseudo());
             holder.txtH.setVisibility(View.GONE);
         }
-
-        /*if (holder.dernierSms.getVisibility()==View.GONE){
-            holder.txtH.setVisibility(View.GONE);
-        }else {
-            holder.txtH.setVisibility(View.VISIBLE);
-        }*/
     }
 
     @Override
@@ -104,7 +98,6 @@ public class UtilisateurAdapter extends RecyclerView.Adapter<UtilisateurAdapter.
             imgOn=itemView.findViewById(R.id.imgOn);
             imgOff=itemView.findViewById(R.id.imgoff);
             txtPseudo=itemView.findViewById(R.id.pseudoUser);
-//            txtApseudo=itemView.findViewById(R.id.Apseudo_);
             txtH=itemView.findViewById(R.id.txtH);
             dernierSms=itemView.findViewById(R.id.Apseudo);
             relativeLayout=itemView.findViewById(R.id.relaUser);

@@ -1,28 +1,24 @@
 package cg.essengogroup.zfly.view.activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import cg.essengogroup.zfly.R;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,6 +26,10 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
+    public static final String CHANNEL_ID = "simplified_coding";
+    private static final String CHANNEL_NAME = "Simplified Coding";
+    private static final String CHANNEL_DESC = "Simplified Coding Notifications";
+
 
     @Override
     public void onStart() {
@@ -52,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress);
         email=findViewById(R.id.login);
         password=findViewById(R.id.password);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESC);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
 
         TextView registerBtn=findViewById(R.id.goToRegister);
         registerBtn.setOnClickListener(v -> {

@@ -122,6 +122,7 @@ public class ChatFragment extends Fragment {
                     user.setPseudo(String.valueOf(data.child("pseudo").getValue()));
                     user.setApseudo(String.valueOf(data.child("Apseudo").getValue()));
                     user.setStatus(String.valueOf(data.child("status").getValue()));
+                    user.setToken(String.valueOf(data.child("token").getValue()));
 
                     for (String id : userArrayList){
 
