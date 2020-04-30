@@ -16,8 +16,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -30,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,15 +41,9 @@ import java.util.Map;
 
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.adapter.MessageAdapter;
-import cg.essengogroup.zfly.controller.interfaces.Api;
+import cg.essengogroup.zfly.controller.utils.VolleySingleton;
 import cg.essengogroup.zfly.model.Message;
 import cg.essengogroup.zfly.model.User;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -167,7 +164,7 @@ public class MessageActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         editMessage.setHint(getResources().getString(R.string.r_diger_un_message));
-                        sendNotification(user,"Nouveau message de"+user.getPseudo(),leMessage);
+                        sendNotification(user,"Nouveau message de "+mUser.getDisplayName(),leMessage);
                     }
                 });
             }
@@ -278,33 +275,30 @@ public class MessageActivity extends AppCompatActivity {
     }
 
     private  void sendNotification(User user,String title,String body){
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://androidnotificationtutorial.firebaseapp.com/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        Api api = retrofit.create(Api.class);
-
-        Call<ResponseBody> call = api.sendNotification(user.getToken(), title, body);
-
-        call.enqueue(new Callback<ResponseBody>() {
+        String leLien="http://att.bgrfacile.com/ApiZfly/index.php";
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, leLien,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("TAG", "onResponse: "+response );
+                    }
+                }, new Response.ErrorListener() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                try {
-                    Toast.makeText(MessageActivity.this, response.body().string(), Toast.LENGTH_LONG).show();
-                    Log.e("TAG", "onResponse: "+ response.body());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onErrorResponse(VolleyError error) {
 
             }
-        });
-
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("send","send");
+                param.put("token",user.getToken());
+                param.put("title",title);
+                param.put("msg",body);
+                return param;
+            }
+        };
+        VolleySingleton.getInstance(MessageActivity.this).addToRequestQueue(stringRequest);
     }
 
 }

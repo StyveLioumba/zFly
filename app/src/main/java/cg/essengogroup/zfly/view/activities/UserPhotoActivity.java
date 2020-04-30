@@ -101,7 +101,13 @@ public class UserPhotoActivity extends AppCompatActivity {
 
         fab.setOnClickListener(v->selectionnerImage());
 
-        btnContinuer.setOnClickListener(v->savegarderAllInformation());
+        btnContinuer.setOnClickListener(v->{
+            if (progressBar.getVisibility()==View.VISIBLE){
+                Toast.makeText(this, "attendez jusqu'au télechargement de l'image", Toast.LENGTH_SHORT).show();
+            }else {
+                savegarderAllInformation();
+            }
+        });
         btnIgnore.setOnClickListener(v->setUserInformation());
 
         chargeDataIfExist();

@@ -1,5 +1,6 @@
 package cg.essengogroup.zfly.controller.utils;
 
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,9 @@ public class NotificationHelper {
                 intent,
                 PendingIntent.FLAG_CANCEL_CURRENT
         );
+        Notification notification = new Notification();
+        notification.defaults |= Notification.DEFAULT_SOUND;
+        notification.defaults |= Notification.DEFAULT_VIBRATE;
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context, CHANNEL_ID)
