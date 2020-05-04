@@ -37,6 +37,7 @@ public class NotificationHelper {
                         .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationManagerCompat mNotificationMgr = NotificationManagerCompat.from(context);
+        mBuilder.setAutoCancel(true);
         mNotificationMgr.notify(1, mBuilder.build());
 
     }

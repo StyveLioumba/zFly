@@ -6,7 +6,10 @@
     android:orientation="vertical"
     android:layout_gravity="end"
     android:gravity="end"
-    android:layout_margin="@dimen/tres_petite_marge"
+    android:layout_marginTop="@dimen/tres_petite_marge"
+    android:layout_marginBottom="@dimen/tres_petite_marge"
+    android:layout_marginLeft="@dimen/petite_taille"
+    android:layout_marginRight="@dimen/micro_petite_marge"
     android:id="@+id/lineRight"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -37,7 +40,7 @@
             android:textColor="@color/colorBlanc"
             android:textAppearance="?android:textAppearance"
             android:fontFamily="@font/comfortaa_bold"
-            android:layout_marginEnd="@dimen/tres_petite_marge"/>
+            android:layout_marginEnd="@dimen/micro_petite_marge"/>
 
     </LinearLayout>
 

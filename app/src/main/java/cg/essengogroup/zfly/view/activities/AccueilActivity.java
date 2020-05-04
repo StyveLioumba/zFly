@@ -107,8 +107,6 @@ public class AccueilActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             String token = task.getResult().getToken();
                             saveToken(token);
-                        } else {
-
                         }
                     }
                 });
@@ -243,12 +241,6 @@ public class AccueilActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        status("deconnecte");
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         status("deconnecte");
@@ -319,9 +311,6 @@ public class AccueilActivity extends AppCompatActivity {
         reference.child("token").setValue(token).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(AccueilActivity.this, "Token Saved", Toast.LENGTH_LONG).show();
-                }
             }
         });
 

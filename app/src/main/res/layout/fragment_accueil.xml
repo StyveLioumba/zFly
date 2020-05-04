@@ -88,7 +88,16 @@
                     android:fontFamily="@font/carter_one"/>
             </LinearLayout>
 
-         <include layout="@layout/recycle_accueil_vertical"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/recycleActualite"/>
+            <ProgressBar
+                android:layout_width="@dimen/tres_grande_marge"
+                android:layout_height="wrap_content"
+                android:id="@+id/progress"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

@@ -6,6 +6,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:nestedScrollingEnabled="false"
         android:id="@+id/recycleActualite"/>
     <ProgressBar
         android:layout_width="@dimen/tres_grande_marge"

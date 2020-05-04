@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -70,7 +70,6 @@ public class AccueilFragment extends Fragment {
 
     private Query referenceUser,referenceModel,referenceSlider;
     private LinearLayoutManager manager;
-
 
     public AccueilFragment() {
         // Required empty public constructor
@@ -171,9 +170,6 @@ public class AccueilFragment extends Fragment {
                 }
 
                 adapter=new MultiViewTypeAdapter(modelArrayList,context);
-                manager.setReverseLayout(true);
-                manager.setStackFromEnd(true);
-                manager.setAutoMeasureEnabled(true);
                 recyclerView.setLayoutManager(manager);
                 recyclerView.setNestedScrollingEnabled(false);
                 recyclerView.setHasFixedSize(true);
