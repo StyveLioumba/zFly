@@ -17,6 +17,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
@@ -24,13 +25,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -54,6 +58,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,6 +90,7 @@ public class PostActivity extends AppCompatActivity {
     private Dialog_loading dialogLoading;
 
     private LinearLayout linearLayout;
+    private int sizeSong=0;
 
     @Override
     public void onStart() {
@@ -128,6 +134,10 @@ public class PostActivity extends AppCompatActivity {
         fab=findViewById(R.id.fab);
         imageAddSon=findViewById(R.id.importeSon);
         linearLayout=findViewById(R.id.lineTop);
+        TextView txtImg=findViewById(R.id.txtImg);
+        TextView txtSong=findViewById(R.id.txtSong);
+        txtImg.setTextSize(14);
+        txtSong.setTextSize(11);
 
         dialogLoading=new Dialog_loading(PostActivity.this);
         dialogLoading.setCancelable(false);
@@ -158,6 +168,8 @@ public class PostActivity extends AppCompatActivity {
             if (imageView.getVisibility()==View.VISIBLE){
                 imageView.setVisibility(View.GONE);
                 relativeLayout.setVisibility(View.VISIBLE);
+                txtImg.setTextSize(11);
+                txtSong.setTextSize(14);
             }
         });
 
@@ -165,6 +177,8 @@ public class PostActivity extends AppCompatActivity {
             if (relativeLayout.getVisibility()==View.VISIBLE){
                 relativeLayout.setVisibility(View.GONE);
                 imageView.setVisibility(View.VISIBLE);
+                txtImg.setTextSize(14);
+                txtSong.setTextSize(11);
             }
         });
 
@@ -253,6 +267,22 @@ public class PostActivity extends AppCompatActivity {
         }else if (requestCode == CHOIX_CHANSON && resultCode == RESULT_OK && data != null ){
 
             uriChanson = data.getData();
+            Cursor returnCursor = getContentResolver().query(uriChanson, null, null, null, null);
+            /*
+             * Get the column indexes of the data in the Cursor,
+             * move to the first row in the Cursor, get the data,
+             * and display it.
+             */
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+            returnCursor.moveToFirst();
+            float sizeSongOctetToMega=(float) returnCursor.getLong(sizeIndex)/ 1048576;
+            txtDescription.setText(returnCursor.getString(nameIndex));
+            sizeSong= (int) sizeSongOctetToMega;
+
+            if (sizeSongOctetToMega>2){
+                Toast.makeText(this, "cette chanson pèse "+String.valueOf(sizeSongOctetToMega).substring(0,3)+"Mo", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -316,7 +346,7 @@ public class PostActivity extends AppCompatActivity {
                 .child("post")
                 .child("son"+System.currentTimeMillis()+".mp3");
 
-        if (uriChanson !=null){
+        if (uriChanson !=null && sizeSong<=2){
             dialogLoading.show();
             mStorageRef.putFile(uriChanson).addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
@@ -338,6 +368,11 @@ public class PostActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
             });
+        }else {
+            if (dialogLoading.isShowing()){
+                dialogLoading.dismiss();
+            }
+            Toast.makeText(this, "impossible de publier cette chanson qui pèse plus de 2 Mo", Toast.LENGTH_SHORT).show();
         }
     }
 

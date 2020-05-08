@@ -48,6 +48,7 @@
                         android:textAppearance="?android:textAppearance"
                         android:fontFamily="@font/carter_one"
                         android:gravity="center"
+                        android:id="@+id/txtImg"
                         android:textSize="@dimen/tres_petite_police"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"/>
@@ -74,6 +75,7 @@
                         android:textAppearance="?android:textAppearance"
                         android:fontFamily="@font/carter_one"
                         android:gravity="center"
+                        android:id="@+id/txtSong"
                         android:textSize="@dimen/tres_petite_police"
                         android:textAlignment="center"
                         android:textColor="@android:color/white"/>

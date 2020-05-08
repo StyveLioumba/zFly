@@ -14,12 +14,14 @@ import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -173,12 +175,17 @@ public class PostMusicActivity extends AppCompatActivity {
         }else if (requestCode == CHOIX_CHANSON && resultCode == RESULT_OK && data != null ){
 
             uriChanson = data.getData();
-        /*
-        String uriString = uriChanson.toString();
-        File myFile = new File(uriString);
-        String path = myFile.getAbsolutePath();
-        String displayName = String.valueOf(Calendar.getInstance().getTimeInMillis()+".mp3");
-        */
+            Cursor returnCursor = getContentResolver().query(uriChanson, null, null, null, null);
+            /*
+             * Get the column indexes of the data in the Cursor,
+             * move to the first row in the Cursor, get the data,
+             * and display it.
+             */
+            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+            int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE );
+            returnCursor.moveToFirst();
+            float sizeSongOctetToMega=(float) returnCursor.getLong(sizeIndex)/ 1048576;
+            morceauName.setText(returnCursor.getString(nameIndex));
         }
 
 

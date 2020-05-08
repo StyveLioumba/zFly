@@ -338,6 +338,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
             partager=itemView.findViewById(R.id.partager);
 
             cardView=itemView.findViewById(R.id.cardImg);
+
+            imagePoster.setDrawingCacheEnabled(true);
+            imagePoster.buildDrawingCache();
+            imageUser.setDrawingCacheEnabled(true);
+            imageUser.buildDrawingCache();
         }
     }
 

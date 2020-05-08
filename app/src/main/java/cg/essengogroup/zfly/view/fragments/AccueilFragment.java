@@ -104,6 +104,8 @@ public class AccueilFragment extends Fragment {
         nestedScrollView=root.findViewById(R.id.nestedscrol);
 
         manager=new LinearLayoutManager(context);
+        manager.setStackFromEnd(true);
+        manager.setReverseLayout(true);
 
         root.findViewById(R.id.fab).setOnClickListener(v->startActivity(new Intent(context, PostActivity.class)));
 
