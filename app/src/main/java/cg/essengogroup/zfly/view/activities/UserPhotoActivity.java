@@ -14,6 +14,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,9 +33,11 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -163,8 +166,14 @@ public class UserPhotoActivity extends AppCompatActivity {
 
         if (uriProfileImage !=null){
             progressBar.setVisibility(View.VISIBLE);
+            //ce bout de code me permet de compresser la taille de l'image
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] data = baos.toByteArray();
 
-            mStorageRef.putFile(uriProfileImage).addOnSuccessListener(taskSnapshot -> {
+            UploadTask uploadTask = mStorageRef.putBytes(data);
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
 

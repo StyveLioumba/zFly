@@ -11,15 +11,18 @@ import androidx.core.content.ContextCompat;
 
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
+import id.zelory.compressor.Compressor;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -43,8 +46,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnPausedListener;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -245,12 +253,6 @@ public class PostActivity extends AppCompatActivity {
         }else if (requestCode == CHOIX_CHANSON && resultCode == RESULT_OK && data != null ){
 
             uriChanson = data.getData();
-        /*
-        String uriString = uriChanson.toString();
-        File myFile = new File(uriString);
-        String path = myFile.getAbsolutePath();
-        String displayName = String.valueOf(Calendar.getInstance().getTimeInMillis()+".mp3");
-        */
         }
     }
 
@@ -265,7 +267,15 @@ public class PostActivity extends AppCompatActivity {
             dialogLoading.show();
             progressBar.setVisibility(View.VISIBLE);
 
-            mStorageRef.putFile(uriPreviewImage).addOnSuccessListener(taskSnapshot -> {
+            //ce bout de code me permet de compresser la taille de l'image
+            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = mStorageRef.putBytes(data);
+
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
 
@@ -282,6 +292,19 @@ public class PostActivity extends AppCompatActivity {
             }).addOnFailureListener(exception -> {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
+            });
+
+            uploadTask.addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    System.out.println("Upload is " + progress + "% done");
+                }
+            }).addOnPausedListener(new OnPausedListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onPaused(UploadTask.TaskSnapshot taskSnapshot) {
+                    System.out.println("Upload is paused");
+                }
             });
         }
     }

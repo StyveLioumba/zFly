@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import cg.essengogroup.zfly.R;
@@ -66,6 +68,7 @@ public class ModifierProfilActivity extends AppCompatActivity {
     private TextInputLayout txtBioLayout;
 
     private String biographieValue="J'utilise Zfly";
+    private boolean isArtisteValue=true;
 
     @Override
     protected void onStart() {
@@ -122,8 +125,9 @@ public class ModifierProfilActivity extends AppCompatActivity {
         isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                isArtisteValue=(Boolean) dataSnapshot.child("isArtiste").getValue();
 
-                if (!((Boolean) dataSnapshot.child("isArtiste").getValue())){
+                if (!isArtisteValue){
                     txtBioLayout.setVisibility(View.GONE);
                 }
             }
@@ -178,7 +182,14 @@ public class ModifierProfilActivity extends AppCompatActivity {
     private void uploadImageToStorage(){
         if (imageUri!=null){
             dialogLoading.show();
-            mStorageRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            //ce bout de code me permet de compresser la taille de l'image
+            Bitmap bitmap = ((BitmapDrawable) imageProfile.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = mStorageRef.putBytes(data);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     if (taskSnapshot!=null){
@@ -222,7 +233,7 @@ public class ModifierProfilActivity extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(biographieValue)){
+        if (isArtisteValue && TextUtils.isEmpty(biographieValue)){
             biographie.setError("parler un peu de vous ");
             biographie.requestFocus();
             return;

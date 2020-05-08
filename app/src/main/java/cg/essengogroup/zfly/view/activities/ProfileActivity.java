@@ -20,6 +20,7 @@ import cg.essengogroup.zfly.model.Music;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -52,6 +53,7 @@ import com.google.firebase.storage.UploadTask;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -357,8 +359,13 @@ public class ProfileActivity extends AppCompatActivity {
         if (uriPreviewImage !=null){
 
             progressBar.setVisibility(View.VISIBLE);
+            Bitmap bitmap = ((BitmapDrawable) imageCouverture.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] data = baos.toByteArray();
 
-            storageReference.putFile(uriPreviewImage).addOnSuccessListener(taskSnapshot -> {
+            UploadTask uploadTask = storageReference.putBytes(data);
+            uploadTask.addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
 
@@ -451,7 +458,14 @@ public class ProfileActivity extends AppCompatActivity {
     private void uploadImageProfil(){
         if (uriImageP!=null){
             progressBarProfil.setVisibility(View.VISIBLE);
-            storageReferenceProfile.putFile(uriImageP).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+            Bitmap bitmap = ((BitmapDrawable) userImage.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = storageReferenceProfile.putBytes(data);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     if (taskSnapshot!=null){
