@@ -7,5 +7,5 @@
     <item
         android:id="@+id/two"
         android:icon="@drawable/ic_add_box_black_24dp"
-        android:title="Ajouter"/>
+        android:title="Ajouter mes images"/>
 </menu>

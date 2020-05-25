@@ -38,6 +38,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -67,6 +68,7 @@ public class PostMusicActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
     private StorageReference mStorageRef ;
+    private DatabaseReference reference;
 
     private Intent intent;
 
@@ -92,6 +94,7 @@ public class PostMusicActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         firebaseUser=mAuth.getCurrentUser();
         database=FirebaseDatabase.getInstance();
+        reference=database.getReference().child("users/"+firebaseUser.getUid());
 
         Toolbar toolbar=findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -430,12 +433,7 @@ public class PostMusicActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        progressBarTop.setVisibility(View.GONE);
-                        if (dialogLoading.isShowing()){
-                            dialogLoading.dismiss();
-                        }
-                        startActivity(new Intent(PostMusicActivity.this,AccueilActivity.class));
-                        finish();
+                        sendMusicToFirebaseDataBaseUser();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -445,6 +443,60 @@ public class PostMusicActivity extends AppCompatActivity {
                             dialogLoading.dismiss();
                     }
                 });
+    }
+
+
+    private void sendMusicToFirebaseDataBaseUser(){
+        String artisteNameValue=artisteName.getText().toString().trim();
+        String morceauNameValue=morceauName.getText().toString().trim();
+
+        if (TextUtils.isEmpty(artisteNameValue)){
+            artisteNameValue="inconnu";
+        }
+
+        if (TextUtils.isEmpty(morceauNameValue)){
+            morceauNameValue="inconnu";
+        }
+
+        Map<String, Object> post=new HashMap<>();
+        post.put("user_id",firebaseUser.getUid());
+        post.put("chanson",lienChanson);
+        post.put("morceau",morceauNameValue);
+        post.put("artiste",artisteNameValue);
+
+        if (uriChanson!=null ){
+            reference.child("chansons")
+                    .child("son"+System.currentTimeMillis())
+                    .setValue(post)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            /**
+                             * si l'insertion du son est un succes
+                             * on cree une table genre d'abord puis album et enfin artiste
+                             */
+                            progressBarTop.setVisibility(View.GONE);
+                            if (dialogLoading.isShowing()){
+                                dialogLoading.dismiss();
+                            }
+                            startActivity(new Intent(PostMusicActivity.this,AccueilActivity.class));
+                            finish();
+
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            if (dialogLoading.isShowing()){
+                                dialogLoading.dismiss();
+                            }
+                        }
+                    });
+
+        }else {
+            Toast.makeText(this, "importer une chanson", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     //Requesting permission

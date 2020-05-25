@@ -231,16 +231,13 @@ public class ProfileActivity extends AppCompatActivity {
     private void actionMenuSon(){
 
         PopupMenu popup = new PopupMenu(this, menuSon);
-        popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
+        popup.getMenuInflater().inflate(R.menu.popup_menu_media, popup.getMenu());
 
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.one:
                        startActivity(new Intent(ProfileActivity.this,AllMediaProfilActivity.class));
-                        return true;
-                    case R.id.two:
-                        startActivity(new Intent(ProfileActivity.this,AddMediaActivity.class));
                         return true;
                     default:
                         return false;
@@ -498,7 +495,6 @@ public class ProfileActivity extends AppCompatActivity {
             });
         });
     }
-
 
     private void getDataActualite(){
 

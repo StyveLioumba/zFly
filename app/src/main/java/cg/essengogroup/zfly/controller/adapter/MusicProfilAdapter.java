@@ -44,7 +44,7 @@ public class MusicProfilAdapter extends RecyclerView.Adapter<MusicProfilAdapter.
         holder.cardView.setOnClickListener(v->{
             Toast.makeText(context, "chargement...", Toast.LENGTH_LONG).show();
             dialog=new DialogMusicAccueil(context,musicArrayList.get(position).getChanson());
-            dialog.setCancelable(false);
+            dialog.setCancelable(true);
             dialog.show();
             Window window = dialog.getWindow();
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
