@@ -164,7 +164,7 @@ public class MessageActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         editMessage.setHint(getResources().getString(R.string.r_diger_un_message));
-                        sendNotification(user,"Nouveau message de "+mUser.getDisplayName(),leMessage);
+                        sendNotification(user,""+mUser.getDisplayName(),leMessage);
                     }
                 });
             }
