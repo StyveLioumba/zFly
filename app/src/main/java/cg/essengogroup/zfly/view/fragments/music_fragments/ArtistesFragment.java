@@ -57,7 +57,7 @@ public class ArtistesFragment extends Fragment {
         referenceMusic=database.getReference("music/artistes");
 
         recyclerView=root.findViewById(R.id.recycleArtiste);
-        GridLayoutManager manager=new GridLayoutManager(context, 2);
+        GridLayoutManager manager=new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(manager);
         recyclerView.setHasFixedSize(true);
 

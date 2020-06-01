@@ -285,7 +285,7 @@ public class PostMusicActivity extends AppCompatActivity {
 
     private void sendMusicToFirebaseDataBase(){
 
-        String artisteNameValue=artisteName.getText().toString().trim();
+        String artisteNameValue=firebaseUser.getDisplayName();
         String albumNameValue=albumName.getText().toString().trim();
         String genreValue=genreName.getSelectedItem().toString().trim();
         String morceauNameValue=morceauName.getText().toString().trim();

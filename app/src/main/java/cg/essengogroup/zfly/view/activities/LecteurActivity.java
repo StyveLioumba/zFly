@@ -330,7 +330,7 @@ public class LecteurActivity extends AppCompatActivity {
             nomAlbum.setText(music.getAlbum());
             try {
                 mediaPlayer.setDataSource(music.getChanson());
-                mediaPlayer.setVolume(0.5f, 0.5f);
+//                mediaPlayer.setVolume(0.5f, 0.5f);
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 mediaPlayer.prepare();
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -525,13 +525,14 @@ public class LecteurActivity extends AppCompatActivity {
     }
 
 
-    @Override
+    /*@Override
     protected void onStop() {
         super.onStop();
         if (mediaPlayer!=null && mediaPlayer.isPlaying()){
             mediaPlayer.stop();
+            Log.e("TAG", "onStop: " );
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed() {

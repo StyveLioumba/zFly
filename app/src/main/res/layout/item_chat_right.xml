@@ -8,7 +8,7 @@
     android:gravity="end"
     android:layout_marginTop="@dimen/tres_petite_marge"
     android:layout_marginBottom="@dimen/tres_petite_marge"
-    android:layout_marginLeft="@dimen/petite_taille"
+    android:layout_marginLeft="@dimen/taille_normale"
     android:layout_marginRight="@dimen/micro_petite_marge"
     android:id="@+id/lineRight"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -23,14 +23,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="top|end"
             android:textAppearance="?android:textAppearance"
             android:textSize="9sp"
             android:layout_margin="@dimen/tres_petite_marge"
             android:id="@+id/txtH"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.borjabravo.readmoretextview.ReadMoreTextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/pseudo"
             android:id="@+id/message"
@@ -39,8 +39,13 @@
             android:layout_gravity="end"
             android:textColor="@color/colorBlanc"
             android:textAppearance="?android:textAppearance"
-            android:fontFamily="@font/comfortaa_bold"
-            android:layout_marginEnd="@dimen/micro_petite_marge"/>
+            android:layout_marginEnd="@dimen/micro_petite_marge"
+            app:trimExpandedText="Voir plus"
+            app:trimCollapsedText=" Voir moins"
+            app:trimMode="trimModeLine"
+            app:trimLines="6"
+            app:colorClickableText="@color/colorPrimary"
+            android:fontFamily="@font/comfortaa_bold"/>
 
     </LinearLayout>
 

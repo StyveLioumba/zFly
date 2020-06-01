@@ -13,12 +13,19 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="@dimen/moyenne_taille"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/imgAlbum"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background"/>
+            android:backgroundTint="@color/colorbaskSMS"
+            android:background="@drawable/background_circle">
+            <ImageView
+                android:layout_width="@dimen/moyenne_taille"
+                android:layout_height="match_parent"
+                android:id="@+id/imgAlbum"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"/>
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"

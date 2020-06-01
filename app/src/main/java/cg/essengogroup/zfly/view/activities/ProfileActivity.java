@@ -239,6 +239,9 @@ public class ProfileActivity extends AppCompatActivity {
                     case R.id.one:
                        startActivity(new Intent(ProfileActivity.this,AllMediaProfilActivity.class));
                         return true;
+                    case R.id.two:
+                        startActivity(new Intent(ProfileActivity.this,PostMusicActivity.class));
+                        return true;
                     default:
                         return false;
                 }
