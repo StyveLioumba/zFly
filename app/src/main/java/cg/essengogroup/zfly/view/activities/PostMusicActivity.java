@@ -77,7 +77,13 @@ public class PostMusicActivity extends AppCompatActivity {
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
 
-    private String[] listeGenre={"rap","rnb","zouk","hip hop","jazz","classic","electro"};
+    private String[] listeGenre={
+            "Afro-beat","Afro-house-kudur",
+            "Coupé-décalé","Electro-house",
+            "Folklore","Ndombolo",
+            "Rap-Français","Rap-Us",
+            "Ragga-Dancehall","Rumba",
+            "Rnb soul","Sébène", };
 
     private Dialog_loading dialogLoading;
 

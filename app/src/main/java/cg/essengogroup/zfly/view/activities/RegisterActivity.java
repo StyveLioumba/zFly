@@ -10,7 +10,10 @@ import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -27,6 +30,11 @@ public class RegisterActivity extends AppCompatActivity {
     private String telValue=null;
 
     private FirebaseAuth mAuth;
+    private Spinner spinner;
+    private String[] genreList={
+     "D.J","Beatmaker"
+    };
+    private LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +53,23 @@ public class RegisterActivity extends AppCompatActivity {
         pseudo=findViewById(R.id.pseudo);
         tel=findViewById(R.id.tel);
         isArtiste=findViewById(R.id.statementArtiste);
+        linearLayout=findViewById(R.id.lineBottom);
+
+        spinner=findViewById(R.id.spinnerArtist);
+        ArrayAdapter adapter=new ArrayAdapter(RegisterActivity.this,android.R.layout.simple_list_item_1,android.R.id.text1,genreList);
+        spinner.setAdapter(adapter);
 
         btnIns.setOnClickListener(v->signUpMethode());
         findViewById(R.id.loginActivity).setOnClickListener(v->{
             startActivity(new Intent(RegisterActivity.this,LoginActivity.class));
             finish();
+        });
+        isArtiste.setOnClickListener(v->{
+            if (isArtiste.isChecked()){
+                linearLayout.setVisibility(View.VISIBLE);
+            }else {
+                linearLayout.setVisibility(View.GONE);
+            }
         });
     }
 
@@ -60,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
         String prenomValue=prenom.getText().toString().trim();
         telValue=tel.getText().toString().trim();
         String pseudoValue=pseudo.getText().toString().trim();
+        String genreArtistValue=spinner.getSelectedItem().toString();
 
         if (isArtiste.isChecked()){
             isArtisteValue=true;
@@ -115,14 +136,17 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             if (task.isSuccessful()){
-                startActivity(new Intent(getApplicationContext(),UserPhotoActivity.class)
-                        .putExtra("nom",nomValue)
-                        .putExtra("prenom",prenomValue)
-                        .putExtra("tel",telValue)
-                        .putExtra("pseudo",pseudoValue)
-                        .putExtra("artiste",isArtisteValue)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                );
+                Intent intent=new Intent(getApplicationContext(),UserPhotoActivity.class);
+                intent.putExtra("nom",nomValue);
+                intent.putExtra("prenom",prenomValue);
+                intent .putExtra("tel",telValue);
+                intent.putExtra("pseudo",pseudoValue);
+                intent .putExtra("artiste",isArtisteValue);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                if (isArtisteValue){
+                    intent.putExtra("genreArtiste",genreArtistValue);
+                }
+                startActivity(intent);
             }else {
                 if (task.getException() instanceof FirebaseAuthUserCollisionException){
                     Toast.makeText(this, "vous etes déjà ernregistre", Toast.LENGTH_SHORT).show();

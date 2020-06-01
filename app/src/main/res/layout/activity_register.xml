@@ -29,163 +29,174 @@
                 android:layout_marginStart="@dimen/tres_petite_marge"
                 android:layout_marginBottom="@dimen/normale_marge"/>
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:hintTextAppearance="?android:textAppearance"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:textColorHint="@color/colorTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/nom"
+                    android:textAppearance="?android:textAppearance"
+                    android:textColor="@color/colorTxt"
+                    android:hint="@string/nom"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:drawableStart="@drawable/ic_person_outline"
+                    android:drawableTint="@color/colorTint"
+                    android:drawablePadding="@dimen/tres_petite_marge"
+                    android:fontFamily="@font/comfortaa"
+                    tools:targetApi="m" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:hintTextAppearance="?android:textAppearance"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:textColorHint="@color/colorTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/prenom"
+                    android:textAppearance="?android:textAppearance"
+                    android:textColor="@color/colorTxt"
+                    android:hint="@string/pr_nom"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:drawablePadding="@dimen/tres_petite_marge"
+                    android:fontFamily="@font/comfortaa"
+                    tools:targetApi="m" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:hintTextAppearance="?android:textAppearance"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:textColorHint="@color/colorTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/pseudo"
+                    android:textAppearance="?android:textAppearance"
+                    android:textColor="@color/colorTxt"
+                    android:hint="@string/pseudo"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:drawablePadding="@dimen/tres_petite_marge"
+                    android:fontFamily="@font/comfortaa"
+                    tools:targetApi="m" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:hintTextAppearance="?android:textAppearance"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:textColorHint="@color/colorTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/email"
+                    android:textAppearance="?android:textAppearance"
+                    android:textColor="@color/colorTxt"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawableTint="@color/colorTint"
+                    android:drawablePadding="@dimen/tres_petite_marge"
+                    android:fontFamily="@font/comfortaa"
+                    tools:targetApi="m" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:hintTextAppearance="?android:textAppearance"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:textColorHint="@color/colorTxt">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tel"
+                    android:textAppearance="?android:textAppearance"
+                    android:textColor="@color/colorTxt"
+                    android:hint="@string/num_ro_de_t_l_phone"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawableTint="@color/colorTint"
+                    android:drawablePadding="@dimen/tres_petite_marge"
+                    android:fontFamily="@font/comfortaa"
+                    tools:targetApi="m" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                app:hintTextAppearance="?android:textAppearance"
+                android:textColorHint="@color/colorTxt"
+                app:passwordToggleEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                app:passwordToggleTint="@color/colorTint">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/password"
+                    android:textAppearance="?android:textAppearance"
+                    android:textColor="@color/colorTxt"
+                    android:hint="@string/mot_de_passe"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:drawableStart="@drawable/ic_lock_outline"
+                    android:drawableTint="@color/colorTint"
+                    android:drawablePadding="@dimen/tres_petite_marge"
+                    android:fontFamily="@font/comfortaa"
+                    tools:targetApi="m" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/petite_taille"
+                android:text="@string/etes_vous_artiste"
+                android:textAppearance="?android:textAppearance"
+                android:fontFamily="@font/comfortaa_light"
+                android:id="@+id/statementArtiste"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="@dimen/petite_marge">
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/petite_taille"
-                    app:hintTextAppearance="?android:textAppearance"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:textColorHint="@color/colorTxt">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/nom"
-                        android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTxt"
-                        android:hint="@string/nom"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:drawableStart="@drawable/ic_person_outline"
-                        android:drawableTint="@color/colorTint"
-                        android:drawablePadding="@dimen/tres_petite_marge"
-                        android:fontFamily="@font/comfortaa"
-                        tools:targetApi="m" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/petite_taille"
-                    app:hintTextAppearance="?android:textAppearance"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:textColorHint="@color/colorTxt">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/prenom"
-                        android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTxt"
-                        android:hint="@string/pr_nom"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:drawablePadding="@dimen/tres_petite_marge"
-                        android:fontFamily="@font/comfortaa"
-                        tools:targetApi="m" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/petite_taille"
-                    app:hintTextAppearance="?android:textAppearance"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:textColorHint="@color/colorTxt">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/pseudo"
-                        android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTxt"
-                        android:hint="@string/pseudo"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:drawablePadding="@dimen/tres_petite_marge"
-                        android:fontFamily="@font/comfortaa"
-                        tools:targetApi="m" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/petite_taille"
-                    app:hintTextAppearance="?android:textAppearance"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:textColorHint="@color/colorTxt">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/email"
-                        android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTxt"
-                        android:hint="@string/email"
-                        android:inputType="textEmailAddress"
-                        android:maxLines="1"
-                        android:drawableStart="@drawable/ic_email"
-                        android:drawableTint="@color/colorTint"
-                        android:drawablePadding="@dimen/tres_petite_marge"
-                        android:fontFamily="@font/comfortaa"
-                        tools:targetApi="m" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/petite_taille"
-                    app:hintTextAppearance="?android:textAppearance"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:textColorHint="@color/colorTxt">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/tel"
-                        android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTxt"
-                        android:hint="@string/num_ro_de_t_l_phone"
-                        android:inputType="phone"
-                        android:maxLines="1"
-                        android:drawableStart="@drawable/ic_phone"
-                        android:drawableTint="@color/colorTint"
-                        android:drawablePadding="@dimen/tres_petite_marge"
-                        android:fontFamily="@font/comfortaa"
-                        tools:targetApi="m" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/petite_taille"
-                    app:hintTextAppearance="?android:textAppearance"
-                    android:textColorHint="@color/colorTxt"
-                    app:passwordToggleEnabled="true"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    app:passwordToggleTint="@color/colorTint">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/password"
-                        android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTxt"
-                        android:hint="@string/mot_de_passe"
-                        android:inputType="textPassword"
-                        android:maxLines="1"
-                        android:maxLength="10"
-                        android:drawableStart="@drawable/ic_lock_outline"
-                        android:drawableTint="@color/colorTint"
-                        android:drawablePadding="@dimen/tres_petite_marge"
-                        android:fontFamily="@font/comfortaa"
-                        tools:targetApi="m" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Switch
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/petite_taille"
-                    android:text="@string/etes_vous_artiste"
+                android:layout_height="@dimen/petite_taille"
+                android:id="@+id/lineBottom"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:textAppearance="?android:textAppearance"
                     android:fontFamily="@font/comfortaa_light"
-                    android:id="@+id/statementArtiste"/>
+                    android:text="@string/quel_genre_etes_vous"/>
+                <Spinner
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/spinnerArtist"/>
             </LinearLayout>
 
             <androidx.cardview.widget.CardView

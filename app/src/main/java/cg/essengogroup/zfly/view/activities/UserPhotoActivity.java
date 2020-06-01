@@ -52,7 +52,7 @@ public class UserPhotoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Intent intent;
     private FloatingActionButton fab;
-    private String nomValue,prenomValue,telValue,pseudoValue,
+    private String nomValue,prenomValue,telValue,pseudoValue,genreArtistValue,
             lienCouverture="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2Fdefault_img.png?alt=media&token=acb214d0-afcc-4afd-82ea-fea66baf789f",
             lienProfileImage="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2F264x264-000000-80-0-0.jpg?alt=media&token=feceb79d-6109-43b7-8275-c6ab0f2fc4a3";
     private boolean artisteValue;
@@ -97,6 +97,9 @@ public class UserPhotoActivity extends AppCompatActivity {
             telValue=intent.getStringExtra("tel");
             pseudoValue=intent.getStringExtra("pseudo");
             artisteValue=intent.getBooleanExtra("artiste",false);
+            if (artisteValue){
+                genreArtistValue=intent.getStringExtra("genreArtiste");
+            }
         }
 
         dialogLoading=new Dialog_loading(UserPhotoActivity.this);
@@ -231,6 +234,10 @@ public class UserPhotoActivity extends AppCompatActivity {
         user.put("token", "token");
         user.put("hasNewSMS", false);
         user.put("createAt", ServerValue.TIMESTAMP);
+        user.put("createAt", ServerValue.TIMESTAMP);
+        if (artisteValue){
+            user.put("genreArtiste", genreArtistValue);
+        }
 
         database.getReference()
                 .child("users")

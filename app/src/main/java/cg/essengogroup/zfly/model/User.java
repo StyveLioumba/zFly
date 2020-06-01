@@ -5,14 +5,14 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class User implements Parcelable {
-    private String Apseudo,nom,prenom,pseudo,tel,user_id,image,imageCouverture=null,status,token;
+    private String Apseudo,nom,prenom,pseudo,tel,user_id,image,imageCouverture=null,status,token,genreArtiste;
     private long  createAt;
     private boolean isArtiste,hasNewSMS;
 
     public User() {
     }
 
-    public User(String apseudo, String nom, String prenom, String pseudo, String tel, String user_id, String image, String imageCouverture, String status, String token, long createAt, boolean isArtiste, boolean hasNewSMS) {
+    public User(String apseudo, String nom, String prenom, String pseudo, String tel, String user_id, String image, String imageCouverture, String status, String token, String genreArtiste, long createAt, boolean isArtiste, boolean hasNewSMS) {
         Apseudo = apseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -23,6 +23,7 @@ public class User implements Parcelable {
         this.imageCouverture = imageCouverture;
         this.status = status;
         this.token = token;
+        this.genreArtiste = genreArtiste;
         this.createAt = createAt;
         this.isArtiste = isArtiste;
         this.hasNewSMS = hasNewSMS;
@@ -39,6 +40,7 @@ public class User implements Parcelable {
         status = in.readString();
         token = in.readString();
         imageCouverture = in.readString();
+        genreArtiste = in.readString();
         createAt = in.readLong();
         isArtiste = in.readByte() != 0;
         hasNewSMS = in.readByte() != 0;
@@ -160,6 +162,14 @@ public class User implements Parcelable {
         this.token = token;
     }
 
+    public String getGenreArtiste() {
+        return genreArtiste;
+    }
+
+    public void setGenreArtiste(String genreArtiste) {
+        this.genreArtiste = genreArtiste;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -193,6 +203,7 @@ public class User implements Parcelable {
         dest.writeString(status);
         dest.writeString(token);
         dest.writeString(imageCouverture);
+        dest.writeString(genreArtiste);
         dest.writeLong(createAt);
         dest.writeByte((byte) (isArtiste ? 1 : 0));
         dest.writeByte((byte) (hasNewSMS ? 1 : 0));
