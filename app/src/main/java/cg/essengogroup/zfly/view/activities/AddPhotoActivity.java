@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,7 +36,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 public class AddPhotoActivity extends AppCompatActivity {
     private CardView btnPublier;
@@ -56,7 +56,7 @@ public class AddPhotoActivity extends AppCompatActivity {
 
     private String lienImage,activityValue,place_idValue;
 
-    private Dialog_loading dialogLoading;
+    private ProgressDialog dialogLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,8 +100,8 @@ public class AddPhotoActivity extends AppCompatActivity {
         fab=findViewById(R.id.addImg);
 
 
-        dialogLoading=new Dialog_loading(AddPhotoActivity.this);
-        dialogLoading.setCancelable(false);
+        dialogLoading=new ProgressDialog(AddPhotoActivity.this);
+        dialogLoading.setMessage("Chargement encours ...");
 
         fab.setOnClickListener(v->selectImageFromGallery());
         imageView.setOnClickListener(v->selectImageFromGallery());

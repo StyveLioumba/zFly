@@ -9,9 +9,9 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -69,7 +69,7 @@ public class PostPlaceActivity extends AppCompatActivity {
 
     private String[] listeType={"hotel","vip","restaurant"};
 
-    private Dialog_loading dialogLoading;
+    private ProgressDialog dialogLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,8 +106,8 @@ public class PostPlaceActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress);
         progressBarTop=findViewById(R.id.progressTop);
 
-        dialogLoading=new Dialog_loading(PostPlaceActivity.this);
-        dialogLoading.setCancelable(false);
+        dialogLoading=new ProgressDialog(PostPlaceActivity.this);
+        dialogLoading.setMessage("Chargement encours ...");
 
         imageCouverture.setOnClickListener(v->selectionnerImage());
         btnPublier.setOnClickListener(v->uploadImageToFireBase());

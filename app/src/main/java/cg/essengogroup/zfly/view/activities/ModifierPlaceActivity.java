@@ -11,9 +11,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.model.Place;
-import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -81,7 +81,7 @@ public class ModifierPlaceActivity extends AppCompatActivity {
 
     private String[] listeType={"hotel","vip","restaurant"};
 
-    private Dialog_loading dialogLoading;
+    private ProgressDialog dialogLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,8 +125,8 @@ public class ModifierPlaceActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress);
         progressBarTop=findViewById(R.id.progressTop);
 
-        dialogLoading=new Dialog_loading(ModifierPlaceActivity.this);
-        dialogLoading.setCancelable(false);
+        dialogLoading=new ProgressDialog(ModifierPlaceActivity.this);
+        dialogLoading.setMessage("Chargement encours ...");
 
         imageCouverture.setOnClickListener(v->selectionnerImage());
         btnPublier.setOnClickListener(v->uploadImageToFireBase());

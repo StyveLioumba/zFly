@@ -8,9 +8,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -62,7 +62,7 @@ public class UserPhotoActivity extends AppCompatActivity {
     private FirebaseUser firebaseUser;
     private FirebaseDatabase database;
 
-    private Dialog_loading dialogLoading;
+    private ProgressDialog dialogLoading;
 
     @Override
     public void onStart() {
@@ -102,8 +102,8 @@ public class UserPhotoActivity extends AppCompatActivity {
             }
         }
 
-        dialogLoading=new Dialog_loading(UserPhotoActivity.this);
-        dialogLoading.setCancelable(false);
+        dialogLoading=new ProgressDialog(UserPhotoActivity.this);
+        dialogLoading.setMessage("Chargement encours ...");
 
         fab.setOnClickListener(v->selectionnerImage());
 

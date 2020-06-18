@@ -10,6 +10,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
@@ -36,7 +38,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 public class AddMediaActivity extends AppCompatActivity {
     private Button addSong;
@@ -62,7 +63,7 @@ public class AddMediaActivity extends AppCompatActivity {
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
 
-    private Dialog_loading dialogLoading;
+    private ProgressDialog dialogLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +97,8 @@ public class AddMediaActivity extends AppCompatActivity {
         progressBar=findViewById(R.id.progress);
 
 
-        dialogLoading=new Dialog_loading(AddMediaActivity.this);
-        dialogLoading.setCancelable(false);
+        dialogLoading=new ProgressDialog(AddMediaActivity.this);
+        dialogLoading.setMessage("Chargement encours ...");
 
         btnPublier.setOnClickListener(v->uploadSongToFireBase());
         addSong.setOnClickListener(v->getMusic());

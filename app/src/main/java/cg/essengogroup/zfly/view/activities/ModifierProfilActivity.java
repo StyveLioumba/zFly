@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -39,7 +40,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
 
 public class ModifierProfilActivity extends AppCompatActivity {
 
@@ -63,7 +63,7 @@ public class ModifierProfilActivity extends AppCompatActivity {
     private Uri imageUri=null;
     private Intent intent;
 
-    private Dialog_loading dialogLoading;
+    private ProgressDialog dialogLoading;
 
     private TextInputLayout txtBioLayout;
 
@@ -112,9 +112,8 @@ public class ModifierProfilActivity extends AppCompatActivity {
             finish();
         });
 
-
-        dialogLoading=new Dialog_loading(ModifierProfilActivity.this);
-        dialogLoading.setCancelable(false);
+        dialogLoading=new ProgressDialog(ModifierProfilActivity.this);
+        dialogLoading.setMessage("Chargement encours ...");
 
         btnModifier.setOnClickListener(v->{
             progressBar.setVisibility(View.VISIBLE);

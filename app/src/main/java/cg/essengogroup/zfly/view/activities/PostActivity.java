@@ -10,11 +10,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.view.dialogs.Dialog_loading;
-import id.zelory.compressor.Compressor;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -23,11 +22,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -56,9 +53,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
-import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -87,7 +82,7 @@ public class PostActivity extends AppCompatActivity {
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
 
-    private Dialog_loading dialogLoading;
+    private ProgressDialog dialogLoading;
 
     private LinearLayout linearLayout;
     private int sizeSong=0;
@@ -139,8 +134,8 @@ public class PostActivity extends AppCompatActivity {
         txtImg.setTextSize(14);
         txtSong.setTextSize(11);
 
-        dialogLoading=new Dialog_loading(PostActivity.this);
-        dialogLoading.setCancelable(false);
+        dialogLoading=new ProgressDialog(PostActivity.this);
+        dialogLoading.setMessage("Chargement encours ...");
 
         imageView.setOnClickListener(v->selectionnerImage());
         fab.setOnClickListener(v->playPreview());
