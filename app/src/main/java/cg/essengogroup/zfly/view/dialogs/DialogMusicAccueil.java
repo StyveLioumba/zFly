@@ -2,17 +2,17 @@ package cg.essengogroup.zfly.view.dialogs;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.media.MediaPlayer;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
-import android.widget.ImageView;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -32,6 +32,7 @@ public class DialogMusicAccueil extends Dialog {
     private MediaPlayer mp;
     private int totalTime;
     private String lienAudio;
+    private ProgressBar progressBar;
 
     public DialogMusicAccueil(@NonNull Context context,String lienAudio) {
         super(context);
@@ -48,81 +49,11 @@ public class DialogMusicAccueil extends Dialog {
         playBtn = findViewById(R.id.playBtn);
         elapsedTimeLabel = findViewById(R.id.elapsedTimeLabel);
 
-
-        // Media Player
-        mp = new MediaPlayer();
-        try {
-            mp.setDataSource(lienAudio);
-            mp.prepare();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        mp.setLooping(false);
-        mp.seekTo(0);
-        mp.setVolume(0.5f, 0.5f);
-        totalTime = mp.getDuration();
-
-        // Position Bar
         positionBar =  findViewById(R.id.positionBar);
-        positionBar.setMax(totalTime);
-        positionBar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        if (fromUser) {
-                            mp.seekTo(progress);
-                            positionBar.setProgress(progress);
-                        }
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-
-                    }
-                }
-        );
-
-        // Volume Bar
         volumeBar = (SeekBar) findViewById(R.id.volumeBar);
-        volumeBar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
-                    @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                        float volumeNum = progress / 100f;
-                        mp.setVolume(volumeNum, volumeNum);
-                    }
-
-                    @Override
-                    public void onStartTrackingTouch(SeekBar seekBar) {
-
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(SeekBar seekBar) {
-
-                    }
-                }
-        );
-
-        // Thread (Update positionBar & timeLabel)
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (mp != null) {
-                    try {
-                        Message msg = new Message();
-                        msg.what = mp.getCurrentPosition();
-                        handler.sendMessage(msg);
-                        Thread.sleep(900);
-                    } catch (InterruptedException e) {}
-                }
-            }
-        }).start();
+        progressBar=findViewById(R.id.progress);
+        playBtn.setEnabled(false);
+        positionBar.setEnabled(false);
 
         playBtn.setOnClickListener(v->{
             if (mp!=null &&!mp.isPlaying()) {
@@ -137,13 +68,16 @@ public class DialogMusicAccueil extends Dialog {
             }
         });
 
-//        prepareSong();
+        new PreparationAsynchroneSong().execute(lienAudio);
     }
 
     public void prepareSong(){
         mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
             public void onPrepared(MediaPlayer mp) {
+                progressBar.setVisibility(View.GONE);
+                playBtn.setEnabled(true);
+                positionBar.setEnabled(true);
                 if (!mp.isPlaying()) {
                     // Stopping
                     mp.start();
@@ -221,6 +155,103 @@ public class DialogMusicAccueil extends Dialog {
         }
         if (isShowing()){
             dismiss();
+        }
+    }
+
+    public class PreparationAsynchroneSong extends AsyncTask<String,Void,Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(context, "Veuillez patienté jusqu'à la fin du chargement", Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            // Media Player
+            mp = new MediaPlayer();
+            try {
+                mp.setDataSource(lienAudio);
+                mp.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            mp.setLooping(false);
+            mp.seekTo(0);
+            mp.setVolume(0.5f, 0.5f);
+            totalTime = mp.getDuration();
+
+            // Position Bar
+            positionBar.setMax(totalTime);
+            positionBar.setOnSeekBarChangeListener(
+                    new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                            if (fromUser) {
+                                mp.seekTo(progress);
+                                positionBar.setProgress(progress);
+                            }
+                        }
+
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {
+
+                        }
+
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {
+
+                        }
+                    }
+            );
+
+            // Volume Bar
+            volumeBar.setOnSeekBarChangeListener(
+                    new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                            float volumeNum = progress / 100f;
+                            mp.setVolume(volumeNum, volumeNum);
+                        }
+
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {
+
+                        }
+
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {
+
+                        }
+                    }
+            );
+
+            // Thread (Update positionBar & timeLabel)
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (mp != null) {
+                        try {
+                            Message msg = new Message();
+                            msg.what = mp.getCurrentPosition();
+                            handler.sendMessage(msg);
+                            Thread.sleep(900);
+                        } catch (InterruptedException e) {}
+                    }
+                }
+            }).start();
+
+            prepareSong();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressBar.setVisibility(View.GONE);
+            playBtn.setEnabled(true);
+            positionBar.setEnabled(true);
         }
     }
 }
