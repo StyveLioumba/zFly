@@ -30,6 +30,7 @@ import cg.essengogroup.zfly.view.fragments.music_fragments.AlbumFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.ArtistesFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.ChansonsFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.GenreFragment;
+import cg.essengogroup.zfly.view.fragments.music_fragments.TopFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,6 +83,7 @@ public class MusicFragment extends Fragment {
         adapter.addFragment(new ArtistesFragment());
         adapter.addFragment(new AlbumFragment());
         adapter.addFragment(new GenreFragment());
+        adapter.addFragment(new TopFragment());
 
         ViewPager viewPager=root.findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
@@ -95,6 +97,7 @@ public class MusicFragment extends Fragment {
         tabLayout.getTabAt(1).setText("Artistes");
         tabLayout.getTabAt(2).setText("Albums");
         tabLayout.getTabAt(3).setText("Genres");
+        tabLayout.getTabAt(4).setText("Top 10");
 
     }
 }
