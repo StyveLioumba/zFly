@@ -18,7 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -458,6 +457,7 @@ public class LecteurActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot!=null){
                     nbreEcouter.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                    saveNumEcouterUser(music,String.valueOf(dataSnapshot.getChildrenCount()));
                 }
             }
 
@@ -495,6 +495,11 @@ public class LecteurActivity extends AppCompatActivity {
 
         DownloadManager manager= (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
         manager.enqueue(request);
+    }
+
+    private void saveNumEcouterUser(Music music,String count){
+        reference=database.getReference("users/"+music.getUser_id());
+        reference.child("nombreEcoute").setValue(count);
     }
 
     @Override
