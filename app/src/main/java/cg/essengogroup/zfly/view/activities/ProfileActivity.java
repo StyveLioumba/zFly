@@ -58,7 +58,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
-    private TextView txtPseudo,txtUsername,nbreAbonne,nbrePost,txtBio,nbreAbonnement;
+    private TextView txtPseudo,txtUsername,nbreAbonne,nbrePost,txtBio,nbreAbonnement,nbreEcouter;
     private CircularImageView userImage;
     private ProgressBar progressBar,progressBarProfil;
     private ImageView imageCouverture,menuSon,menuPhoto,btnAddImgCouverture;
@@ -124,6 +124,7 @@ public class ProfileActivity extends AppCompatActivity {
         txtBio=findViewById(R.id.biographie);
         nbreAbonne=findViewById(R.id.nbreAbonne);
         nbreAbonnement=findViewById(R.id.nbreAbonnement);
+        nbreEcouter=findViewById(R.id.nbreEcoute);
         nbrePost=findViewById(R.id.nbrePost);
         btnAddImgCouverture=findViewById(R.id.addImgCouverture);
         progressBar=findViewById(R.id.progress);
@@ -217,6 +218,12 @@ public class ProfileActivity extends AppCompatActivity {
                             .load(String.valueOf(dataSnapshot.child("image_couverture").getValue()))
                             .error(R.drawable.default_img)
                             .into(imageCouverture);
+                }
+
+                if (dataSnapshot.child("nombreEcoute").exists()){
+                    nbreEcouter.setText(String.valueOf(dataSnapshot.child("nombreEcoute").getValue()));
+                }else {
+                    nbreEcouter.setText(String.valueOf(0));
                 }
             }
 
