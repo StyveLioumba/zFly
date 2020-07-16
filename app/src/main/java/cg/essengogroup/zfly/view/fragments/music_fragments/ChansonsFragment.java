@@ -1,8 +1,11 @@
 package cg.essengogroup.zfly.view.fragments.music_fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +36,8 @@ import cg.essengogroup.zfly.controller.adapter.MorceauAdapter;
 import cg.essengogroup.zfly.controller.interfaces.MorceauInterface;
 import cg.essengogroup.zfly.model.Music;
 import cg.essengogroup.zfly.view.activities.LecteurActivity;
+
+import static cg.essengogroup.zfly.controller.utils.Methodes.isConnectingToInternet;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,18 +83,25 @@ public class ChansonsFragment extends Fragment {
             Map<String,Object> data=new HashMap<>();
             data.put("createAt", ServerValue.TIMESTAMP);
 
-            reference.child("ecoute"+System.currentTimeMillis())
-                    .setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
+            if (isConnectingToInternet(context)){
+                reference.child("ecoute"+System.currentTimeMillis())
+                        .setValue(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
 
-                    changeSelectedMusic(postion);
-                    startActivity(new Intent(context, LecteurActivity.class)
+                        changeSelectedMusic(postion);
+                        new PreparationAsync().execute(music);
+
+                    /*startActivity(new Intent(context, LecteurActivity.class)
                             .putParcelableArrayListExtra("arrayList",musicArrayList)
                             .putExtra("currentIndex",currentIndex)
-                    );
-                }
-            });
+                    );*/
+                    }
+                });
+
+            }else {
+                Toast.makeText(context, "Veuillez vous connecté à internet", Toast.LENGTH_SHORT).show();
+            }
 
 
         });
@@ -122,5 +136,63 @@ public class ChansonsFragment extends Fragment {
         currentIndex=index;
         adapter.setSelectedPostion(currentIndex);
         adapter.notifyItemChanged(currentIndex);
+    }
+
+    public class PreparationAsync extends AsyncTask<Music,Void,Boolean> {
+        private ProgressDialog dialog;
+        private MediaPlayer mp;
+        private boolean isReady=false;
+
+        public boolean isReady() {
+            return isReady;
+        }
+
+        public void setReady(boolean ready) {
+            isReady = ready;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            dialog=new ProgressDialog(context);
+            dialog.setMessage("chargement");
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
+        protected Boolean doInBackground(Music... music) {
+
+            mp = new MediaPlayer();
+            try {
+                mp.setDataSource(music[0].getChanson());
+                mp.prepare();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                  setReady(true);
+                }
+            });
+            return isReady;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            dialog.dismiss();
+            if (isReady()){
+                startActivity(new Intent(context, LecteurActivity.class)
+                        .putParcelableArrayListExtra("arrayList",musicArrayList)
+                        .putExtra("currentIndex",currentIndex)
+                );
+            }else {
+                Toast.makeText(context, "Veuillez vous connecté", Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 }
