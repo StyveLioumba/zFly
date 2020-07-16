@@ -224,7 +224,7 @@ public class Methodes {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         String shareBodyText = "https://play.google.com/store/apps/details?id=" +
-                appPackageName;
+                "cg.essengogroup.zfly";
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, appName);
         shareIntent.putExtra(Intent.EXTRA_TEXT, shareBodyText);
         context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.app_name)));
