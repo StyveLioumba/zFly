@@ -88,6 +88,7 @@ public class AccueilFragment extends Fragment {
         database=FirebaseDatabase.getInstance();
         referenceUser=database.getReference("users").orderByChild("isArtiste").equalTo(true).limitToLast(50);
         referenceModel=database.getReference("post");
+        referenceSlider=database.getReference("slide");
 
         referenceUser.keepSynced(true);
         referenceModel.keepSynced(true);
@@ -187,15 +188,15 @@ public class AccueilFragment extends Fragment {
     }
 
     private void getDataSlider(){
-        referenceModel.addValueEventListener(new ValueEventListener() {
+        referenceSlider.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 sliderArrayList.clear();
                 for (DataSnapshot data : dataSnapshot.getChildren()){
                     Slider slider=new Slider() ;
 
-                    slider.setImage(""+data.child("imagePost").getValue());
-                    slider.setDesignation(""+data.child("description").getValue());
+                    slider.setImage(""+data.child("imageURL").getValue());
+                    slider.setDesignation(""+data.child("text").getValue());
 
                     sliderArrayList.add(slider);
                 }
