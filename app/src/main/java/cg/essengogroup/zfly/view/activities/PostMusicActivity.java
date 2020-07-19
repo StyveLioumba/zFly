@@ -86,6 +86,7 @@ public class PostMusicActivity extends AppCompatActivity {
             "Rnb soul","Sébène", };
 
     private ProgressDialog dialogLoading;
+    private String defaultCover="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2Fmusic_cover.png?alt=media&token=53a33970-d821-4a95-8c15-b08ed8109de6";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +128,7 @@ public class PostMusicActivity extends AppCompatActivity {
 
         dialogLoading=new ProgressDialog(PostMusicActivity.this);
         dialogLoading.setMessage("Chargement encours ...");
+        dialogLoading.setCancelable(false);
 
         imageCover.setOnClickListener(v->selectionnerImage());
         btnPublier.setOnClickListener(v->uploadSongToFireBase());
@@ -202,7 +204,7 @@ public class PostMusicActivity extends AppCompatActivity {
 
     private void getMusic(){
         Intent intent = new Intent();
-        intent.setType("audio/mp3");
+        intent.setType("audio/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(
                 intent,
@@ -280,6 +282,9 @@ public class PostMusicActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(this, ""+exception.getMessage(), Toast.LENGTH_SHORT).show();
             });
+        }else {
+            lienImage=defaultCover;
+            sendMusicToFirebaseDataBase();
         }
     }
 
@@ -547,6 +552,16 @@ public class PostMusicActivity extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (uriChanson!=null){
+            if (mPlayer.isPlaying()) {
+                mPlayer.stop();
+            }
         }
     }
 }

@@ -8,9 +8,9 @@
     android:background="@drawable/degrade"
     tools:context=".view.activities.MainActivity">
     <ImageView
-        android:layout_width="@dimen/moyenne_taille"
-        android:layout_height="@dimen/moyenne_taille"
-        android:src="@drawable/icon"
+        android:layout_width="@dimen/large_taille"
+        android:layout_height="@dimen/large_taille"
+        android:src="@drawable/logo"
         android:id="@+id/img"
         android:layout_centerInParent="true"/>
 
@@ -29,15 +29,5 @@
         android:textAlignment="center"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@android:color/white" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="wrap_content"
-        android:layout_height="155dp"
-        android:adjustViewBounds="true"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        app:lottie_rawRes="@raw/loading_home"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
 
 </RelativeLayout>

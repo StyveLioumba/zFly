@@ -22,4 +22,8 @@
     <color name="c3">#402C1A</color>
     <color name="c4">#A60303</color>
     <color name="c5">#018786</color>
+
+    <color name="bronze">#CD7F32</color>
+    <color name="or">#D4AF37</color>
+    <color name="silver">#C0C0C0</color>
 </resources>

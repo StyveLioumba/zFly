@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">zFly</string>
+    <string name="app_name">FlyZik</string>
     <string name="volley_time_out_error">Délai de connection dépassé … Veuillez vérifier votre connexion Internet !</string>
     <string name="volley_parse_error">Erreur d\'analyse … Veuillez réessayer après un certain temps !</string>
     <string name="volley_authfail">Impossible de se connecter à Internet … Veuillez vérifier votre connexion !</string>

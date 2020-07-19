@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -254,6 +255,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void shareContent(ImageView imageView){
 
+        Log.e("TAG", "getBitmapFromView: " );
         Bitmap bitmap =getBitmapFromView(imageView);
         try {
             File file = new File(getExternalCacheDir(),getResources().getString(R.string.app_name)+System.currentTimeMillis()+".png");

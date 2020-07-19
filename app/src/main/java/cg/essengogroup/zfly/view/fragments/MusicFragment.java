@@ -93,11 +93,11 @@ public class MusicFragment extends Fragment {
         tabLayout.setBackgroundColor(getResources().getColor(R.color.colorToolbar));
         tabLayout.setTabTextColors(getResources().getColor(android.R.color.black),getResources().getColor(R.color.colorBlanc));
 
-        tabLayout.getTabAt(0).setText("Morceaux");
+        tabLayout.getTabAt(0).setText("Son");
         tabLayout.getTabAt(1).setText("Artistes");
         tabLayout.getTabAt(2).setText("Albums");
         tabLayout.getTabAt(3).setText("Genres");
-        tabLayout.getTabAt(4).setText("Top 10");
+        tabLayout.getTabAt(4).setText("Top");
 
     }
 }

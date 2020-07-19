@@ -58,7 +58,7 @@ public class LecteurActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private SeekBar positionSeekBar,volumeSeekBar;
-    private ImageButton btnPrevious,btnNext,btnDownload;
+    private ImageButton btnPrevious,btnNext,btnDownload,btnShare;
     private CircularImageView imageCover;
 
     private FloatingActionButton playBtn;
@@ -113,6 +113,7 @@ public class LecteurActivity extends AppCompatActivity {
         btnNext=findViewById(R.id.btnNext);
         btnDownload=findViewById(R.id.download);
         btnRepeat=findViewById(R.id.repeat);
+        btnShare=findViewById(R.id.share);
 
         imageCover=findViewById(R.id.imgCover);
 
@@ -297,6 +298,10 @@ public class LecteurActivity extends AppCompatActivity {
                 isRepeat=true;
                 btnRepeat.setImageResource(R.drawable.ic_repeat);
             }
+        });
+
+        btnShare.setOnClickListener(v->{
+            share(music.getChanson());
         });
     }
 
@@ -545,5 +550,12 @@ public class LecteurActivity extends AppCompatActivity {
         if (mediaPlayer!=null && mediaPlayer.isPlaying()){
             mediaPlayer.stop();
         }
+    }
+
+    private void share(String body){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, body);
+        startActivity(Intent.createChooser(shareIntent, getString(R.string.app_name)));
     }
 }
