@@ -50,7 +50,6 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/tres_grande_marge"
-        app:cardBackgroundColor="@color/colorBlanc"
         app:cardCornerRadius="@dimen/normale_marge"
         app:cardElevation="@dimen/petite_marge"
         app:cardMaxElevation="@dimen/normale_marge"
@@ -86,7 +85,7 @@
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="@dimen/tres_petite_marge"
                 android:layout_marginBottom="@dimen/tres_petite_marge"
-                android:tint="@color/colorPrimaryDark"
+                android:tint="@color/or"
                 android:src="@drawable/ic_chevron_right_black_24dp"/>
         </LinearLayout>
 

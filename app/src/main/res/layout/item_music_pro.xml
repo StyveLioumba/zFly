@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -48,6 +49,7 @@
                 android:layout_gravity="center"
                 android:text="@string/app_name"
                 android:textSize="10sp"
+                android:maxLines="1"
                 android:textColor="@color/colorBtn"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/comfortaa_bold"
@@ -59,6 +61,7 @@
                 android:layout_gravity="center"
                 android:text="@string/app_name"
                 android:textSize="8sp"
+                android:maxLines="1"
                 android:textColor="@color/colorMenu"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/comfortaa_light"

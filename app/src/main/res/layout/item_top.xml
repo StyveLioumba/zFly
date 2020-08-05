@@ -39,7 +39,7 @@
             android:gravity="center_vertical"
             android:text="@string/app_name"
             android:layout_weight="1"
-            android:textColor="@color/colorBtn"
+            android:textColor="@android:color/white"
             android:textAppearance="?android:textAppearance"
             android:id="@+id/txtTitre"
             tools:ignore="RtlCompat" />
@@ -49,5 +49,5 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimaryDark"/>
+        android:background="@android:color/white"/>
 </LinearLayout>

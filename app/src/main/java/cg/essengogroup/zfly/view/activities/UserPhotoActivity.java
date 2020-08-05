@@ -52,7 +52,7 @@ public class UserPhotoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Intent intent;
     private FloatingActionButton fab;
-    private String nomValue,prenomValue,telValue,pseudoValue,genreArtistValue,
+    private String nomValue,telValue,nomArtisteValue,genreArtistValue,paysValue,
             lienCouverture="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2Fdefault_img.png?alt=media&token=acb214d0-afcc-4afd-82ea-fea66baf789f",
             lienProfileImage="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2F264x264-000000-80-0-0.jpg?alt=media&token=feceb79d-6109-43b7-8275-c6ab0f2fc4a3";
     private boolean artisteValue;
@@ -68,7 +68,7 @@ public class UserPhotoActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser()==null){
-            startActivity(new Intent(UserPhotoActivity.this,LoginActivity.class));
+            startActivity(new Intent(UserPhotoActivity.this,RegisterActivity.class));
             finish();
         }
     }
@@ -93,9 +93,9 @@ public class UserPhotoActivity extends AppCompatActivity {
 
         if (intent!=null){
             nomValue=intent.getStringExtra("nom");
-            prenomValue=intent.getStringExtra("prenom");
             telValue=intent.getStringExtra("tel");
-            pseudoValue=intent.getStringExtra("pseudo");
+            paysValue=intent.getStringExtra("pays");
+            nomArtisteValue=intent.getStringExtra("nomArtiste");
             artisteValue=intent.getBooleanExtra("artiste",false);
             if (artisteValue){
                 genreArtistValue=intent.getStringExtra("genreArtiste");
@@ -222,10 +222,11 @@ public class UserPhotoActivity extends AppCompatActivity {
         Map<String, Object> user = new HashMap<>();
         user.put("user_id", firebaseUser.getUid());
         user.put("nom", nomValue);
-        user.put("prenom", prenomValue);
-        user.put("pseudo", pseudoValue);
-        user.put("Apseudo", "@"+prenomValue.toLowerCase().charAt(0)+nomValue);
+        user.put("pseudo", nomArtisteValue);
+        user.put("Apseudo", "@"+nomArtisteValue.toLowerCase());
         user.put("tel", telValue);
+        user.put("pays", paysValue);
+        user.put("ville", "inconnue");
         user.put("image", lienProfileImage);
         user.put("image_couverture", lienCouverture);
         user.put("isArtiste", artisteValue);

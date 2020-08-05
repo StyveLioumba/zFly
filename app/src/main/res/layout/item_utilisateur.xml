@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/imgUser"
-                app:civ_border_color="@color/colorbtn"
+                app:civ_border_color="@android:color/white"
                 app:civ_border_width="1dp"
                 android:src="@drawable/imgdefault"/>
             <ImageView
@@ -60,7 +60,6 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/tres_petite_police"
                 android:id="@+id/Apseudo"
-                android:textColor="@color/colorPrimaryDark"
                 android:textAppearance="?android:textAppearance"
                 android:fontFamily="@font/comfortaa_light"
                 android:layout_marginStart="@dimen/tres_petite_marge"/>

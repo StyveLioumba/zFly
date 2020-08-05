@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        app:titleTextColor="@color/colorBtn"
         app:titleTextAppearance="?android:textAppearanceSmall"
         app:title="@string/publier"/>
 
@@ -91,6 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                android:background="@color/colorback"
                 android:src="@drawable/add_picture"
                 android:id="@+id/imgPreview"/>
 
@@ -147,15 +147,14 @@
             android:layout_marginLeft="@dimen/tres_petite_marge"
             android:layout_marginRight="@dimen/tres_petite_marge"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            app:hintTextAppearance="?android:textAppearance"
-            android:textColorHint="@color/colorTxt">
+            app:hintTextAppearance="?android:textAppearance">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/txtDescription"
+                android:textColor="@android:color/white"
                 android:textAppearance="?android:textAppearance"
-                android:textColor="@color/colorTxt"
                 android:hint="@string/description_"
                 android:inputType="textMultiLine"
                 android:drawablePadding="@dimen/tres_petite_marge"

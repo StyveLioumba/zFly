@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorback"
     tools:context=".view.activities.ModifierProfilActivity">
 
     <LinearLayout
@@ -34,7 +33,6 @@
                 android:background="@android:color/transparent"
                 android:layout_margin="@dimen/tres_petite_marge"
                 android:layout_centerVertical="true"
-                android:tint="@color/common_google_signin_btn_text_light_focused"
                 android:src="@drawable/ic_arrow_back_black_24dp"/>
         </RelativeLayout>
 
@@ -71,8 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/tres_petite_marge"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            app:hintTextAppearance="?android:textAppearance"
-            android:textColorHint="@color/colorTxt">
+            app:hintTextAppearance="?android:textAppearance">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -80,9 +77,8 @@
                 android:id="@+id/pseudo"
                 android:drawableLeft="@drawable/ic_person_outline"
                 android:textAppearance="?android:textAppearance"
-                android:textColor="@color/colorTxt"
                 android:hint="@string/pseudo"
-                android:drawableTint="@color/colorTint"
+                android:drawableTint="@android:color/white"
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:inputType="text"
                 android:maxLines="1"
@@ -96,20 +92,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/tres_petite_marge"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            app:hintTextAppearance="?android:textAppearance"
-            android:textColorHint="@color/colorTxt">
+            app:hintTextAppearance="?android:textAppearance">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/tel"
                 android:textAppearance="?android:textAppearance"
-                android:textColor="@color/colorTxt"
                 android:hint="@string/num_ro_de_t_l_phone"
                 android:inputType="phone"
                 android:maxLines="1"
                 android:drawableStart="@drawable/ic_phone"
-                android:drawableTint="@color/colorTint"
+                android:drawableTint="@android:color/white"
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:fontFamily="@font/comfortaa"
                 tools:targetApi="m" />
@@ -122,17 +116,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:layout_margin="@dimen/tres_petite_marge"
             android:id="@+id/txtBio"
-            app:hintTextAppearance="?android:textAppearance"
-            android:textColorHint="@color/colorTxt">
+            app:hintTextAppearance="?android:textAppearance">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/biographie"
                 android:textAppearance="?android:textAppearance"
-                android:textColor="@color/colorTxt"
                 android:hint="@string/biographie"
-                android:drawableTint="@color/colorTint"
                 android:drawableLeft="@drawable/ic_short_text_black_24dp"
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:inputType="textMultiLine"
@@ -151,6 +142,7 @@
             android:layout_marginTop="@dimen/tres_grande_marge"
             android:layout_marginLeft="@dimen/tres_petite_marge"
             android:layout_marginRight="@dimen/tres_petite_marge"
+            android:textColor="@android:color/white"
             android:textAppearance="?android:textAppearance"
             android:background="@drawable/common_google_signin_btn_icon_light_normal_background"/>
 

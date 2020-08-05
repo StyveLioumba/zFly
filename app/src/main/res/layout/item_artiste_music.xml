@@ -9,7 +9,7 @@
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/large_taille"
+        android:layout_height="@dimen/moyenne_taille"
         android:id="@+id/imgArtist"
         app:civ_border_width="1dp"
         android:layout_gravity="center"
@@ -22,6 +22,7 @@
         android:id="@+id/pseudoUser"
         android:layout_margin="@dimen/micro_petite_marge"
         android:textSize="@dimen/tres_petite_police"
+        android:textColor="@android:color/white"
         android:textAppearance="?android:textAppearanceSmall"
         android:fontFamily="@font/carter_one"
         android:textAlignment="center"

@@ -11,7 +11,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
 
         <RelativeLayout
             android:layout_width="@dimen/moyenne_taille"
@@ -22,14 +24,14 @@
             android:layout_centerInParent="true">
 
             <RelativeLayout
-                android:layout_width="95dp"
-                android:layout_height="95dp"
+                android:layout_width="99.9dp"
+                android:layout_height="99.9dp"
                 android:layout_centerInParent="true"
                 android:background="@drawable/circle"
                 android:backgroundTint="@color/colorback">
                 <com.mikhaellopez.circularimageview.CircularImageView
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:id="@+id/imgArtist"
                     android:layout_centerInParent="true"
                     android:src="@mipmap/ic_launcher_round"/>
@@ -48,7 +50,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/petite_marge"
                 android:layout_marginBottom="@dimen/petite_marge"
-                android:background="@color/colorPrimaryDark"/>
+                android:background="@android:color/white"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -57,7 +59,8 @@
                 android:textAppearance="?android:textAppearance"
                 android:fontFamily="@font/comfortaa_light"
                 android:textStyle="bold"
-                android:textSize="@dimen/police_normale"
+                android:maxLines="1"
+                android:textSize="@dimen/petite_police"
                 android:textAlignment="center"
                 android:text="@string/pseudo"/>
             <TextView
@@ -65,12 +68,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/ApseudoUser"
                 android:layout_margin="@dimen/micro_petite_marge"
+                android:textSize="@dimen/tres_petite_police"
                 android:textAppearance="?android:textAppearance"
                 android:fontFamily="@font/comfortaa_light"
                 android:textAlignment="center"
                 android:text="@string/pseudo"/>
 
         </LinearLayout>
+
     </RelativeLayout>
 
 

@@ -173,9 +173,9 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     if (dataSnapshot.exists()) {
-                                        ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.ic_favorite_black_24dp);
+                                        ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.star_gold);
                                     }else {
-                                        ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                                        ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.star_outline);
                                     }
                                 }
 
@@ -194,10 +194,10 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                         if (dataSnapshot.exists()) {
                                             dislikePost(model.getPost_id());
-                                            ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.ic_favorite_black_24dp);
+                                            ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.star_gold);
                                         }else {
                                             likePost(model.getPost_id());
-                                            ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                                            ((ImageTypeViewHolder) holder).imageLike.setImageResource(R.drawable.star_outline);
                                         }
                                     }
 

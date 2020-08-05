@@ -1,12 +1,13 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/c4</item>
         <item name="colorPrimaryDark">@color/colorbtn</item>
         <item name="colorAccent">@color/c2</item>
         <item name="android:fontFamily">@font/ubuntu_mono_bold</item>
+        <item name="pinViewStyle">@style/PinWidget.PinView</item>
     </style>
 
     <style name="DarkTheme" parent="Theme.AppCompat.NoActionBar"/>

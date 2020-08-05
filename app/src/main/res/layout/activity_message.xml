@@ -81,8 +81,9 @@
             android:hint="@string/r_diger_un_message"
             android:fontFamily="@font/ubuntu_mono"
             android:inputType="textMultiLine"
-            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
             android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
             android:layout_toLeftOf="@id/btnSend"/>
         <ImageButton
             android:layout_width="40dp"

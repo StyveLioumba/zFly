@@ -8,6 +8,7 @@
 
     <item android:title="@string/place"
         android:id="@+id/placeFrame"
+        android:visible="false"
         android:icon="@drawable/ic_place_black_24dp"/>
 
     <item android:title="@string/music"

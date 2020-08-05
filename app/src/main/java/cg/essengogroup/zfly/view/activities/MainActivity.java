@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int TIME_OUT=4000;
+    private final int TIME_OUT=2500;
     private Handler handler=new Handler();
 
     @Override
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         handler.postDelayed(() -> {
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
+            startActivity(new Intent(MainActivity.this,RegisterActivity.class));
             finish();
         },TIME_OUT);
     }

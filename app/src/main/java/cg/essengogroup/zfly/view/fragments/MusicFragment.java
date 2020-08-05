@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -81,7 +82,7 @@ public class MusicFragment extends Fragment {
 
         adapter.addFragment(new ChansonsFragment());
         adapter.addFragment(new ArtistesFragment());
-        adapter.addFragment(new AlbumFragment());
+//        adapter.addFragment(new AlbumFragment());
         adapter.addFragment(new GenreFragment());
         adapter.addFragment(new TopFragment());
 
@@ -95,9 +96,9 @@ public class MusicFragment extends Fragment {
 
         tabLayout.getTabAt(0).setText("Son");
         tabLayout.getTabAt(1).setText("Artistes");
-        tabLayout.getTabAt(2).setText("Albums");
-        tabLayout.getTabAt(3).setText("Genres");
-        tabLayout.getTabAt(4).setText("Top");
+//        tabLayout.getTabAt(2).setText("Albums");
+        tabLayout.getTabAt(2).setText("Genres");
+        tabLayout.getTabAt(3).setText("Top");
 
     }
 }

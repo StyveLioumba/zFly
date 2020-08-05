@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorback">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -50,15 +49,16 @@
                             android:layout_width="@dimen/moyenne_taille"
                             android:layout_height="@dimen/moyenne_taille"
                             android:src="@drawable/icon"/>
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="#zFly"
-                            android:textAppearance="?android:textAppearanceLarge"
-                            android:textColor="@color/colorPrimaryDark"
+                            android:layout_gravity="center"
                             android:fontFamily="@font/carter_one"
                             android:gravity="center"
-                            android:layout_gravity="center"/>
+                            android:text="#zFly"
+                            android:textAppearance="?android:textAppearanceLarge"
+                            android:textColor="@color/colorPrimary" />
                     </LinearLayout>
                     <TextView
                         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/version"
                                 android:textAppearance="?android:textAppearance"
-                                android:textColor="@color/colorTxt"
+                                android:textColor="@android:color/white"
                                 android:fontFamily="@font/comfortaa_light"
                                 android:layout_gravity="center"/>
                             <TextView
@@ -104,7 +104,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/b_ta_1_0"
                                 android:textAppearance="?android:textAppearanceLarge"
-                                android:textColor="@color/colorTint"
+                                android:textColor="@android:color/white"
                                 android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
                         </LinearLayout>
@@ -117,7 +117,7 @@
                         android:text="@string/_2020"
                         android:fontFamily="@font/carter_one"
                         android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorPrimary"
                         android:textAlignment="textEnd"
                         android:layout_marginRight="@dimen/petite_marge"
                         android:layout_marginLeft="@dimen/petite_marge"
@@ -143,7 +143,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/ateur"
                         android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTint"
+                        android:textColor="@android:color/white"
                         android:layout_marginRight="@dimen/petite_marge"
                         android:layout_marginLeft="@dimen/petite_marge"
                         android:layout_marginTop="@dimen/tres_petite_marge"
@@ -176,7 +176,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/dj_youss"
                                 android:textAppearance="?android:textAppearanceLarge"
-                                android:textColor="@color/colorTxt"
+                                android:textColor="@android:color/white"
                                 android:textSize="@dimen/police_normale"
                                 android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
@@ -212,7 +212,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/d_velopper_par"
                                 android:textAppearance="?android:textAppearance"
-                                android:textColor="@color/colorTint"
+                                android:textColor="@android:color/white"
                                 android:fontFamily="@font/comfortaa_light"
                                 android:layout_gravity="center"/>
                             <TextView
@@ -220,7 +220,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/essengo_group"
                                 android:textAppearance="?android:textAppearanceLarge"
-                                android:textColor="@color/colorTxt"
+                                android:textColor="@android:color/white"
                                 android:textSize="@dimen/police_normale"
                                 android:fontFamily="@font/comfortaa_bold"
                                 android:layout_gravity="center"/>
@@ -246,7 +246,7 @@
                         android:layout_height="wrap_content"
                         android:text="@string/nos_contacts"
                         android:textAppearance="?android:textAppearance"
-                        android:textColor="@color/colorTint"
+                        android:textColor="@android:color/white"
                         android:layout_marginRight="@dimen/petite_marge"
                         android:layout_marginLeft="@dimen/petite_marge"
                         android:layout_marginTop="@dimen/tres_petite_marge"
@@ -281,7 +281,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/_242_06_6"
                                 android:textAppearance="?android:textAppearance"
-                                android:textColor="@color/colorTxt"
+                                android:textColor="@android:color/white"
                                 android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
                             <TextView
@@ -289,7 +289,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/essengogroup_cg_gmail_com"
                                 android:textAppearance="?android:textAppearance"
-                                android:textColor="@color/colorTxt"
+                                android:textColor="@android:color/white"
                                 android:fontFamily="@font/carter_one"
                                 android:layout_gravity="center"/>
                         </LinearLayout>

@@ -72,5 +72,8 @@ dependencies {
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'id.zelory:compressor:2.1.0'
 
+    implementation 'com.hbb20:ccp:2.4.0'
+    implementation 'com.chaos.view:pinview:1.4.3'
+
 }
 apply plugin: 'com.google.gms.google-services'

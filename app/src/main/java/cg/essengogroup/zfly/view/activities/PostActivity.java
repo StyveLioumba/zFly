@@ -91,7 +91,7 @@ public class PostActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         if (mAuth.getCurrentUser()==null){
-            startActivity(new Intent(PostActivity.this,LoginActivity.class));
+            startActivity(new Intent(PostActivity.this,RegisterActivity.class));
             finish();
         }
     }

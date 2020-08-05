@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/lineMorceau"
     android:layout_margin="@dimen/micro_petite_marge"
-    android:layout_height="@dimen/taille_normale">
+    android:layout_height="@dimen/petite_taille">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,15 +15,19 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/colorbaskSMS"
-            android:background="@drawable/background_circle">
-            <ImageView
-                android:layout_width="@dimen/moyenne_taille"
-                android:layout_height="match_parent"
-                android:id="@+id/imgAlbum"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"/>
+            android:layout_height="match_parent">
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/petite_taille"
+                android:layout_height="@dimen/petite_taille"
+                app:cardCornerRadius="@dimen/tres_petite_marge"
+                android:layout_margin="@dimen/micro_petite_marge">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imgAlbum"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background"/>
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
 
 
@@ -40,8 +44,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:text="@string/app_name"
-                android:textColor="@color/colorBtn"
-                android:textAppearance="?android:textAppearanceSmall"
+                android:maxLines="1"
+                android:textSize="@dimen/petite_police"
+                android:textAppearance="?android:textAppearance"
                 android:fontFamily="@font/carter_one"
                 android:id="@+id/txtTitre"/>
 
@@ -50,8 +55,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:text="@string/app_name"
+                android:maxLines="1"
                 android:textSize="@dimen/tres_petite_police"
-                android:textColor="@color/colorMenu"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/ubuntu_mono_bold"
                 android:id="@+id/txtArtiste"/>
@@ -61,7 +66,7 @@
         <ImageView
             android:layout_width="@dimen/tres_grande_taille"
             android:layout_height="match_parent"
-            android:tint="@color/colorBtn"
+            android:tint="@android:color/white"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/tres_petite_marge"
             android:id="@+id/btnPlay"
@@ -74,5 +79,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="1"
+        android:visibility="gone"
         android:background="@color/colorPrimaryDark"/>
 </LinearLayout>

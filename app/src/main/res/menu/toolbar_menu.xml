@@ -27,7 +27,8 @@
                 android:id="@+id/inviter"/>
 
             <item android:title="@string/d_connexion"
-                android:id="@+id/deconnexion"/>
+                android:id="@+id/deconnexion"
+                android:visible="false"/>
         </menu>
     </item>
 </menu>

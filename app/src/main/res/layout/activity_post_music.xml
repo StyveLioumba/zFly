@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/toolbar"
             app:title="@string/new_song"
-            app:titleTextColor="@color/colorBtn"
             app:titleTextAppearance="?android:textAppearanceSmall"
             android:background="@android:color/transparent"/>
 
@@ -32,9 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="importer une image cover"
+            android:textColor="@android:color/white"
             android:textAppearance="?android:textAppearanceSmall"
             android:fontFamily="@font/carter_one"
-            android:textColor="@color/colorBtn"
             android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/petite_marge"/>
         <RelativeLayout
@@ -65,9 +64,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/importer_une_chanson"
+                android:textColor="@android:color/white"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/carter_one"
-                android:textColor="@color/colorBtn"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"/>
             <View
@@ -75,7 +74,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/tres_petite_marge"
                 android:layout_marginRight="@dimen/tres_petite_marge"
-                android:background="@color/colorBtn"
+                android:background="@color/colorback"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/tres_petite_marge"
@@ -85,6 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/addSong"
+            android:textColor="@android:color/white"
             android:layout_margin="@dimen/tres_petite_marge"
             android:textAppearance="?android:textAppearanceSmall"
             android:text="@string/selectionne_une_chanson"/>
@@ -116,7 +116,7 @@
                 android:layout_gravity="center_vertical"
                 android:text="@string/coutez_la_chanson_que_vous_avez_import"
                 android:layout_weight="1"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@android:color/white"
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/ubuntu_mono"/>
@@ -142,8 +142,8 @@
                 android:text="@string/information_supplementaire"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/carter_one"
-                android:textColor="@color/colorBtn"
                 android:gravity="center_vertical"
+                android:textColor="@android:color/white"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"/>
             <View
@@ -151,7 +151,7 @@
                 android:layout_height="1dp"
                 android:layout_marginLeft="@dimen/tres_petite_marge"
                 android:layout_marginRight="@dimen/tres_petite_marge"
-                android:background="@color/colorBtn"
+                android:background="@color/colorback"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/tres_petite_marge"
@@ -168,12 +168,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/le_nom_du_morceau"
+                app:hintTextColor="@android:color/white"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/petite_taille"
                     android:id="@+id/music_name"
                     android:inputType="text"
+                    android:textColor="@android:color/white"
                     android:maxLines="1"
                     android:fontFamily="@font/comfortaa_light"
                     android:layout_margin="@dimen/tres_petite_marge"
@@ -191,6 +193,7 @@
                     android:layout_height="@dimen/petite_taille"
                     android:id="@+id/music_artiste"
                     android:inputType="text"
+                    android:textColor="@android:color/white"
                     android:maxLines="1"
                     android:fontFamily="@font/comfortaa_light"
                     android:layout_margin="@dimen/tres_petite_marge"
@@ -201,6 +204,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/nom_de_l_album"
+                app:hintTextColor="@android:color/white"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                 <com.google.android.material.textfield.TextInputEditText

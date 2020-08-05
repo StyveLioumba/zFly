@@ -179,9 +179,9 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            imageLike.setImageResource(R.drawable.ic_favorite_black_24dp);
+                            imageLike.setImageResource(R.drawable.star_gold);
                         }else {
-                            imageLike.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                            imageLike.setImageResource(R.drawable.star_outline);
                         }
                     }
 
@@ -200,10 +200,10 @@ public class DetailActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
                             dislikePost(post_idValue);
-                            imageLike.setImageResource(R.drawable.ic_favorite_black_24dp);
+                            imageLike.setImageResource(R.drawable.star_gold);
                         }else {
                             likePost(post_idValue);
-                            imageLike.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                            imageLike.setImageResource(R.drawable.star_outline);
                         }
                         getNbreLikes();
                         verifierIfIsLike();
