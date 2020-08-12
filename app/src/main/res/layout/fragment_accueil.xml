@@ -18,13 +18,7 @@
             android:orientation="vertical">
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/large_taille"
-                android:layout_marginLeft="@dimen/petite_marge"
-                android:layout_marginRight="@dimen/petite_marge"
-                android:layout_marginTop="@dimen/tres_petite_marge"
-                app:cardCornerRadius="@dimen/tres_petite_marge"
-                app:cardElevation="@dimen/micro_petite_marge"
-                app:cardMaxElevation="@dimen/petite_marge">
+                android:layout_height="@dimen/large_taille">
                 <androidx.viewpager.widget.ViewPager
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -51,7 +45,7 @@
                     android:layout_weight="1"
                     android:gravity="center|end"
                     android:drawableEnd="@drawable/ic_chevron_right_black_24dp"
-                    android:drawableTint="@color/colorPrimaryDark"
+                    android:drawableTint="@color/design_default_color_error"
                     android:layout_gravity="center_vertical"
                     android:textSize="@dimen/tres_petite_police"
                     android:id="@+id/seeMore"

@@ -29,9 +29,9 @@
         app:trimLines="3"
         android:background="@color/colorFlouNoir"
         android:fontFamily="@font/ubuntu_mono"
-        android:layout_marginStart="@dimen/petite_marge"
-        android:layout_above="@id/btnVoirPlus"
-        android:layout_marginBottom="@dimen/micro_petite_marge"/>
+        android:layout_marginLeft="@dimen/petite_dimenssion_8"
+        android:layout_marginBottom="@dimen/petite_dimenssion_8"
+        android:layout_above="@id/btnVoirPlus"/>
 
     <!--<Button
         android:layout_width="wrap_content"
@@ -49,29 +49,27 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/tres_grande_marge"
-        app:cardCornerRadius="@dimen/normale_marge"
-        app:cardElevation="@dimen/petite_marge"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/petite_dimenssion_5"
         app:cardMaxElevation="@dimen/normale_marge"
         android:id="@+id/btnVoirPlus"
+        app:cardElevation="@dimen/petite_dimenssion_2"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/tres_petite_marge"
-        android:layout_marginRight="@dimen/tres_petite_marge"
-        android:layout_marginTop="@dimen/moyenne_marge"
-        android:layout_marginBottom="@dimen/moyenne_marge">
+        android:layout_marginLeft="@dimen/petite_dimenssion_8"
+        android:layout_marginBottom="@dimen/petite_dimenssion_8">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingLeft="@dimen/petite_dimenssion_3"
+            android:paddingRight="@dimen/petite_dimenssion_3"
+            android:paddingBottom="@dimen/petite_dimenssion_2"
+            android:paddingTop="@dimen/petite_dimenssion_2"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:layout_marginRight="@dimen/petite_marge"
-                android:layout_marginLeft="@dimen/tres_petite_marge"
-                android:layout_marginTop="@dimen/tres_petite_marge"
-                android:layout_marginBottom="@dimen/tres_petite_marge"
                 android:text="@string/plus_d_info"
                 android:textAppearance="?android:textAppearance"
                 android:fontFamily="@font/carter_one"
@@ -81,8 +79,7 @@
                 android:layout_width="@dimen/tres_petite_taille"
                 android:layout_height="@dimen/tres_petite_taille"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="-5dp"
-                android:layout_marginRight="3dp"
+                android:paddingLeft="@dimen/petite_dimenssion_1"
                 android:layout_marginTop="@dimen/tres_petite_marge"
                 android:layout_marginBottom="@dimen/tres_petite_marge"
                 android:tint="@color/or"

@@ -23,6 +23,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/large_taille"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:id="@+id/relaTop">
             <ImageView
                 android:layout_width="match_parent"
@@ -42,8 +43,7 @@
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
                 android:background="@android:color/transparent"
-                android:id="@+id/imgUser"
-                android:layout_margin="@dimen/tres_petite_marge" />
+                android:id="@+id/imgUser" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -80,8 +80,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/petite_marge"
-            android:layout_marginTop="@dimen/petite_marge"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -155,6 +154,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:background="@color/colorBackFlou"/>
 
         <TextView
@@ -165,11 +165,13 @@
             android:layout_gravity="center_vertical"
             android:drawableStart="@drawable/ic_person_outline"
             android:drawableTint="@color/colorBackFlou"
-            android:drawablePadding="@dimen/tres_petite_marge"
+            android:paddingTop="@dimen/petite_dimenssion_3"
+            android:paddingBottom="@dimen/petite_dimenssion_3"
+            android:paddingLeft="@dimen/petite_dimenssion_2"
+            android:paddingRight="@dimen/petite_dimenssion_2"
             android:textAppearance="?android:textAppearance"
             android:fontFamily="@font/carter_one"
-            android:layout_marginTop="@dimen/tres_petite_marge"
-            android:layout_marginBottom="@dimen/tres_petite_marge"/>
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"/>
 
         <com.borjabravo.readmoretextview.ReadMoreTextView
             android:layout_width="match_parent"
@@ -184,14 +186,18 @@
             app:colorClickableText="@color/colorPrimary"
             android:textAppearance="?android:textAppearanceSmall"
             android:fontFamily="@font/comfortaa_light"
-            android:layout_marginBottom="@dimen/tres_petite_marge"/>
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"/>
 
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/micro_petite_marge"
+            android:paddingTop="@dimen/petite_dimenssion_3"
+            android:paddingBottom="@dimen/petite_dimenssion_3"
+            android:paddingLeft="@dimen/petite_dimenssion_2"
+            android:paddingRight="@dimen/petite_dimenssion_2"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:gravity="center">
             <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="40dp"
@@ -208,21 +214,25 @@
                 android:gravity="center_vertical"
                 android:drawablePadding="@dimen/micro_petite_marge"
                 android:textAppearance="?android:textAppearance"
-                android:fontFamily="@font/carter_one"
-                android:layout_margin="@dimen/tres_petite_marge"/>
+                android:fontFamily="@font/carter_one"/>
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="@dimen/grande_taille"
             android:id="@+id/recyclePhoto"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:layout_marginStart="@dimen/tres_grande_marge"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="@dimen/micro_petite_marge"
+            android:paddingTop="@dimen/petite_dimenssion_3"
+            android:paddingBottom="@dimen/petite_dimenssion_3"
+            android:paddingLeft="@dimen/petite_dimenssion_2"
+            android:paddingRight="@dimen/petite_dimenssion_2"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:gravity="center">
             <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="40dp"

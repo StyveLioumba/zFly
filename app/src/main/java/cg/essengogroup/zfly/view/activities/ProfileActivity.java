@@ -424,6 +424,7 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(new Intent(ProfileActivity.this,ModifierProfilActivity.class));
                 return true;
             case R.id.partager:
+                startActivity(new Intent(ProfileActivity.this,PostMusicActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

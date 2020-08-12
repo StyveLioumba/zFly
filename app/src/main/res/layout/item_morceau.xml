@@ -4,39 +4,40 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:id="@+id/lineMorceau"
-    android:layout_margin="@dimen/micro_petite_marge"
-    android:layout_height="@dimen/petite_taille">
+    android:layout_marginBottom="@dimen/petite_dimenssion_8"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingTop="@dimen/petite_dimenssion_3"
+        android:paddingBottom="@dimen/petite_dimenssion_3"
+        android:paddingLeft="@dimen/petite_dimenssion_2"
+        android:paddingRight="@dimen/petite_dimenssion_2"
         android:orientation="horizontal">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-            <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/petite_taille"
-                android:layout_height="@dimen/petite_taille"
-                app:cardCornerRadius="@dimen/tres_petite_marge"
-                android:layout_margin="@dimen/micro_petite_marge">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/imgAlbum"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background"/>
-            </androidx.cardview.widget.CardView>
-        </RelativeLayout>
-
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/petite_taille"
+            android:layout_height="@dimen/petite_taille"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/petite_dimenssion_5"
+            app:cardCornerRadius="@dimen/tres_petite_marge">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/imgAlbum"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_background"/>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center"
-            android:layout_margin="@dimen/micro_petite_marge"
+            android:layout_marginRight="@dimen/petite_dimenssion_5"
             android:layout_weight="1">
 
             <TextView
@@ -63,22 +64,35 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="@dimen/tres_grande_taille"
+        <RelativeLayout
+            android:layout_width="@dimen/large_taille"
             android:layout_height="match_parent"
-            android:tint="@android:color/white"
-            android:layout_weight="1"
-            android:layout_marginRight="@dimen/tres_petite_marge"
-            android:id="@+id/btnPlay"
-            android:visibility="visible"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_play_circle_outline_black_24dp"/>
+            android:layout_marginRight="@dimen/petite_dimenssion_5"
+            android:layout_weight="1">
+
+            <ProgressBar
+                android:layout_width="@dimen/petite_dimenssion_9"
+                android:layout_height="@dimen/petite_dimenssion_9"
+                android:layout_centerInParent="true"
+                android:id="@+id/progressTime"/>
+            <TextView
+                android:layout_width="@dimen/large_taille"
+                android:layout_height="match_parent"
+                android:tint="@android:color/white"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:textAppearance="?android:textAppearance"
+                android:textSize="@dimen/tres_petite_police"
+                android:gravity="center"
+                android:paddingTop="@dimen/petite_dimenssion_3"
+                android:fontFamily="@font/ubuntu_mono"
+                android:paddingBottom="@dimen/petite_dimenssion_3"
+                android:paddingLeft="@dimen/petite_dimenssion_2"
+                android:paddingRight="@dimen/petite_dimenssion_2"
+                android:id="@+id/btnPlay"
+                android:text="00 : 00"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:background="@color/colorPrimaryDark"/>
 </LinearLayout>

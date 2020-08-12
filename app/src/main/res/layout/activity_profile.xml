@@ -23,6 +23,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="280dp"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:id="@+id/relaTop">
             <ImageView
                 android:layout_width="match_parent"
@@ -51,8 +52,7 @@
                         android:src="@drawable/imgdefault"
                         android:scaleType="centerCrop"
                         android:id="@+id/imgUser"
-                        android:layout_centerInParent="true"
-                        android:layout_margin="@dimen/micro_petite_marge" />
+                        android:layout_centerInParent="true" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:layout_width="wrap_content"
@@ -119,13 +119,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"
             android:id="@+id/lineTop">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/petite_marge"
-                android:layout_marginTop="@dimen/petite_marge"
+                android:layout_marginBottom="@dimen/petite_dimenssion_8"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -240,6 +240,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/petite_dimenssion_8"
                 android:background="@color/colorBackFlou"/>
 
             <TextView
@@ -253,8 +254,7 @@
                 android:drawablePadding="@dimen/tres_petite_marge"
                 android:textAppearance="?android:textAppearance"
                 android:fontFamily="@font/carter_one"
-                android:layout_marginTop="@dimen/tres_petite_marge"
-                android:layout_marginBottom="@dimen/tres_petite_marge"/>
+                android:layout_marginBottom="@dimen/petite_dimenssion_8"/>
 
             <com.borjabravo.readmoretextview.ReadMoreTextView
                 android:layout_width="match_parent"
@@ -266,20 +266,20 @@
                 app:trimCollapsedText=" Voir moins"
                 app:trimMode="trimModeLine"
                 app:trimLines="5"
+                android:layout_marginBottom="@dimen/petite_dimenssion_8"
                 app:colorClickableText="@color/colorPrimary"
                 android:textAppearance="?android:textAppearanceSmall"
-                android:fontFamily="@font/comfortaa_light"
-                android:layout_marginBottom="@dimen/tres_petite_marge"/>
+                android:fontFamily="@font/comfortaa_light"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/petite_dimenssion_8">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="@dimen/micro_petite_marge"
                     android:gravity="center">
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="40dp"
@@ -306,7 +306,7 @@
                     android:src="@drawable/ic_more_vert_black_24dp"
                     android:layout_centerVertical="true"
                     android:id="@+id/menuPhoto"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@android:color/white"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="@dimen/tres_petite_marge"/>
             </RelativeLayout>
@@ -314,6 +314,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/grande_taille"
+                android:layout_marginBottom="@dimen/petite_dimenssion_8"
                 android:layout_marginStart="@dimen/tres_grande_marge">
                 <ImageView
                     android:layout_width="match_parent"
@@ -327,13 +328,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/petite_dimenssion_8">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="@dimen/micro_petite_marge"
                     android:gravity="center">
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="40dp"
@@ -360,7 +361,7 @@
                     android:src="@drawable/ic_more_vert_black_24dp"
                     android:layout_centerVertical="true"
                     android:id="@+id/menuSons"
-                    android:tint="@color/colorPrimaryDark"
+                    android:tint="@android:color/white"
                     android:layout_alignParentEnd="true"
                     android:layout_marginRight="@dimen/tres_petite_marge"/>
             </RelativeLayout>
@@ -376,7 +377,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/recycleMusic"
-                    android:layout_marginBottom="@dimen/tres_petite_taille"
                     android:layout_marginStart="@dimen/tres_grande_marge"/>
             </RelativeLayout>
 
@@ -394,7 +394,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_margin="@dimen/micro_petite_marge"
+                android:layout_marginBottom="@dimen/petite_dimenssion_8"
                 android:gravity="center">
                 <com.airbnb.lottie.LottieAnimationView
                     android:layout_width="40dp"
@@ -418,7 +418,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/recycleAllPost"
-                android:layout_below="@id/toolbar"/>
+                android:layout_marginStart="@dimen/tres_grande_marge"/>
         </LinearLayout>
     </LinearLayout>
 

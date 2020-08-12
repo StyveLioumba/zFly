@@ -78,12 +78,7 @@ public class PostMusicActivity extends AppCompatActivity {
     private boolean fabStateVolume = false;
 
     private String[] listeGenre={
-            "Afro-beat","Afro-house-kudur",
-            "Coupé-décalé","Electro-house",
-            "Folklore","Ndombolo",
-            "Rap-Français","Rap-Us",
-            "Ragga-Dancehall","Rumba",
-            "Rnb soul","Sébène", };
+            "Chanson","instrumental","Mix Dj" };
 
     private ProgressDialog dialogLoading;
     private String defaultCover="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2Fmusic_cover.png?alt=media&token=53a33970-d821-4a95-8c15-b08ed8109de6";
@@ -373,7 +368,8 @@ public class PostMusicActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        createAlbum();
+                        /*createAlbum();*///Avant je passais d'abord par la creation de l'album puis l'artiste
+                        createArtiste();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -384,7 +380,7 @@ public class PostMusicActivity extends AppCompatActivity {
                     }
                 });
     }
-    private void createAlbum(){
+   /* private void createAlbum(){
 
         String albumNameValue=albumName.getText().toString().trim();
 
@@ -415,10 +411,10 @@ public class PostMusicActivity extends AppCompatActivity {
                             dialogLoading.dismiss();
                     }
                 });
-    }
+    }*/
     private void createArtiste(){
 
-        String artisteNameValue=artisteName.getText().toString().trim();
+        String artisteNameValue=firebaseUser.getDisplayName();
         String imgArtiste=firebaseUser.getPhotoUrl().toString();
 
 

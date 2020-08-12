@@ -71,6 +71,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         holder.pseudo.setText(arrayList.get(position).getPseudo().toLowerCase());
         Picasso.get()
                 .load(arrayList.get(position).getImage())
+                .resize(600,600)
                 .placeholder(R.drawable.imgdefault)
                 .error(R.drawable.imgdefault)
                 .into(holder.imageUser, new Callback() {

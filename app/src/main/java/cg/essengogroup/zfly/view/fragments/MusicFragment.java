@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
@@ -31,6 +32,7 @@ import cg.essengogroup.zfly.view.fragments.music_fragments.AlbumFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.ArtistesFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.ChansonsFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.GenreFragment;
+import cg.essengogroup.zfly.view.fragments.music_fragments.InstrumentalsFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.TopFragment;
 
 /**
@@ -54,7 +56,7 @@ public class MusicFragment extends Fragment {
         context=getContext();
 
         FloatingActionButton fabMusic=root.findViewById(R.id.fab_);
-        fabMusic.setOnClickListener(v->startActivity(new Intent(context, PostMusicActivity.class)));
+        fabMusic.setOnClickListener(v-> Toast.makeText(context, "Lecture alea", Toast.LENGTH_SHORT).show());
 
         DatabaseReference isArtisteRef = FirebaseDatabase.getInstance().getReference("users/"+ FirebaseAuth.getInstance().getCurrentUser().getUid());
         isArtisteRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -76,15 +78,15 @@ public class MusicFragment extends Fragment {
         return root;
     }
 
-
     private void setupViewPager(){
         SectionPagerAdapter adapter=new SectionPagerAdapter(getChildFragmentManager());
 
         adapter.addFragment(new ChansonsFragment());
         adapter.addFragment(new ArtistesFragment());
 //        adapter.addFragment(new AlbumFragment());
-        adapter.addFragment(new GenreFragment());
+//        adapter.addFragment(new GenreFragment());
         adapter.addFragment(new TopFragment());
+        adapter.addFragment(new InstrumentalsFragment());
 
         ViewPager viewPager=root.findViewById(R.id.viewpager);
         viewPager.setAdapter(adapter);
@@ -94,11 +96,12 @@ public class MusicFragment extends Fragment {
         tabLayout.setBackgroundColor(getResources().getColor(R.color.colorToolbar));
         tabLayout.setTabTextColors(getResources().getColor(android.R.color.black),getResources().getColor(R.color.colorBlanc));
 
-        tabLayout.getTabAt(0).setText("Son");
+        tabLayout.getTabAt(0).setText("Chansons");
         tabLayout.getTabAt(1).setText("Artistes");
 //        tabLayout.getTabAt(2).setText("Albums");
-        tabLayout.getTabAt(2).setText("Genres");
-        tabLayout.getTabAt(3).setText("Top");
+//        tabLayout.getTabAt(2).setText("Genres");
+        tabLayout.getTabAt(2).setText("Top");
+        tabLayout.getTabAt(3).setText("Instru");
 
     }
 }

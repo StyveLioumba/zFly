@@ -44,6 +44,7 @@ public class ArtisteAdapter extends RecyclerView.Adapter<ArtisteAdapter.MyViewHo
                 .load( music.getCover())
                 .placeholder(R.drawable.music_cover)
                 .error(R.drawable.music_cover)
+                .resize(400,400)
                 .into(holder.imageView);
 
         holder.relativeLayout.setOnClickListener(v->{

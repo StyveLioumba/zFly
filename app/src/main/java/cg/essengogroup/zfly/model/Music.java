@@ -3,9 +3,12 @@ package cg.essengogroup.zfly.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
+@IgnoreExtraProperties
 public class Music implements Parcelable {
 
-    private String album,artiste,chanson,cover,genre,morceau,user_id,racine;
+    private String album,artiste,chanson,cover,genre,morceau,user_id,racine,nbreEcoute;
 
     public Music() {
     }
@@ -19,6 +22,18 @@ public class Music implements Parcelable {
         this.morceau = morceau;
         this.user_id = user_id;
         this.racine = racine;
+    }
+
+    public Music(String album, String artiste, String chanson, String cover, String genre, String morceau, String user_id, String racine, String nbreEcoute) {
+        this.album = album;
+        this.artiste = artiste;
+        this.chanson = chanson;
+        this.cover = cover;
+        this.genre = genre;
+        this.morceau = morceau;
+        this.user_id = user_id;
+        this.racine = racine;
+        this.nbreEcoute = nbreEcoute;
     }
 
     protected Music(Parcel in) {
@@ -106,6 +121,14 @@ public class Music implements Parcelable {
 
     public void setRacine(String racine) {
         this.racine = racine;
+    }
+
+    public String getNbreEcoute() {
+        return nbreEcoute;
+    }
+
+    public void setNbreEcoute(String nbreEcoute) {
+        this.nbreEcoute = nbreEcoute;
     }
 
     @Override

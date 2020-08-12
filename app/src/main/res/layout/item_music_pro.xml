@@ -12,7 +12,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingRight="@dimen/petite_dimenssion_3"
+        android:paddingLeft="@dimen/petite_dimenssion_3"
+        android:paddingBottom="@dimen/petite_dimenssion_2"
+        android:paddingTop="@dimen/petite_dimenssion_2">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -28,6 +32,7 @@
                 android:layout_width="@dimen/grande_marge"
                 android:layout_height="@dimen/grande_marge"
                 android:id="@+id/fab"
+                android:tint="@android:color/white"
                 android:src="@drawable/ic_play_circle_outline_black_24dp"
                 android:layout_centerInParent="true"/>
 
@@ -39,18 +44,23 @@
             android:orientation="vertical"
             android:layout_centerHorizontal="true"
             android:id="@+id/lineBottom"
+            android:paddingRight="@dimen/petite_dimenssion_3"
+            android:paddingLeft="@dimen/petite_dimenssion_3"
+            android:paddingBottom="@dimen/petite_dimenssion_2"
+            android:paddingTop="@dimen/petite_dimenssion_2"
             android:layout_gravity="center"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/micro_petite_marge">
+            android:layout_alignParentBottom="true">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:textAlignment="center"
+                android:gravity="center"
                 android:text="@string/app_name"
                 android:textSize="10sp"
                 android:maxLines="1"
-                android:textColor="@color/colorBtn"
+                android:textColor="@android:color/white"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/comfortaa_bold"
                 android:id="@+id/txtTitre"/>
@@ -62,7 +72,8 @@
                 android:text="@string/app_name"
                 android:textSize="8sp"
                 android:maxLines="1"
-                android:textColor="@color/colorMenu"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
                 android:textAppearance="?android:textAppearanceSmall"
                 android:fontFamily="@font/comfortaa_light"
                 android:id="@+id/txtArtiste"/>

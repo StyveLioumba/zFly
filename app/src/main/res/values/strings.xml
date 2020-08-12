@@ -108,4 +108,5 @@
     <string name="supprimer">supprimer</string>
     <string name="quel_genre_etes_vous">Quel genre etes-vous :</string>
     <string name="nom_d_artiste">nom d\'artiste</string>
+    <string name="ajouter_une_chanson">ajouter une chanson</string>
 </resources>

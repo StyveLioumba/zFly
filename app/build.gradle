@@ -75,5 +75,10 @@ dependencies {
     implementation 'com.hbb20:ccp:2.4.0'
     implementation 'com.chaos.view:pinview:1.4.3'
 
+    /**
+     * Compression d'image
+     */
+    implementation 'com.iceteck.silicompressorr:silicompressor:2.2.3'
+
 }
 apply plugin: 'com.google.gms.google-services'

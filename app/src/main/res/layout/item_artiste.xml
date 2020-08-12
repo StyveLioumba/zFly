@@ -4,8 +4,8 @@
     android:layout_width="@dimen/grande_taille"
     android:layout_height="135dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="@dimen/micro_petite_marge"
-    android:layout_margin="@dimen/micro_petite_marge">
+    app:cardCornerRadius="@dimen/petite_dimenssion_5"
+    android:layout_marginLeft="@dimen/petite_dimenssion_3">
 
     <RelativeLayout
         android:layout_width="@dimen/grande_taille"

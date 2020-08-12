@@ -1,11 +1,15 @@
 package cg.essengogroup.zfly.controller.adapter;
 
 import android.content.Context;
+import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -24,7 +28,6 @@ public class MorceauAdapter extends RecyclerView.Adapter<MorceauAdapter.MyViewHo
     private ArrayList<Music> musicArrayList;
     private OnMusicItemClickListener listener;
     private int selectedPostion;
-
     public MorceauAdapter(Context context, ArrayList<Music> musicArrayList, OnMusicItemClickListener listener) {
         this.context = context;
         this.musicArrayList = musicArrayList;
@@ -43,17 +46,17 @@ public class MorceauAdapter extends RecyclerView.Adapter<MorceauAdapter.MyViewHo
 
         if (selectedPostion==position){
             holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.colorBackFlou));
-            holder.btnPlay.setVisibility(View.VISIBLE);
         }
         else {
             holder.itemView.setBackgroundColor(context.getResources().getColor(android.R.color.transparent));
-            holder.btnPlay.setVisibility(View.GONE);
         }
         holder.txtArtiste.setText(music.getArtiste());
         holder.txtMorceau.setText(music.getMorceau());
+        holder.setTimeOnSong(music);
 
         Picasso.get()
                 .load( music.getCover())
+                .resize(400,400)
                 .placeholder(R.drawable.default_img)
                 .error(R.drawable.default_img)
                 .into(holder.imageView);
@@ -68,8 +71,9 @@ public class MorceauAdapter extends RecyclerView.Adapter<MorceauAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout linearLayout;
-        ImageView imageView,btnPlay;
-        TextView txtMorceau,txtArtiste;
+        ImageView imageView;
+        TextView txtMorceau,txtArtiste,btnPlay;
+        ProgressBar progressBar;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             linearLayout=itemView.findViewById(R.id.lineMorceau);
@@ -77,10 +81,35 @@ public class MorceauAdapter extends RecyclerView.Adapter<MorceauAdapter.MyViewHo
             btnPlay=itemView.findViewById(R.id.btnPlay);
             txtMorceau=itemView.findViewById(R.id.txtTitre);
             txtArtiste=itemView.findViewById(R.id.txtArtiste);
+            progressBar=itemView.findViewById(R.id.progressTime);
         }
 
         public void bind(Music music, OnMusicItemClickListener listener){
             itemView.setOnClickListener(v->listener.onClickListener(music,getLayoutPosition()));
+        }
+
+        public void setTimeOnSong(Music music){
+            new TimeAsync().execute(music);
+        }
+
+        public class TimeAsync extends AsyncTask<Music,Void,String> {
+
+            MediaPlayer mp;
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                btnPlay.setText(s);
+                progressBar.setVisibility(View.GONE);
+                btnPlay.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected String doInBackground(Music... music) {
+                Music mc=music[0];
+                mp=MediaPlayer.create(context, Uri.parse(mc.getChanson()));
+                return createTimeLabel(mp.getDuration());
+            }
         }
     }
 
@@ -90,5 +119,24 @@ public class MorceauAdapter extends RecyclerView.Adapter<MorceauAdapter.MyViewHo
 
     public int getSelectedPostion() {
         return selectedPostion;
+    }
+
+    private String convertirMilliSecond(long millisecond){
+        long tempsEnSecond=millisecond/1000;
+        long tempsEnMinite=tempsEnSecond/60;
+        long resteMinute=tempsEnSecond%60;
+        return tempsEnMinite+":"+resteMinute;
+    }
+
+    public String createTimeLabel(long time) {
+        String timeLabel = "";
+        long min = time / 1000 / 60;
+        long sec = time / 1000 % 60;
+
+        timeLabel = min + ":";
+        if (sec < 10) timeLabel += "0";
+        timeLabel += sec;
+
+        return timeLabel;
     }
 }

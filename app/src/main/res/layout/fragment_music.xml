@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/fab_"
-        app:tint="@color/colorPrimaryDark"
-        android:src="@drawable/ic_headset_black_24dp"/>
+        app:tint="@android:color/holo_green_light"
+        android:src="@android:drawable/ic_media_play"/>
 
 </RelativeLayout>

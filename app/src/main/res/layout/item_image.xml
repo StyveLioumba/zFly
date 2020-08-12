@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardImg"
-    android:layout_margin="@dimen/micro_petite_marge"
-    app:cardCornerRadius="@dimen/micro_petite_marge"
+    android:layout_marginTop="@dimen/petite_dimenssion_8"
+    app:cardCornerRadius="@dimen/petite_dimenssion_5"
     app:cardElevation="@dimen/tres_petite_marge"
     app:cardMaxElevation="@dimen/petite_marge">
     <RelativeLayout
@@ -22,8 +22,8 @@
             android:layout_alignParentTop="true"
             android:id="@+id/lineTop">
             <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="@dimen/petite_taille"
-                android:layout_height="@dimen/petite_taille"
+                android:layout_width="@dimen/petite_dimenssion_10"
+                android:layout_height="@dimen/petite_dimenssion_10"
                 android:id="@+id/imgUser"
                 app:civ_border_color="@color/colorbtn"
                 app:civ_border_width="1dp"
@@ -32,16 +32,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_gravity="center">
+                android:layout_weight="1">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pseudo"
                     android:id="@+id/pseudoUser"
+                    android:textSize="@dimen/petite_police_1"
+                    android:layout_marginStart="@dimen/petite_dimenssion_2"
                     android:textAppearance="?android:textAppearance"
-                    android:fontFamily="@font/comfortaa_bold"
-                    android:layout_marginStart="@dimen/tres_petite_marge"/>
+                    android:fontFamily="@font/comfortaa_bold"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -50,7 +50,8 @@
                     android:id="@+id/Apseudo"
                     android:textAppearance="?android:textAppearance"
                     android:fontFamily="@font/comfortaa_light"
-                    android:layout_marginStart="@dimen/tres_petite_marge"/>
+                    android:layout_marginBottom="@dimen/petite_dimenssion_3"
+                    android:layout_marginStart="@dimen/petite_dimenssion_2"/>
             </LinearLayout>
             <TextView
                 android:layout_width="@dimen/tres_large_taille"
@@ -61,8 +62,7 @@
                 android:textSize="@dimen/tres_petite_police"
                 android:id="@+id/datePoster"
                 android:textAppearance="?android:textAppearance"
-                android:fontFamily="@font/ubuntu_mono_bold"
-                android:layout_marginStart="@dimen/tres_petite_marge"/>
+                android:fontFamily="@font/ubuntu_mono_bold"/>
         </LinearLayout>
 
         <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -71,11 +71,13 @@
             android:id="@+id/txt"
             android:layout_below="@id/lineTop"
             android:textAppearance="?android:textAppearance"
-            android:layout_margin="@dimen/tres_petite_marge"
+            android:layout_marginBottom="@dimen/petite_dimenssion_4"
             app:trimExpandedText="Voir plus"
             app:trimCollapsedText=" Voir moins"
             app:trimMode="trimModeLine"
             app:trimLines="6"
+            android:layout_marginStart="@dimen/petite_dimenssion_2"
+            android:layout_marginEnd="@dimen/petite_dimenssion_2"
             app:colorClickableText="@color/colorPrimary"
             android:fontFamily="@font/comfortaa_bold"/>
 
@@ -90,6 +92,7 @@
                 android:id="@+id/img"
                 android:layout_above="@id/lineBottom"
                 android:scaleType="centerCrop"
+                android:layout_marginBottom="@dimen/petite_dimenssion_4"
                 android:src="@drawable/default_img"/>
 
             <LinearLayout
@@ -97,6 +100,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:id="@+id/lineBottom"
+                android:layout_marginBottom="@dimen/petite_dimenssion_4"
                 android:layout_alignParentBottom="true">
                 <ImageButton
                     android:layout_width="match_parent"

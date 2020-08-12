@@ -166,6 +166,7 @@ public class DialogMusicAccueil extends Dialog {
             Toast.makeText(context, "Veuillez patienté jusqu'à la fin du chargement", Toast.LENGTH_LONG).show();
         }
 
+        @SuppressLint("WrongThread")
         @Override
         protected Void doInBackground(String... strings) {
             // Media Player

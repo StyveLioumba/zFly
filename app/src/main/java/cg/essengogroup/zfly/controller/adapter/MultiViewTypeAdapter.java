@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
             switch (model.getType()) {
 
                 case IMAGE_TYPE:
+                    if (!TextUtils.isEmpty(model.getDescription())){
+                        ((ImageTypeViewHolder) holder).txtDesignation.setVisibility(View.VISIBLE);
+                    }else {
+                        ((ImageTypeViewHolder) holder).txtDesignation.setVisibility(View.GONE);
+                    }
                     ((ImageTypeViewHolder) holder).txtDesignation.setText(model.getDescription());
                     ((ImageTypeViewHolder) holder).txtDate.setText(Methodes.getDate(Long.parseLong(model.getCreateAt()),"dd-MMMM-yyyy"));
 

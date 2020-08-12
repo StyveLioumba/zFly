@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.adapter.TopTenAdapter;
+import cg.essengogroup.zfly.model.Music;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +37,7 @@ public class TopFragment extends Fragment {
     private FirebaseDatabase database;
 
     private RecyclerView recyclerView;
-    private ArrayList<String> musicArrayList;
+    private ArrayList<Music> musicArrayList;
     private TopTenAdapter adapter;
 
     public TopFragment() {
@@ -71,7 +72,8 @@ public class TopFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 musicArrayList.clear();
                 for (DataSnapshot data: dataSnapshot.getChildren()){
-                    getDataEcouter(data.getKey(),String.valueOf(data.child("morceau").getValue()));
+                    getDataEcouter(data.getKey(),data);
+//                    getDataEcouter(data.getKey(),String.valueOf(data.child("morceau").getValue()));
                 }
             }
 
@@ -82,16 +84,27 @@ public class TopFragment extends Fragment {
         });
     }
 
-    private void getDataEcouter(String songRef,String morceau){
+    private void getDataEcouter(String songRef,DataSnapshot dataSnapshot){
 
         referenceEcouter=database.getReference("music/morceaux/"+songRef+"/ecouter").orderByValue();
 
         referenceEcouter.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnap) {
+               String count=String.valueOf(dataSnap.getChildrenCount());
+                Music music=new Music();
+                music.setNbreEcoute(count);
 
-                String topValue="("+dataSnapshot.getChildrenCount()+") "+morceau;
-                musicArrayList.add(topValue);
+                music.setAlbum(String.valueOf(dataSnapshot.child("album").getValue()));
+                music.setArtiste(String.valueOf(dataSnapshot.child("artiste").getValue()));
+                music.setChanson(String.valueOf(dataSnapshot.child("chanson").getValue()));
+                music.setCover(String.valueOf(dataSnapshot.child("cover").getValue()));
+                music.setGenre(String.valueOf(dataSnapshot.child("genre").getValue()));
+                music.setMorceau(String.valueOf(dataSnapshot.child("morceau").getValue()));
+                music.setUser_id(String.valueOf(dataSnapshot.child("user_id").getValue()));
+//                music.setRacine(String.valueOf(dataSnapshot.getKey()));
+
+                musicArrayList.add(music);
                 adapter=new TopTenAdapter(context,musicArrayList);
                 recyclerView.setAdapter(adapter);
             }

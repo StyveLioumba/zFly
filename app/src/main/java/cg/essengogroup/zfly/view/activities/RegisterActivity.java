@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Spinner spinner;
     private String[] genreList={
-            "D.J","Beatmaker"
+            "D.J Arrangeur","Musicien"
     };
     private LinearLayout linearLayout,lineEnvoie,lineVerification;
     private String codeSysteme;
