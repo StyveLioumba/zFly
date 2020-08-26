@@ -160,16 +160,16 @@
                         android:hint="@string/nom_d_artiste"
                         android:layout_marginBottom="@dimen/petite_dimenssion_8"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                        android:textColorHint="@color/colorTxt">
+                        android:textColorHint="@android:color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:id="@+id/nomArtiste"
                             android:textAppearance="?android:textAppearance"
-                            android:textColor="@color/colorTxt"
                             android:inputType="text"
                             android:maxLines="1"
+                            android:textColor="@android:color/white"
                             android:drawableStart="@drawable/ic_person_outline"
                             android:drawableTint="@color/colorTint"
                             android:drawablePadding="@dimen/tres_petite_marge"

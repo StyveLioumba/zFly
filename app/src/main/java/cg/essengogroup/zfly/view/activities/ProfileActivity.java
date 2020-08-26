@@ -201,7 +201,11 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 txtPseudo.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
-                txtUsername.setText(String.valueOf(dataSnapshot.child("pseudo").getValue()));
+                if (dataSnapshot.child("pseudo").exists()){
+                    txtUsername.setText(String.valueOf(dataSnapshot.child("pseudo").getValue()));
+                }else {
+                    txtUsername.setText(String.valueOf(dataSnapshot.child("nom").getValue()));
+                }
 
                 pseudoValue=String.valueOf(dataSnapshot.child("pseudo").getValue());
 

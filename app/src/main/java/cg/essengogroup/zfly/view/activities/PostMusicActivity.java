@@ -9,6 +9,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import cg.essengogroup.zfly.R;
+import cg.essengogroup.zfly.controller.adapter.MultiViewTypeAdapter;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -38,11 +39,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -60,7 +65,7 @@ public class PostMusicActivity extends AppCompatActivity {
     private ProgressBar progressBar,progressBarTop;
     private ImageButton playPreview;
 
-    private String lienImage,lienChanson;
+    private String lienImage,lienChanson,imgArtiste;
 
     private Uri uriPreviewImage,uriChanson;
 
@@ -415,8 +420,20 @@ public class PostMusicActivity extends AppCompatActivity {
     private void createArtiste(){
 
         String artisteNameValue=firebaseUser.getDisplayName();
-        String imgArtiste=firebaseUser.getPhotoUrl().toString();
 
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot!=null){
+                    imgArtiste=String.valueOf(dataSnapshot.child("image").getValue());
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         Map<String, Object> data=new HashMap<>();
 
@@ -425,7 +442,7 @@ public class PostMusicActivity extends AppCompatActivity {
         }
 
         if (!TextUtils.isEmpty(imgArtiste)){
-            data.put("image_artiste",firebaseUser.getPhotoUrl().toString());
+            data.put("image_artiste",imgArtiste);
         }else {
             data.put("image_artiste",lienImage);
         }

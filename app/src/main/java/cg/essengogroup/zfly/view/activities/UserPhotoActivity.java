@@ -18,6 +18,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -223,7 +224,6 @@ public class UserPhotoActivity extends AppCompatActivity {
         user.put("user_id", firebaseUser.getUid());
         user.put("nom", nomValue);
         user.put("pseudo", nomArtisteValue);
-        user.put("Apseudo", "@"+nomArtisteValue.toLowerCase());
         user.put("tel", telValue);
         user.put("pays", paysValue);
         user.put("ville", "inconnue");
@@ -235,11 +235,14 @@ public class UserPhotoActivity extends AppCompatActivity {
         user.put("token", "token");
         user.put("hasNewSMS", false);
         user.put("createAt", ServerValue.TIMESTAMP);
-        user.put("createAt", ServerValue.TIMESTAMP);
+//        user.put("createAt", ServerValue.TIMESTAMP);
         if (artisteValue){
             user.put("genreArtiste", genreArtistValue);
+            user.put("Apseudo", "@"+nomArtisteValue.toLowerCase());
+        }else{
+            user.put("Apseudo", "@"+nomValue.toLowerCase());
         }
-
+        Log.e("TAG", "setUserInformation: "+user.toString() );
         database.getReference()
                 .child("users")
                 .child(firebaseUser.getUid())
@@ -297,4 +300,9 @@ public class UserPhotoActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setUserInformation();
+    }
 }

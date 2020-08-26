@@ -150,7 +150,11 @@ public class MultiViewTypeAdapter extends RecyclerView.Adapter {
                                         .into( ((ImageTypeViewHolder) holder).imageUser);
 
                                 ((ImageTypeViewHolder) holder).txtApseudo.setText(String.valueOf(dataSnapshot.child("Apseudo").getValue()));
-                                ((ImageTypeViewHolder) holder).nomUser.setText(String.valueOf(dataSnapshot.child("pseudo").getValue()));
+                                if (dataSnapshot.child("pseudo").exists()){
+                                    ((ImageTypeViewHolder) holder).nomUser.setText(String.valueOf(dataSnapshot.child("pseudo").getValue()));
+                                }else {
+                                    ((ImageTypeViewHolder) holder).nomUser.setText(String.valueOf(dataSnapshot.child("nom").getValue()));
+                                }
                             }
                         }
                         @Override

@@ -184,6 +184,8 @@ public class PostActivity extends AppCompatActivity {
 
                 if (!((Boolean) dataSnapshot.child("isArtiste").getValue())){
                     linearLayout.setVisibility(View.GONE);
+                }else {
+                    linearLayout.setVisibility(View.GONE);
                 }
             }
 
