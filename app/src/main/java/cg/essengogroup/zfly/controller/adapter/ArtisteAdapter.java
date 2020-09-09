@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.model.Music;
 import cg.essengogroup.zfly.view.activities.DetailMusicActivity;
+import cg.essengogroup.zfly.view.activities.MusicLecteurActivity;
 
 public class ArtisteAdapter extends RecyclerView.Adapter<ArtisteAdapter.MyViewHolder> {
 

@@ -54,7 +54,7 @@ public class TopFragment extends Fragment {
         context=getContext();
 
         database=FirebaseDatabase.getInstance();
-        referenceMusic=database.getReference("music/morceaux");
+        referenceMusic=database.getReference("top_music");
 
         recyclerView=root.findViewById(R.id.listTop);
         musicArrayList=new ArrayList<>();
@@ -67,46 +67,27 @@ public class TopFragment extends Fragment {
     }
 
     private void getData(){
-        referenceMusic.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                musicArrayList.clear();
-                for (DataSnapshot data: dataSnapshot.getChildren()){
-                    getDataEcouter(data.getKey(),data);
-//                    getDataEcouter(data.getKey(),String.valueOf(data.child("morceau").getValue()));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void getDataEcouter(String songRef,DataSnapshot dataSnapshot){
-
-        referenceEcouter=database.getReference("music/morceaux/"+songRef+"/ecouter").orderByValue();
-
-        referenceEcouter.addValueEventListener(new ValueEventListener() {
+        referenceMusic.orderByChild("rang").limitToFirst(10).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnap) {
-               String count=String.valueOf(dataSnap.getChildrenCount());
-                Music music=new Music();
-                music.setNbreEcoute(count);
+                for (DataSnapshot dataSnapshot:dataSnap.getChildren()){
+                    Music music=new Music();
 
-                music.setAlbum(String.valueOf(dataSnapshot.child("album").getValue()));
-                music.setArtiste(String.valueOf(dataSnapshot.child("artiste").getValue()));
-                music.setChanson(String.valueOf(dataSnapshot.child("chanson").getValue()));
-                music.setCover(String.valueOf(dataSnapshot.child("cover").getValue()));
-                music.setGenre(String.valueOf(dataSnapshot.child("genre").getValue()));
-                music.setMorceau(String.valueOf(dataSnapshot.child("morceau").getValue()));
-                music.setUser_id(String.valueOf(dataSnapshot.child("user_id").getValue()));
-//                music.setRacine(String.valueOf(dataSnapshot.getKey()));
+//                    music.setAlbum(String.valueOf(dataSnapshot.child("album").getValue()));
+//                    music.setChanson(String.valueOf(dataSnapshot.child("chanson").getValue()));
+//                    music.setGenre(String.valueOf(dataSnapshot.child("genre").getValue()));
+//                    music.setUser_id(String.valueOf(dataSnapshot.child("user_id").getValue()));
+//                    music.setRacine(String.valueOf(dataSnapshot.getKey()));
+                    music.setArtiste(String.valueOf(dataSnapshot.child("artiste").getValue()));
+                    music.setCover(String.valueOf(dataSnapshot.child("cover").getValue()));
+                    music.setNbreEcoute(String.valueOf(dataSnapshot.child("ecouter").getValue()));
+                    music.setMorceau(String.valueOf(dataSnapshot.child("morceau").getValue()));
 
-                musicArrayList.add(music);
-                adapter=new TopTenAdapter(context,musicArrayList);
-                recyclerView.setAdapter(adapter);
+                    musicArrayList.add(music);
+                    adapter=new TopTenAdapter(context,musicArrayList);
+                    recyclerView.setAdapter(adapter);
+                }
+
             }
 
             @Override

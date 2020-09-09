@@ -20,13 +20,14 @@ public class MorceauRequest {
 
     private DatabaseReference referenceMusic;
     private FirebaseDatabase database;
-    private Query query;
+    private Query query,queryMix;
 
     public MorceauRequest() {
         database=FirebaseDatabase.getInstance();
         referenceMusic=database.getReference("music/morceaux");
 
         query=referenceMusic.orderByChild("genre").equalTo("instrumental");
+        queryMix=referenceMusic.orderByChild("genre").equalTo("Mix Dj");
     }
 
     public void getSongList(MorceauInterface morceauInterface){
@@ -45,6 +46,8 @@ public class MorceauRequest {
                     music.setGenre(String.valueOf(data.child("genre").getValue()));
                     music.setMorceau(String.valueOf(data.child("morceau").getValue()));
                     music.setUser_id(String.valueOf(data.child("user_id").getValue()));
+                    music.setTime(String.valueOf(data.child("time").getValue()));
+                    music.setDuration(String.valueOf(data.child("duration").getValue()));
                     music.setRacine(String.valueOf(data.getKey()));
 
                     musics.add(music);
@@ -75,6 +78,40 @@ public class MorceauRequest {
                     music.setGenre(String.valueOf(data.child("genre").getValue()));
                     music.setMorceau(String.valueOf(data.child("morceau").getValue()));
                     music.setUser_id(String.valueOf(data.child("user_id").getValue()));
+                    music.setTime(String.valueOf(data.child("time").getValue()));
+                    music.setDuration(String.valueOf(data.child("duration").getValue()));
+                    music.setRacine(String.valueOf(data.getKey()));
+
+                    musics.add(music);
+                }
+                morceauInterface.onScucces(musics);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getSongListMix(MorceauInterface morceauInterface){
+
+        queryMix.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Music> musics=new ArrayList<>();
+                for (DataSnapshot data : dataSnapshot.getChildren()){
+                    Music music=new Music();
+
+                    music.setAlbum(String.valueOf(data.child("album").getValue()));
+                    music.setArtiste(String.valueOf(data.child("artiste").getValue()));
+                    music.setChanson(String.valueOf(data.child("chanson").getValue()));
+                    music.setCover(String.valueOf(data.child("cover").getValue()));
+                    music.setGenre(String.valueOf(data.child("genre").getValue()));
+                    music.setMorceau(String.valueOf(data.child("morceau").getValue()));
+                    music.setUser_id(String.valueOf(data.child("user_id").getValue()));
+                    music.setTime(String.valueOf(data.child("time").getValue()));
+                    music.setDuration(String.valueOf(data.child("duration").getValue()));
                     music.setRacine(String.valueOf(data.getKey()));
 
                     musics.add(music);

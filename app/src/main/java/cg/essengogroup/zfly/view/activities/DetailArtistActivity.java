@@ -52,7 +52,8 @@ public class DetailArtistActivity extends AppCompatActivity {
     private ImageView imageCouverture;
     private Button btnAbonnement;
 
-    private ReadMoreTextView txtBio;
+//    private ReadMoreTextView txtBio;
+    private TextView txtBio;
 
     private String userId;
 

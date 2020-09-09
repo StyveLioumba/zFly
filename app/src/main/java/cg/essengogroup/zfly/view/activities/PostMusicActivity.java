@@ -9,7 +9,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import cg.essengogroup.zfly.R;
-import cg.essengogroup.zfly.controller.adapter.MultiViewTypeAdapter;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -17,13 +16,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -34,6 +34,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
@@ -47,13 +49,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
-
-import java.io.ByteArrayOutputStream;
+import com.iceteck.silicompressorr.SiliCompressor;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static cg.essengogroup.zfly.controller.utils.Methodes.formateMilliSeccond;
 import static cg.essengogroup.zfly.controller.utils.Methodes.hideKeyboard;
 
 public class PostMusicActivity extends AppCompatActivity {
@@ -86,7 +89,9 @@ public class PostMusicActivity extends AppCompatActivity {
             "Chanson","instrumental","Mix Dj" };
 
     private ProgressDialog dialogLoading;
+    private long millSecond;
     private String defaultCover="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2Fmusic_cover.png?alt=media&token=53a33970-d821-4a95-8c15-b08ed8109de6";
+    private Bitmap imageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +146,8 @@ public class PostMusicActivity extends AppCompatActivity {
     }
 
     private void selectionnerImage(){
-        intent=new Intent();
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, CHOIX_IMAGE);
+        ImagePicker.create(this) // Activity or Fragment
+                .start();
     }
 
     private void playPreview(){
@@ -171,14 +175,24 @@ public class PostMusicActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode ==CHOIX_IMAGE && resultCode == RESULT_OK && data != null ){
-            uriPreviewImage = data.getData();
-            try {
-                //getting bitmap object from uri
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPreviewImage);
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data) ){
 
-                //displaying selected image to imageview
-                imageCover.setImageBitmap(bitmap);
+            try {
+                // Get a list of picked images
+                List<Image> images = ImagePicker.getImages(data);
+                Image image=null;
+                if (images.isEmpty()){
+                    image = ImagePicker.getFirstImageOrNull(data);
+                }else {
+                    image=images.get(0);
+                }
+
+                if (image!=null){
+                    imageBitmap= SiliCompressor.with(this).getCompressBitmap(image.getPath());
+                    String filePath = SiliCompressor.with(this).compress(image.getPath(), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+                    uriPreviewImage= Uri.fromFile(new File(filePath));
+                    imageCover.setImageBitmap(imageBitmap);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -197,6 +211,14 @@ public class PostMusicActivity extends AppCompatActivity {
             returnCursor.moveToFirst();
             float sizeSongOctetToMega=(float) returnCursor.getLong(sizeIndex)/ 1048576;
             morceauName.setText(returnCursor.getString(nameIndex));
+
+            MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+            mmr.setDataSource(PostMusicActivity.this,uriChanson);
+            String durationStr = mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+            millSecond = Long.parseLong(durationStr);
+
+            Log.e("TAG", "onActivityResult: "+millSecond );
+            Log.e("TAG", "onActivityResult: converti "+formateMilliSeccond(millSecond) );
         }
 
 
@@ -259,12 +281,8 @@ public class PostMusicActivity extends AppCompatActivity {
 
         if (uriPreviewImage !=null){
             //ce bout de code me permet de compresser la taille de l'image
-            Bitmap bitmap = ((BitmapDrawable) imageCover.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = mStorageRef.putBytes(data);
+            UploadTask uploadTask = mStorageRef.putFile(uriPreviewImage);
             uploadTask.addOnSuccessListener(taskSnapshot -> {
 
                 if (taskSnapshot!=null){
@@ -315,6 +333,8 @@ public class PostMusicActivity extends AppCompatActivity {
         post.put("artiste",artisteNameValue);
         post.put("album",albumNameValue);
         post.put("genre",genreValue);
+        post.put("duration",millSecond);
+        post.put("time",formateMilliSeccond(millSecond));
 
 
         if (uriChanson!=null ){
@@ -486,7 +506,7 @@ public class PostMusicActivity extends AppCompatActivity {
         post.put("user_id",firebaseUser.getUid());
         post.put("chanson",lienChanson);
         post.put("morceau",morceauNameValue);
-        post.put("artiste",artisteNameValue);
+        post.put("artiste",firebaseUser.getDisplayName());
 
         if (uriChanson!=null ){
             reference.child("chansons")

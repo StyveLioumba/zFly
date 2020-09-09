@@ -23,6 +23,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -35,6 +36,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -50,12 +53,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.iceteck.silicompressorr.SiliCompressor;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileActivity extends AppCompatActivity {
     private TextView txtPseudo,txtUsername,nbreAbonne,nbrePost,txtBio,nbreAbonnement,nbreEcouter;
@@ -94,6 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FloatingActionButton fab;
 
     private LinearLayout linearLayout,lineBottom;
+    private Bitmap imageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -354,9 +361,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void selectionnerImage(){
-        intent=new Intent();
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, CHOIX_IMAGE);
+        ImagePicker.create(this) // Activity or Fragment
+                .start();
     }
 
     private void selectionnerImageP(){
@@ -370,12 +376,8 @@ public class ProfileActivity extends AppCompatActivity {
         if (uriPreviewImage !=null){
 
             progressBar.setVisibility(View.VISIBLE);
-            Bitmap bitmap = ((BitmapDrawable) imageCouverture.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = storageReference.putBytes(data);
+            UploadTask uploadTask = storageReference.putFile(uriPreviewImage);
             uploadTask.addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
@@ -437,22 +439,29 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode ==CHOIX_IMAGE && resultCode == RESULT_OK && data != null ){
-            uriPreviewImage = data.getData();
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             try {
-                //getting bitmap object from uri
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPreviewImage);
+                // Get a list of picked images
+                List<Image> images = ImagePicker.getImages(data);
+                Image image=null;
+                if (images.isEmpty()){
+                    image = ImagePicker.getFirstImageOrNull(data);
+                }else {
+                    image=images.get(0);
+                }
 
-                //displaying selected image to imageview
-                imageCouverture.setImageBitmap(bitmap);
-                uploadImgCouverture();
+                if (image!=null){
+                    imageBitmap= SiliCompressor.with(this).getCompressBitmap(image.getPath());
+                    String filePath = SiliCompressor.with(this).compress(image.getPath(), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+                    uriPreviewImage= Uri.fromFile(new File(filePath));
+                    imageCouverture.setImageBitmap(imageBitmap);
+                    uploadImgCouverture();
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else  if (requestCode ==CHOIX_IMAGE_P && resultCode == RESULT_OK && data != null ){
+        }else if (requestCode ==CHOIX_IMAGE_P && resultCode == RESULT_OK && data != null ){
             uriImageP = data.getData();
             try {
                 //getting bitmap object from uri
@@ -465,6 +474,8 @@ public class ProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
+
     }
 
     private void uploadImageProfil(){

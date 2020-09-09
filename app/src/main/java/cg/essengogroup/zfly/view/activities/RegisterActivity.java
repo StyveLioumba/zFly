@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private Spinner spinner;
     private String[] genreList={
-            "D.J Arrangeur","Musicien"
+            "D.J ","Musicien","Arrangeur"
     };
     private LinearLayout linearLayout,lineEnvoie,lineVerification;
     private String codeSysteme;
@@ -113,11 +113,11 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if (isArtiste.isChecked() && TextUtils.isEmpty(nomArtisteValue)){
+       /* if (isArtiste.isChecked() && TextUtils.isEmpty(nomArtisteValue)){
             nomArtiste.setError("champ requis");
             nomArtiste.requestFocus();
             return;
-        }
+        }*/
 
         progressBar.setVisibility(View.VISIBLE);
         lineEnvoie.setVisibility(View.GONE);
@@ -189,7 +189,7 @@ public class RegisterActivity extends AppCompatActivity {
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             if (isArtisteValue){
                                 intent.putExtra("genreArtiste",genreArtistValue);
-                                intent.putExtra("nomArtiste",nomArtisteValue);
+                                intent.putExtra("nomArtiste",nomValue);
                             }
                             startActivity(intent);
                             // ...

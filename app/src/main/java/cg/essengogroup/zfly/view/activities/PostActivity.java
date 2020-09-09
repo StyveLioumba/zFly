@@ -18,11 +18,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
 import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -34,6 +33,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,10 +52,12 @@ import com.google.firebase.storage.OnPausedListener;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.iceteck.silicompressorr.SiliCompressor;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class PostActivity extends AppCompatActivity {
@@ -86,6 +89,7 @@ public class PostActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout;
     private int sizeSong=0;
+    private Bitmap imageBitmap;
 
     @Override
     public void onStart() {
@@ -198,9 +202,8 @@ public class PostActivity extends AppCompatActivity {
 
 
     private void selectionnerImage(){
-        intent=new Intent();
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, CHOIX_IMAGE);
+        ImagePicker.create(this) // Activity or Fragment
+                .start();
     }
 
     private void playPreview(){
@@ -247,16 +250,24 @@ public class PostActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode ==CHOIX_IMAGE && resultCode == RESULT_OK && data != null ){
-            uriPreviewImage = data.getData();
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data) ){
             try {
-                //getting bitmap object from uri
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPreviewImage);
+                // Get a list of picked images
+                List<Image> images = ImagePicker.getImages(data);
+                Image image=null;
+                if (images.isEmpty()){
+                    image = ImagePicker.getFirstImageOrNull(data);
+                }else {
+                    image=images.get(0);
+                }
 
-                //displaying selected image to imageview
-                imageView.setImageBitmap(bitmap);
+                if (image!=null){
+                    imageBitmap= SiliCompressor.with(this).getCompressBitmap(image.getPath());
+                    String filePath = SiliCompressor.with(this).compress(image.getPath(), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+                    uriPreviewImage= Uri.fromFile(new File(filePath));
+                    imageView.setImageBitmap(imageBitmap);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -281,6 +292,7 @@ public class PostActivity extends AppCompatActivity {
                 Toast.makeText(this, "cette chanson pèse "+String.valueOf(sizeSongOctetToMega).substring(0,3)+"Mo", Toast.LENGTH_LONG).show();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void uploadImageToFireBase(){
@@ -295,12 +307,8 @@ public class PostActivity extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
 
             //ce bout de code me permet de compresser la taille de l'image
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = mStorageRef.putBytes(data);
+            UploadTask uploadTask = mStorageRef.putFile(uriPreviewImage);
 
             uploadTask.addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content

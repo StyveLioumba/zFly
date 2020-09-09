@@ -8,7 +8,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Music implements Parcelable {
 
-    private String album,artiste,chanson,cover,genre,morceau,user_id,racine,nbreEcoute;
+    private String album,artiste,chanson,cover,genre,morceau,user_id,racine,nbreEcoute,duration,time;
 
     public Music() {
     }
@@ -36,7 +36,23 @@ public class Music implements Parcelable {
         this.nbreEcoute = nbreEcoute;
     }
 
+    public Music(String album, String artiste, String chanson, String cover, String genre, String morceau, String user_id, String racine, String nbreEcoute, String duration, String time) {
+        this.album = album;
+        this.artiste = artiste;
+        this.chanson = chanson;
+        this.cover = cover;
+        this.genre = genre;
+        this.morceau = morceau;
+        this.user_id = user_id;
+        this.racine = racine;
+        this.nbreEcoute = nbreEcoute;
+        this.duration = duration;
+        this.time = time;
+    }
+
     protected Music(Parcel in) {
+        time = in.readString();
+        duration = in.readString();
         album = in.readString();
         artiste = in.readString();
         chanson = in.readString();
@@ -131,6 +147,22 @@ public class Music implements Parcelable {
         this.nbreEcoute = nbreEcoute;
     }
 
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -138,6 +170,8 @@ public class Music implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(time);
+        dest.writeString(duration);
         dest.writeString(album);
         dest.writeString(artiste);
         dest.writeString(chanson);

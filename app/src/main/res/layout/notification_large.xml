@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView
+        android:layout_width="@dimen/moyenne_taille"
+        android:layout_height="@dimen/moyenne_taille"
+        android:src="@drawable/music_cover"
+        android:background="@android:color/white"
+        android:id="@+id/imgCover"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="@dimen/petite_marge"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/btnPrevious"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/common_google_signin_btn_text_light_default"
+            android:src="@android:drawable/ic_media_previous"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/playBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/tres_petite_marge"
+            app:backgroundTint="@color/c5"
+            app:tint="@color/colorBlanc"
+            android:src="@drawable/ic_play_circle_outline_black_24dp"/>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/circle"
+            android:backgroundTint="@color/common_google_signin_btn_text_light_default"
+            android:src="@android:drawable/ic_media_next"
+            android:id="@+id/btnNext"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -45,6 +45,8 @@ public class DetailRequest {
                     music.setGenre(String.valueOf(data.child("genre").getValue()));
                     music.setMorceau(String.valueOf(data.child("morceau").getValue()));
                     music.setUser_id(String.valueOf(data.child("user_id").getValue()));
+                    music.setTime(String.valueOf(data.child("time").getValue()));
+                    music.setDuration(String.valueOf(data.child("duration").getValue()));
                     music.setRacine(String.valueOf(data.getKey()));
 
                     musics.add(music);

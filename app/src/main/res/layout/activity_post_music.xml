@@ -44,6 +44,7 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/m_cover"
                 android:scaleType="centerCrop"
+                android:background="@android:color/white"
                 android:id="@+id/imgCover"/>
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -204,6 +205,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/nom_de_l_album"
+                android:visibility="gone"
                 app:hintTextColor="@android:color/white"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 

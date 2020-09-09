@@ -14,15 +14,16 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,12 +36,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import com.google.firebase.storage.UploadTask;
+import com.iceteck.silicompressorr.SiliCompressor;
 import com.mikhaellopez.circularimageview.CircularImageView;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserPhotoActivity extends AppCompatActivity {
@@ -55,7 +58,7 @@ public class UserPhotoActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private String nomValue,telValue,nomArtisteValue,genreArtistValue,paysValue,
             lienCouverture="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2Fdefault_img.png?alt=media&token=acb214d0-afcc-4afd-82ea-fea66baf789f",
-            lienProfileImage="https://firebasestorage.googleapis.com/v0/b/zfly2020-151d6.appspot.com/o/default%2F264x264-000000-80-0-0.jpg?alt=media&token=feceb79d-6109-43b7-8275-c6ab0f2fc4a3";
+            lienProfileImage;
     private boolean artisteValue;
 
     private StorageReference mStorageRef;
@@ -64,6 +67,7 @@ public class UserPhotoActivity extends AppCompatActivity {
     private FirebaseDatabase database;
 
     private ProgressDialog dialogLoading;
+    private Bitmap imageBitmap;
 
     @Override
     public void onStart() {
@@ -102,6 +106,7 @@ public class UserPhotoActivity extends AppCompatActivity {
                 genreArtistValue=intent.getStringExtra("genreArtiste");
             }
         }
+        lienProfileImage="https://ui-avatars.com/api/?background=470000&color=fff&size=200&name="+nomValue+"&font-size=0.50";
 
         dialogLoading=new ProgressDialog(UserPhotoActivity.this);
         dialogLoading.setMessage("Chargement encours ...");
@@ -134,8 +139,8 @@ public class UserPhotoActivity extends AppCompatActivity {
     }
 
     private void selectionnerImage(){
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, CHOIX_IMAGE);
+        ImagePicker.create(this) // Activity or Fragment
+                .start();
     }
 
     private void savegarderAllInformation(){
@@ -171,12 +176,8 @@ public class UserPhotoActivity extends AppCompatActivity {
         if (uriProfileImage !=null){
             progressBar.setVisibility(View.VISIBLE);
             //ce bout de code me permet de compresser la taille de l'image
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = mStorageRef.putBytes(data);
+            UploadTask uploadTask = mStorageRef.putFile(uriProfileImage);
             uploadTask.addOnSuccessListener(taskSnapshot -> {
                 // Get a URL to the uploaded content
                 if (taskSnapshot!=null){
@@ -199,23 +200,30 @@ public class UserPhotoActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode ==CHOIX_IMAGE && resultCode == RESULT_OK && data != null ){
-            uriProfileImage = data.getData();
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             try {
-                //getting bitmap object from uri
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriProfileImage);
+                // Get a list of picked images
+                List<Image> images = ImagePicker.getImages(data);
+                Image image=null;
+                if (images.isEmpty()){
+                    image = ImagePicker.getFirstImageOrNull(data);
+                }else {
+                    image=images.get(0);
+                }
 
-                //displaying selected image to imageview
-                imageView.setImageBitmap(bitmap);
-
-                uploadImageToFireBase();
+                if (image!=null){
+                    imageBitmap= SiliCompressor.with(this).getCompressBitmap(image.getPath());
+                    String filePath = SiliCompressor.with(this).compress(image.getPath(), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+                    uriProfileImage= Uri.fromFile(new File(filePath));
+                    imageView.setImageBitmap(imageBitmap);
+                    uploadImageToFireBase();
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void setUserInformation(){
@@ -235,7 +243,7 @@ public class UserPhotoActivity extends AppCompatActivity {
         user.put("token", "token");
         user.put("hasNewSMS", false);
         user.put("createAt", ServerValue.TIMESTAMP);
-//        user.put("createAt", ServerValue.TIMESTAMP);
+
         if (artisteValue){
             user.put("genreArtiste", genreArtistValue);
             user.put("Apseudo", "@"+nomArtisteValue.toLowerCase());

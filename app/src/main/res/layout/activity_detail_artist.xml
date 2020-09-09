@@ -173,7 +173,7 @@
             android:fontFamily="@font/carter_one"
             android:layout_marginBottom="@dimen/petite_dimenssion_8"/>
 
-        <com.borjabravo.readmoretextview.ReadMoreTextView
+        <!--<com.borjabravo.readmoretextview.ReadMoreTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lorem"
@@ -184,6 +184,15 @@
             app:trimMode="trimModeLine"
             app:trimLines="5"
             app:colorClickableText="@color/colorPrimary"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:fontFamily="@font/comfortaa_light"
+            android:layout_marginBottom="@dimen/petite_dimenssion_8"/>-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/lorem"
+            android:id="@+id/biographie"
+            android:layout_marginLeft="@dimen/tres_grande_marge"
             android:textAppearance="?android:textAppearanceSmall"
             android:fontFamily="@font/comfortaa_light"
             android:layout_marginBottom="@dimen/petite_dimenssion_8"/>

@@ -67,19 +67,15 @@
         <RelativeLayout
             android:layout_width="@dimen/large_taille"
             android:layout_height="match_parent"
+            android:visibility="visible"
             android:layout_marginRight="@dimen/petite_dimenssion_5"
             android:layout_weight="1">
 
-            <ProgressBar
-                android:layout_width="@dimen/petite_dimenssion_9"
-                android:layout_height="@dimen/petite_dimenssion_9"
-                android:layout_centerInParent="true"
-                android:id="@+id/progressTime"/>
             <TextView
                 android:layout_width="@dimen/large_taille"
                 android:layout_height="match_parent"
                 android:tint="@android:color/white"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:layout_centerInParent="true"
                 android:textAppearance="?android:textAppearance"
                 android:textSize="@dimen/tres_petite_police"

@@ -6,19 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,10 +28,12 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.iceteck.silicompressorr.SiliCompressor;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import cg.essengogroup.zfly.R;
@@ -52,11 +53,11 @@ public class AddPhotoActivity extends AppCompatActivity {
 
     private Uri imageUri=null;
     private Intent intent;
-    private static final int CHOIX_IMAGE=101;
 
     private String lienImage,activityValue,place_idValue;
 
     private ProgressDialog dialogLoading;
+    private Bitmap imageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,12 +117,8 @@ public class AddPhotoActivity extends AppCompatActivity {
         if (imageUri!=null){
             dialogLoading.show();
             //ce bout de code me permet de compresser la taille de l'image
-            Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
-            byte[] data = baos.toByteArray();
 
-            UploadTask uploadTask = storageReference.putBytes(data);
+            UploadTask uploadTask = storageReference.putFile(imageUri);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -161,28 +158,36 @@ public class AddPhotoActivity extends AppCompatActivity {
     }
 
     private void selectImageFromGallery(){
-        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, CHOIX_IMAGE);
+        ImagePicker.create(this) // Activity or Fragment
+                .start();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode==CHOIX_IMAGE && resultCode==RESULT_OK && data!=null){
-            imageUri=data.getData();
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data)) {
             try {
-                //getting bitmap object from uri
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                // Get a list of picked images
+                List<Image> images = ImagePicker.getImages(data);
+                Image image=null;
+                if (images.isEmpty()){
+                    image = ImagePicker.getFirstImageOrNull(data);
+                }else {
+                    image=images.get(0);
+                }
 
-                //displaying selected image to imageview
-                imageView.setImageBitmap(bitmap);
+                if (image!=null){
+                    imageBitmap= SiliCompressor.with(this).getCompressBitmap(image.getPath());
+                    String filePath = SiliCompressor.with(this).compress(image.getPath(), Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+                    imageUri= Uri.fromFile(new File(filePath));
+                    imageView.setImageBitmap(imageBitmap);
 
-                fab.setVisibility(View.GONE);
+                    fab.setVisibility(View.GONE);
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

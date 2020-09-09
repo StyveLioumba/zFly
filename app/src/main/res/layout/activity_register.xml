@@ -158,6 +158,7 @@
                         android:layout_height="@dimen/petite_taille"
                         app:hintTextAppearance="?android:textAppearance"
                         android:hint="@string/nom_d_artiste"
+                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/petite_dimenssion_8"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:textColorHint="@android:color/white">

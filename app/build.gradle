@@ -80,5 +80,15 @@ dependencies {
      */
     implementation 'com.iceteck.silicompressorr:silicompressor:2.2.3'
 
+    /**
+     * Image
+     */
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.3.0'
+
+    /**
+     * Lecteur audio
+     */
+    implementation 'com.github.dibakarece:DMAudioStreamer:v1.0.5'
+
 }
 apply plugin: 'com.google.gms.google-services'
