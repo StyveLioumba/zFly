@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.support.v4.media.session.PlaybackStateCompat;
@@ -14,16 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +26,6 @@ import cg.essengogroup.zfly.controller.adapter.SectionPagerAdapter;
 import cg.essengogroup.zfly.controller.interfaces.MorceauInterface;
 import cg.essengogroup.zfly.model.Music;
 import cg.essengogroup.zfly.view.activities.AccueilActivity;
-import cg.essengogroup.zfly.view.activities.MusicLecteurActivity;
 import cg.essengogroup.zfly.view.fragments.music_fragments.ArtistesFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.ChansonsFragment;
 import cg.essengogroup.zfly.view.fragments.music_fragments.GenreFragment;
@@ -122,7 +112,7 @@ public class MusicFragment extends Fragment implements CurrentSessionCallback {
     }
 
     private void getData(){
-        MorceauRequest request=new MorceauRequest();
+        MorceauRequest request=new MorceauRequest(context);
         request.getSongList(new MorceauInterface() {
             @Override
             public void onScucces(ArrayList<Music> musics) {

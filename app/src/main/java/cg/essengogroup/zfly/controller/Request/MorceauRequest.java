@@ -1,19 +1,30 @@
 package cg.essengogroup.zfly.controller.Request;
 
+import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import cg.essengogroup.zfly.controller.interfaces.MorceauInterface;
+import cg.essengogroup.zfly.controller.utils.Methodes;
+import cg.essengogroup.zfly.controller.utils.VolleySingleton;
 import cg.essengogroup.zfly.model.Music;
 
 public class MorceauRequest {
@@ -21,8 +32,11 @@ public class MorceauRequest {
     private DatabaseReference referenceMusic;
     private FirebaseDatabase database;
     private Query query,queryMix;
+    private Context context;
 
-    public MorceauRequest() {
+    public MorceauRequest(Context context) {
+        this.context = context;
+
         database=FirebaseDatabase.getInstance();
         referenceMusic=database.getReference("music/morceaux");
 
@@ -30,9 +44,12 @@ public class MorceauRequest {
         queryMix=referenceMusic.orderByChild("genre").equalTo("Mix Dj");
     }
 
+    public MorceauRequest() {
+    }
+
     public void getSongList(MorceauInterface morceauInterface){
 
-        referenceMusic.addValueEventListener(new ValueEventListener() {
+        /*referenceMusic.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ArrayList<Music> musics=new ArrayList<>();
@@ -59,7 +76,38 @@ public class MorceauRequest {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
+
+        StringRequest stringRequest=new StringRequest(Request.Method.DEPRECATED_GET_OR_POST,"le lien ici",
+                response -> {
+                    if (!TextUtils.isEmpty(response)){
+
+                        ArrayList<Music> musics=new ArrayList<>();
+
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray=jsonObject.getJSONArray("data");
+
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject object=jsonArray.getJSONObject(i);
+
+                                Music music=new Gson().fromJson(String.valueOf(object),Music.class);
+
+                                musics.add(music);
+
+                            }
+
+                            morceauInterface.onScucces(musics);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                error -> {
+                    Methodes.volleyError(context,error);
+                });
+        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
     public void getSongListInstrumental(MorceauInterface morceauInterface){

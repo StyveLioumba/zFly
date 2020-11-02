@@ -4,26 +4,29 @@ package cg.essengogroup.zfly.view.fragments.music_fragments;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cg.essengogroup.zfly.R;
 import cg.essengogroup.zfly.controller.adapter.ArtisteAdapter;
+import cg.essengogroup.zfly.controller.utils.Methodes;
+import cg.essengogroup.zfly.controller.utils.VolleySingleton;
 import cg.essengogroup.zfly.model.Music;
 
 /**
@@ -37,8 +40,6 @@ public class ArtistesFragment extends Fragment {
     private ArrayList<Music> musicArrayList;
     private ArtisteAdapter adapter;
 
-    private DatabaseReference referenceMusic;
-    private FirebaseDatabase database;
 
     public ArtistesFragment() {
         // Required empty public constructor
@@ -53,9 +54,6 @@ public class ArtistesFragment extends Fragment {
 
         context=getContext();
 
-        database=FirebaseDatabase.getInstance();
-        referenceMusic=database.getReference("music/artistes");
-
         recyclerView=root.findViewById(R.id.recycleArtiste);
         GridLayoutManager manager=new GridLayoutManager(context, 3);
         recyclerView.setLayoutManager(manager);
@@ -69,7 +67,7 @@ public class ArtistesFragment extends Fragment {
     }
 
     private void getData(){
-        referenceMusic.addValueEventListener(new ValueEventListener() {
+       /* referenceMusic.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -84,7 +82,6 @@ public class ArtistesFragment extends Fragment {
                     musicArrayList.add(music);
                 }
 
-
                 adapter=new ArtisteAdapter(context,musicArrayList);
                 recyclerView.setAdapter(adapter);
             }
@@ -93,7 +90,34 @@ public class ArtistesFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
+        StringRequest stringRequest=new StringRequest(Request.Method.DEPRECATED_GET_OR_POST,"le lien ici",
+                response -> {
+                    if (!TextUtils.isEmpty(response)){
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray=jsonObject.getJSONArray("data");
+
+                            musicArrayList.clear();
+
+                            for (int i=0;i<jsonArray.length();i++){
+                                JSONObject object=jsonArray.getJSONObject(i);
+                                Music music=new Gson().fromJson(String.valueOf(object),Music.class);
+                                musicArrayList.add(music);
+                            }
+
+                            adapter=new ArtisteAdapter(context,musicArrayList);
+                            recyclerView.setAdapter(adapter);
+
+                        }catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                error -> {
+                    Methodes.volleyError(context,error);
+                });
+        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
     }
 
 }
